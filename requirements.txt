@@ -1,0 +1,14 @@
+groq
+chromadb
+sentence-transformers
+datasets
+bert-score
+transformers
+torch
+pandas
+streamlit==1.28.1
+plotly
+python-dotenv
+tqdm
+requests
+numpy
