@@ -1,0 +1,68 @@
+query_id,hop_level,query,reference,pipeline_name,answer,tokens_prompt,tokens_completion,total_tokens,latency_ms,cost_usd,bert_f1,bert_precision,bert_recall,llm_judge_passed,llm_judge_raw,timestamp,retrieved_docs_count,graph_context_tokens
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",llm_only,"**Common symptoms of Type 2 diabetes**
+
+| Symptom | Typical description |
+|---------|----------------------|
+| **Increased thirst (polydipsia)** | Feeling unusually thirsty even after drinking fluids. |
+| **Frequent urination (polyuria)** | Need to urinate more often, especially at night. |
+| **Increased hunger (polyphagia)** | Persistent feeling of hunger despite eating. |
+| **Unexplained weight loss** | Losing weight without trying, even though appetite may be high. |
+| **Fatigue** | Persistent tiredness or lack of energy. |
+| **Blurred vision** | Vision may become hazy, especially after meals. |
+| **Slow‑healing cuts or infections** | Wounds, sores, or infections take longer to heal. |
+| **Recurrent infections** | Especially yeast infections, urinary‑tract infections, or skin infections. |
+| **Numbness or tingling in hands/feet** | Early signs of peripheral neuropathy. |
+| **Darkened skin patches (acanthosis nigricans)** | Thick, velvety brown patches, often on the neck, armpits, or groin. |
+
+*Note:* Many people with early‑stage Type 2 diabetes have **no noticeable symptoms** and are diagnosed through routine blood‑glucose screening. If you experience any of the above signs, especially in combination, it’s advisable to consult a healthcare professional for evaluation.",103,389,492,1519.81,0.00029,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661267.1866424,,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",basic_rag,"Common symptoms of type 2 diabetes include:
+
+- **Increased thirst (polydipsia)** and frequent urination (polyuria)  
+- **Increased hunger (polyphagia)** despite eating normally  
+- Unexplained **weight loss or difficulty losing weight**  
+- Persistent **fatigue or weakness**  
+- **Blurred vision** that comes and goes  
+- **Slow‑healing cuts, sores, or infections** (especially on the feet)  
+- Recurrent **skin, gum, or urinary‑tract infections**  
+- Numbness, tingling, or pain in the hands or feet (peripheral neuropathy)  
+- Occasionally, **darkened skin",624,300,924,848.72,0.000545,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661276.8764875,5.0,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",graphrag,"Common symptoms of type 2 diabetes include increased thirst and hunger, frequent urination, unexplained weight loss or gain, fatigue, blurred vision, slow‑healing cuts or infections, and tingling or numbness in the hands or feet.",120,126,246,3960.25,0.000145,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661284.8938699,,5.0
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",llm_only,"Several classes of medications are used to treat hypertension, including:
+
+- **ACE inhibitors** – e.g., **lisinopril**
+- **Angiotensin II receptor blockers (ARBs)** – e.g., **losartan**
+- **Calcium‑channel blockers** – e.g., **amlodipine**
+- **Thiazide diuretics** – e.g., **hydrochlorothiazide**
+- **Beta‑blockers** – e.g., **metoprolol**
+
+First‑line therapy often starts with a thiazide diuretic, an ACE inhibitor, an ARB, or a calcium‑channel blocker, depending on the patient’s comorbidities and tolerance.",102,265,367,3626.62,0.000217,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661292.8346288,,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",basic_rag,"Common drugs used to treat hypertension include:
+
+* **ACE inhibitors** (e.g., lisinopril, enalapril)  
+* **Angiotensin‑II receptor blockers (ARBs)** (e.g., losartan, valsartan)  
+* **Thiazide diuretics** (e.g., hydrochlorothiazide, chlorthalidone)  
+* **Calcium‑channel blockers** (e.g., amlodipine, diltiazem)  
+* **Beta‑blockers** (e.g., metoprolol, atenolol)  
+
+These agents are selected based on patient comorbidities",625,300,925,1237.49,0.000546,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661298.1123538,5.0,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",graphrag,"First‑line antihypertensive agents include thiazide diuretics (e.g., hydrochlorothiazide), ACE inhibitors (e.g., lisinopril), angiotensin II receptor blockers (e.g., losartan), and calcium‑channel blockers (e.g., amlodipine).",119,146,265,1161.78,0.000156,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661303.2878127,,5.0
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",llm_only,"**Metformin – Common and Important Side‑Effect Profile**
+
+| Category | Typical Frequency | Examples of Side Effects |
+|----------|-------------------|--------------------------|
+| **Gastro‑intestinal** | Very common (up to 30 % of patients) | Nausea, vomiting, abdominal discomfort, loss of appetite, diarrhea, metallic taste, bloating, flatulence |
+| **Vitamin B12 deficiency** | 5–10 % after ≥1 year of therapy | Decreased B12 levels → anemia, peripheral neuropathy, cognitive changes (often asymptomatic at first) |
+| **Lactic acidosis (rare but serious)** | <0.1 % (≈1 case per 30,000 patient‑years) | Metabolic acidosis with elevated lactate, muscle pain, rapid breathing, somnolence; risk ↑ with renal/hepatic impairment, hypoxia, sepsis, alcohol intoxication |
+| **Hypoglycemia** | Uncommon when used alone (rare) | Usually only when combined with insulin or secretagogues (e.g., sulfonylureas) |
+| **Dermatologic** | Uncommon | Rash, pruritus, urticaria, rarely Stevens‑Johnson syndrome |
+| **Hepatic effects** | Very rare | Elevated transaminases, hepatitis‑like picture |
+| **Other** | Infrequent | Headache, dizziness, fatigue, weight loss (generally modest), mild elevation of serum creatinine (reversible) |
+
+### Key Points for Clinical Use
+- **Start low, go slow:** Initiate at 500 mg once daily (with dinner) and titrate weekly to minimize GI upset.
+- **Extended‑release (XR) formulation** reduces GI symptoms for many patients.
+- **Monitor B12** every 2–3 years (or sooner if neuropathy develops).
+- **Renal function** must be checked before starting and periodically thereafter; avoid if eGFR < 30 mL/min/1.73 m² (dose‑adjust or discontinue if eGFR < 45 mL/min/1.73 m²).
+- **Avoid** in acute or chronic metabolic acidosis",102,512,614,1923.71,0.000362,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661309.4300995,,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",basic_rag,The provided context does not include information on the side‑effects of metformin.,668,223,891,2394.42,0.000526,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661316.0790844,5.0,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",graphrag,"Common side effects of metformin include gastrointestinal symptoms such as nausea, diarrhea, abdominal discomfort, and a metallic taste; it can also lead to vitamin B12 deficiency with long‑term use. Rare but serious adverse effects are lactic acidosis, especially in patients with renal impairment or other risk factors.",119,140,259,1831.38,0.000153,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661321.5661113,,5.0

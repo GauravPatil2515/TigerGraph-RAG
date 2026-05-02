@@ -54,6 +54,13 @@ def parse_args():
         default=30,
         help="Number of queries to run (default: 30)"
     )
+    parser.add_argument(
+        "--mode",
+        type=str,
+        default="quick",
+        choices=["quick", "full"],
+        help="Benchmark mode: quick (30 queries) or full (200 PubMedQA records)"
+    )
     return parser.parse_args()
 
 
@@ -69,10 +76,15 @@ def main():
     pipeline_map = {"a": "llm_only", "b": "basic_rag", "c": "graphrag"}
     selected_pipelines = [pipeline_map[p.strip()] for p in args.pipelines.split(",") if p.strip() in pipeline_map]
     logger.info(f"Selected pipelines: {selected_pipelines}")
+    logger.info(f"Benchmark mode: {args.mode}")
     
-    # Limit queries
-    queries_to_run = BENCHMARK_QUERIES[:args.queries]
-    logger.info(f"Running {len(queries_to_run)} benchmark queries")
+    # Limit queries based on mode
+    if args.mode == "full":
+        queries_to_run = []  # Will use PubMedQA records directly in full mode
+        logger.info("Full mode: Will run on 200 PubMedQA records")
+    else:
+        queries_to_run = BENCHMARK_QUERIES[:args.queries]
+        logger.info(f"Quick mode: Running {len(queries_to_run)} benchmark queries")
     
     # 1. Load PubMedQA dataset
     logger.info("\n[Step 1/5] Loading PubMedQA dataset...")
@@ -122,14 +134,27 @@ def main():
         logger.error("No valid pipelines selected! Exiting.")
         sys.exit(1)
     
-    # 5. Run benchmark
+    # 5. Run benchmark (quick or full mode)
     logger.info("\n[Step 5/5] Running benchmark...")
-    runner = BenchmarkRunner(pipelines=pipelines, results_dir="./results")
-    runner.run(queries_to_run, delay_seconds=1.5)
+    runner = BenchmarkRunner(pipelines=pipelines, results_dir="./results", mode=args.mode)
     
-    # 6. Save CSV and print summary
-    df = runner.save_csv()
-    runner.print_summary(df)
+    if args.mode == "full":
+        # Full mode: Run on 200 PubMedQA records with BERTScore only
+        summary = runner.run_full_benchmark(records, pipelines, delay_seconds=0.5)
+        df = runner.save_csv()
+        if summary:
+            logger.info("\n" + "="*80)
+            logger.info("FULL BENCHMARK SUMMARY")
+            logger.info("="*80)
+            for pipeline_name, metrics in summary.items():
+                logger.info(f"\n  {pipeline_name}:")
+                for metric, value in metrics.items():
+                    logger.info(f"    {metric}: {value:.4f}")
+    else:
+        # Quick mode: Run on benchmark queries with full evaluation
+        runner.run(queries_to_run, delay_seconds=1.5)
+        df = runner.save_csv()
+        runner.print_summary(df)
     
     # 7. Final message
     logger.info("\n" + "="*80)

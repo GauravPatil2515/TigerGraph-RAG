@@ -1,0 +1,41 @@
+query_id,hop_level,query,reference,pipeline_name,answer,tokens_prompt,tokens_completion,total_tokens,latency_ms,cost_usd,bert_f1,bert_precision,bert_recall,llm_judge_passed,llm_judge_raw,timestamp,retrieved_docs_count,graph_context_tokens
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",llm_only,"**Common symptoms of Type 2 diabetes**
+
+| Symptom | Typical description |
+|---------|----------------------|
+| **Increased thirst (polydipsia)** | Feeling unusually thirsty, often drinking more fluids. |
+| **Frequent urination (polyuria)** | Need to urinate more often, especially at night. |
+| **Increased hunger (polyphagia)** | Persistent feeling of hunger even after eating. |
+| **Unexplained weight loss** | Losing weight despite normal or increased appetite. |
+| **Fatigue** | Persistent tiredness or lack of energy. |
+| **Blurred vision** | Vision may become fuzzy, especially after meals. |
+| **Slow‑healing cuts or infections** | Wounds, sores, or infections take longer to heal. |
+| **Numbness or tingling in hands/feet** | Early signs of peripheral neuropathy. |
+| **Dry, itchy skin** | Often due to dehydration from excess urination. |
+| **Recurrent yeast or urinary‑tract infections** | Especially in women. |
+
+*Note:* Many people with early‑stage Type 2 diabetes have **no noticeable symptoms**; the condition is often discovered through routine blood‑glucose screening. If you experience any of these signs, especially in combination, it’s advisable to consult a healthcare professional for evaluation.",103,353,456,2544.5,0.000269,-0.0394,-0.3532,0.3136,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661627.9634743,,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",basic_rag,"Typical symptoms of type 2 diabetes include:
+
+- **Increased thirst (polydipsia)** and frequent urination (polyuria) due to excess glucose spilling into urine.  
+- **Increased hunger (polyphagia)** as cells receive less glucose.  
+- **Unexplained weight loss** or difficulty losing weight despite normal or increased appetite.  
+- **Fatigue** and generalized weakness.  
+- **Blurred vision** from fluid shifts in the eye lens.  
+- **Recurrent infections** (especially skin, urinary, and yeast infections).",624,300,924,2521.69,0.000545,0.1926,-0.043,0.4485,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661637.9999719,5.0,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",graphrag,"Common symptoms of type 2 diabetes include increased thirst and hunger, frequent urination, unexplained weight loss or gain, fatigue, blurred vision, slow‑healing cuts or infections, and tingling or numbness in the hands or feet.",120,126,246,851.29,0.000145,0.5798,0.4033,0.7669,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661646.0401826,,5.0
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",llm_only,"Several drug classes are commonly used as first‑line therapy for hypertension. Typical choices include:
+
+| Class | Example(s) | Typical role |
+|-------|------------|--------------|
+| **ACE inhibitors** | Lisinopril, Enalapril, Ramipril | Often first‑line, especially in diabetes or chronic kidney disease |
+| **Angiotensin II receptor blockers (ARBs)** | Losartan, Valsartan, Olmesartan | Alternative to ACE‑I when cough or angioedema occurs |
+| **Thiazide‑type diuretics** | Hydrochlorothiazide, Chlorthalidone | Frequently combined with ACE‑I/ARB or CCB |
+| **Calcium‑channel blockers** | Amlodipine, Diltiazem, Nifedipine | Good for isolated systolic hypertension, especially in older adults |
+| **Beta‑blockers** (selective) | Metoprolol, Atenolol, Bisoprolol | Used when there is concomitant coronary disease, heart failure, or arrhythmia |
+
+**Example of a single drug often prescribed:** **Lisinopril** (an ACE inhibitor) is widely used as an initial antihypertensive agent.  
+
+The exact choice depends on patient‑specific factors (age, comorbidities, renal function, race, tolerance, etc.).",102,385,487,3250.66,0.000287,-0.0127,-0.3289,0.3431,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661657.3539762,,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",basic_rag,Desflurane is used peri‑operatively to control hypertension in patients undergoing vascular surgery. It effectively lowers intra‑operative blood pressure without causing major cardiac depression.,625,293,918,1313.27,0.000542,0.1326,0.1283,0.1355,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661665.0255382,5.0,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",graphrag,"Lisinopril, an angiotensin‑converting enzyme (ACE) inhibitor, is commonly prescribed as a first‑line treatment for hypertension. Other first‑line options include thiazide diuretics, calcium‑channel blockers, and angiotensin II receptor blockers (ARBs).",119,168,287,854.19,0.000169,0.4337,0.2508,0.628,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama-3.1-70b-versatile` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777661672.7191305,,5.0

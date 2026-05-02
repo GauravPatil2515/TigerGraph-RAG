@@ -1,0 +1,136 @@
+query_id,hop_level,query,reference,pipeline_name,answer,tokens_prompt,tokens_completion,total_tokens,latency_ms,cost_usd,bert_f1,bert_precision,bert_recall,llm_judge_passed,llm_judge_raw,timestamp,retrieved_docs_count,graph_context_tokens
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",llm_only,"**Common symptoms of Type 2 diabetes**
+
+| Symptom | Typical description |
+|---------|----------------------|
+| **Increased thirst (polydipsia)** | Feeling unusually thirsty despite drinking fluids. |
+| **Frequent urination (polyuria)** | Need to urinate more often, especially at night. |
+| **Increased hunger (polyphagia)** | Persistent feeling of hunger even after eating. |
+| **Unexplained weight loss or gain** | Often weight loss despite normal or increased appetite; some people gain weight due to insulin resistance. |
+| **Fatigue** | Persistent tiredness or lack of energy. |
+| **Blurred vision** | Vision may become hazy, especially after meals. |
+| **Slow wound healing** | Cuts, sores, or infections take longer to heal. |
+| **Recurrent infections** | Frequent urinary‑tract, skin, or yeast infections. |
+| **Numbness or tingling** | Especially in the feet or hands (early peripheral neuropathy). |
+| **Dry, itchy skin** | Often a result of dehydration from excess urination. |
+| **Darkened skin patches** | “Acanthosis nigricans” – thick, velvety dark patches, usually in neck or armpits, indicating insulin resistance. |
+
+*Note:* Many people with early‑stage Type 2 diabetes have **no noticeable symptoms** and are diagnosed through routine blood screening (e.g., fasting glucose, HbA1c). If you experience any of the above, especially in combination, it’s advisable to consult a healthcare professional for testing.",103,402,505,1560.81,0.000298,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777657083.8796642,,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",basic_rag,"The passage you provided does not list the clinical manifestations of type 2 diabetes, so I’ll draw on standard medical knowledge to answer the question.
+
+**Typical symptoms of type 2 diabetes mellitus (T2DM)**  
+
+| Symptom | Why it occurs |
+|---------|---------------|
+| **Increased thirst (polydipsia)** | High blood glucose draws water out of cells, leading to dehydration and a compensatory urge to drink. |
+| **Frequent urination (polyuria)** | The kidneys try to excrete the excess glucose, pulling water with it (osmotic diuresis). |
+| **Increased hunger (polyphagia)** | Cells are unable to use glucose efficiently, so the body signals a need for more fuel. |
+| **Unexplained weight loss or difficulty losing weight** | Despite eating more, the body can’t use glucose properly and may break down fat and muscle for energy. |
+| **Fatigue / low energy** | Cells receive less usable glucose, leading to a feeling of tiredness. |
+| **Blurred vision** | High glucose levels cause fluid shifts in the eye’s lenses, affecting focus. |
+| **Slow‑healing cuts or frequent infections** | Elevated glucose impairs white‑blood‑cell function and circulation. |
+| **Numbness or tingling in the hands/feet (peripheral neuropathy)** | Chronic hyperglycemia damages nerves over time. |
+| **Darkened skin patches (acanthosis nigricans)** | Often seen in the neck, armpits, or groin; reflects insulin resistance. |
+| **Dry mouth, itchy skin** | Result from dehydration and altered skin barrier function. |
+
+**Important points**
+
+- **Many people with early‑stage T2DM are asymptomatic** and are diagnosed only through routine screening (e.g., elevated fasting glucose or HbA1c).",707,512,1219,1753.92,0.000719,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777657090.0573008,10.0,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",graphrag,"**Typical signs and symptoms of Type 2 diabetes**
+
+| Symptom | How it usually presents | Why it occurs |
+|---------|------------------------|---------------|
+| **Increased thirst (polydipsia)** | A persistent feeling of dry mouth and the need to drink water more often than usual. | High blood glucose pulls water out of cells (osmotic effect), leading to dehydration. |
+| **Frequent urination (polyuria)** | Need to urinate more often, especially at night (nocturia). | The kidneys try to excrete excess glucose; water follows the glucose into the urine. |
+| **Increased hunger (polyphagia)** | Feeling hungry soon after meals or constantly thinking about food. | Cells can’t use glucose efficiently, so the body signals for more fuel. |
+| **Unexplained weight loss** | Losing weight despite eating normally or even more. | Body begins breaking down fat and muscle for energy because glucose isn’t entering cells. |
+| **Fatigue / low energy** | Feeling unusually tired, sluggish, or lacking stamina. | Cells are starved of glucose, the body’s primary energy source. |
+| **Blurred vision** | Vision may become fuzzy, especially after meals. | High glucose changes the shape and flexibility of the eye’s lens. |
+| **Slow‑healing cuts, sores, or infections** | Small wounds take longer to close; infections (especially skin, gum, or urinary tract) may recur. | High glucose impairs white‑blood‑cell function and reduces circulation. |
+| **Tingling, numbness, or pain in the feet/hands (peripheral neuropathy)** | Burning, prickling, or loss of sensation, often starting in the toes or fingers. | Long‑standing high glucose damages peripheral nerves. |
+| **Darkened skin patches (acanthosis nigricans)** | Thick, velvety, hyperpigmented patches, commonly on the neck",118,512,630,1471.91,0.000372,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777657095.527534,,7.0
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",llm_only,"Several drug classes are commonly used to treat hypertension. Typical first‑line options include:
+
+| Class | Example(s) |
+|-------|------------|
+| **ACE inhibitors** | Lisinopril, enalapril, ramipril |
+| **Angiotensin II receptor blockers (ARBs)** | Losartan, valsartan, olmesartan |
+| **Calcium‑channel blockers** | Amlodipine, diltiazem, nifedipine |
+| **Thiazide diuretics** | Hydrochlorothiazide, chlorthalidone |
+| **Beta‑blockers** (often added when there are other indications) | Metoprolol, atenolol, bisoprolol |
+
+The choice of agent depends on the patient’s overall health, comorbid conditions, and tolerance. Lisinopril (an ACE inhibitor) and amlodipine (a calcium‑channel blocker) are among the most frequently prescribed single agents for uncomplicated essential hypertension.",102,305,407,1075.77,0.00024,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777657100.7037718,,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",basic_rag,"The excerpts you provided do not mention any medication that is used for hypertension. They discuss drugs such as aripiprazole, dexamethasone, sulfasalazine, insulin glargine, halofantrine, etc., but none of these are indicated for blood‑pressure control.
+
+In clinical practice, hypertension is commonly treated with one or more of the following drug classes:
+
+| Drug class | Example agents |
+|------------|----------------|
+| **ACE inhibitors** | Lisinopril, enalapril, ramipril |
+| **Angiotensin II receptor blockers (ARBs)** | Losartan, valsartan, irbesartan |
+| **Calcium‑channel blockers** | Amlodipine, diltiazem, nifedipine |
+| **Thiazide diuretics** | Hydrochlorothiazide, chlorthalidone |
+| **Beta‑blockers** | Metoprolol, atenolol, carvedilol |
+| **Other agents** (e.g., aldosterone antagonists, direct vasodilators) | Spironolactone, hydralazine |
+
+These agents are selected based on the patient’s overall cardiovascular risk profile, comorbid conditions, and tolerability. If you need information on a specific antihypertensive drug or class, feel free to ask!",745,463,1208,1460.93,0.000713,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777657106.7540517,10.0,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",graphrag,"Hypertension (high blood pressure) can be managed with several classes of medications. The choice of drug depends on the patient’s overall health, the severity of the blood‑pressure elevation, and any co‑existing conditions (such as diabetes, chronic kidney disease, or heart failure). Below are the major drug classes that are commonly used to treat hypertension, along with a few representative agents from each class:
+
+| Drug Class | Typical First‑Line Agents (examples) | How It Lowers Blood Pressure |
+|------------|--------------------------------------|------------------------------|
+| **ACE inhibitors** | Lisinopril, Enalapril, Ramipril | Inhibit the conversion of angiotensin I to angiotensin II, leading to vasodilation and reduced aldosterone‑mediated sodium retention. |
+| **Angiotensin II receptor blockers (ARBs)** | Losartan, Valsartan, Olmesartan | Block the angiotensin II receptor, producing vasodilation and natriuresis similar to ACE inhibitors but without the cough side‑effect. |
+| **Thiazide‑type diuretics** | Hydrochlorothiazide, Chlorthalidone, Indapamide | Promote sodium and water excretion, decreasing plasma volume and peripheral resistance. |
+| **Calcium‑channel blockers** (dihydropyridines) | Amlodipine, Nifedipine, Felodipine | Inhibit calcium influx into vascular smooth muscle, causing arterial vasodilation. |
+| **Calcium‑channel blockers** (non‑dihydropyridines) | Diltiazem, Verapamil | Reduce both heart rate and vascular tone; useful when a modest heart‑rate‑lowering effect is desired. |
+| **Beta‑blockers** | Metoprolol, Atenolol, Bisoprolol | Decrease cardiac output by lowering heart rate and contract",117,512,629,1744.14,0.000371,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777657112.6437132,,7.0
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",llm_only,"**Metformin – Common and Important Side‑Effect Profile**
+
+| Category | Typical Frequency | Examples of Side Effects |
+|----------|-------------------|--------------------------|
+| **Gastro‑intestinal** | Very common (up to 30 % of patients) | Nausea, vomiting, abdominal discomfort, loss of appetite, diarrhea, metallic taste, bloating, flatulence |
+| **Vitamin B12 deficiency** | 5–10 % after ≥2 years of therapy | Decreased B12 levels → anemia, peripheral neuropathy, cognitive changes (often asymptomatic at first) |
+| **Lactic acidosis (rare but serious)** | <0.1 % (≈1 case per 30,000 patient‑years) | Metabolic acidosis with elevated lactate, muscle pain, rapid breathing, somnolence; risk ↑ with renal/hepatic impairment, hypoxia, sepsis, alcohol intoxication |
+| **Hypoglycemia** | Uncommon when used alone (rare) | Usually only when combined with insulin or secretagogues (e.g., sulfonylureas) |
+| **Dermatologic** | Uncommon | Rash, pruritus, urticaria, rare Stevens‑Johnson syndrome |
+| **Hepatic effects** | Very rare | Elevated transaminases, hepatitis‑like picture |
+| **Other** | Infrequent | Headache, dizziness, fatigue, weight loss (generally modest), mild elevation of serum creatinine (reversible) |
+
+### Key Points for Clinicians & Patients
+- **Start low, go slow:** Initiate at 500 mg once daily (or 500 mg with dinner) and titrate weekly to minimize GI upset.
+- **Extended‑release (XR) formulation** reduces GI symptoms for many patients.
+- **Vitamin B12 monitoring:** Check serum B12 (or methylmalonic acid) every 2–3 years, especially in long‑term users or those with anemia/neuropathy.
+- **Renal function:** Contraindicated if eGFR < 30 mL/min/1.73 m²; dose‑adjust or discontinue if eGFR falls below 45 mL/min",102,512,614,1707.79,0.000362,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777657118.3633456,,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",basic_rag,"The excerpts you provided do not discuss metformin, so I’ll draw on the broader medical literature to summarize the known adverse‑effect profile of this drug.
+
+**Common (≥5 % of patients)**
+| System | Typical adverse effects |
+|--------|--------------------------|
+| **Gastro‑intestinal** | Diarrhea, nausea, abdominal discomfort, flatulence, loss of appetite, metallic taste, vomiting. These are the most frequent complaints and often improve with dose titration or use of the extended‑release formulation. |
+| **Metabolic / Nutritional** | Decrease in vitamin B12 levels (often with long‑term use), which can lead to anemia or peripheral neuropathy; mild weight loss. |
+| **Dermatologic** | Rare skin rash or urticaria. |
+
+**Less common / rare**
+| Effect | Frequency / notes |
+|--------|-------------------|
+| **Lactic acidosis** | Very rare (<0.01 %); risk is higher in patients with renal impairment, hepatic disease, heart failure, severe infection, or excessive alcohol intake. |
+| **Hypoglycemia** | Metformin alone does not usually cause hypoglycemia, but it can occur when combined with other glucose‑lowering agents (e.g., insulin, sulfonylureas). |
+| **Elevated transaminases** | Mild, usually transient liver enzyme elevations. |
+| **Gastro‑intestinal intolerance leading to discontinuation** | Up to 20 % of patients may stop therapy because of GI side effects. |
+| **Vitamin B12 deficiency** | May develop after several years of therapy; periodic monitoring is recommended. |
+
+**Key points for clinicians**
+- Start with a low dose (e.g., 500 mg once daily) and titrate slowly to improve GI tolerability.  
+- Use the extended‑release (XR) formulation when GI upset is problematic.  
+- Assess renal function before initiation and periodically",768,512,1280,2740.63,0.000755,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777657125.9302619,10.0,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",graphrag,"**Metformin (biguanide oral antihyperglycemic) – Common and Important Side‑Effect Profile**
+
+| Category | Specific adverse effect | Frequency / Clinical notes |
+|----------|------------------------|----------------------------|
+| **Gastro‑intestinal** | Nausea, vomiting, abdominal discomfort, loss of appetite, diarrhea, flatulence, indigestion, metallic or “bitter” taste | **Very common** (≥10 % of patients). Usually the first side‑effects to appear and often improve after 1–2 weeks or with dose titration. |
+| **Lactic acidosis (rare but serious)** | Metabolic acidosis with elevated lactate, hyperventilation, muscle pain, somnolence, hypotension | **Rare** (<0.1 %); risk ↑ with renal impairment (eGFR < 30 mL/min/1.73 m²), hepatic disease, heart failure, severe infection, dehydration, alcohol excess, or high doses. |
+| **Vitamin B12 deficiency** | Decreased serum B12, macrocytic anemia, peripheral neuropathy, cognitive changes | **Incidence** rises with long‑term use (≈10–30 % after ≥5 years). Periodic B12 monitoring is recommended, especially in older adults. |
+| **Hypoglycemia** | Dizziness, sweating, tremor, confusion (usually when combined with insulin, sulfonylureas, or other glucose‑lowering agents) | **Uncommon** when metformin is used alone because it does not stimulate insulin secretion. |
+| **Weight change** | Modest weight loss (≈1–3 kg) or, less commonly, weight gain if caloric intake increases | Generally considered a **beneficial** effect for most type‑2 diabetes patients. |
+| **Dermatologic** | Rash, pruritus, urticaria, rare Stevens‑Johnson syndrome or toxic epidermal necrolysis | **Uncommon**; skin reactions usually appear early and resolve after discontinuation. |
+| **Respiratory** | Cough, dyspnea (rare) | Usually mild and",117,512,629,1767.37,0.000371,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777657132.6831594,,7.0

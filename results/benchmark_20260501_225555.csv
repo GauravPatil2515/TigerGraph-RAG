@@ -1,0 +1,127 @@
+query_id,hop_level,query,reference,pipeline_name,answer,tokens_prompt,tokens_completion,total_tokens,latency_ms,cost_usd,bert_f1,bert_precision,bert_recall,llm_judge_passed,llm_judge_raw,timestamp,retrieved_docs_count,graph_context_tokens
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",llm_only,"**Common symptoms of Type 2 diabetes**
+
+| Symptom | Typical description |
+|---------|----------------------|
+| **Increased thirst (polydipsia)** | Feeling unusually thirsty even after drinking fluids. |
+| **Frequent urination (polyuria)** | Need to urinate more often, especially at night. |
+| **Increased hunger (polyphagia)** | Persistent feeling of hunger despite eating. |
+| **Unexplained weight loss** | Losing weight without trying, even though appetite may be high. |
+| **Fatigue** | Persistent tiredness or lack of energy. |
+| **Blurred vision** | Vision may become fuzzy, especially after meals. |
+| **Slow‑healing cuts or infections** | Wounds, sores, or infections (e.g., skin, urinary tract) take longer to heal. |
+| **Numbness or tingling in hands/feet** | Early signs of peripheral neuropathy. |
+| **Darkened skin patches** | “Acanthosis nigricans” – thick, velvety dark patches, often on neck, armpits, or groin. |
+| **Recurrent yeast or bacterial infections** | Especially in the genital area or skin folds. |
+
+**Key point:** Many people with early‑stage Type 2 diabetes have no noticeable symptoms; the condition is often discovered through routine blood‑glucose screening. If you experience any of the above, especially in combination, it’s advisable to consult a healthcare professional for evaluation.",103,399,502,1739.74,0.000296,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656359.8930864,,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",basic_rag,The provided context does not contain information about the symptoms of Type 2 Diabetes.,419,98,517,763.19,0.000305,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656367.983732,5.0,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",graphrag,"**Typical signs and symptoms of Type 2 diabetes**
+
+| Symptom | How it usually presents | Why it occurs |
+|---------|------------------------|---------------|
+| **Increased thirst (polydipsia)** | A persistent feeling of dry mouth and the need to drink water more often than usual. | High blood glucose pulls water out of cells (osmotic effect), leading to dehydration. |
+| **Frequent urination (polyuria)** | Need to urinate more often, especially at night (nocturia). | The kidneys try to excrete excess glucose; water follows the glucose into the urine. |
+| **Increased hunger (polyphagia)** | Feeling hungry soon after meals or constantly thinking about food. | Cells can’t use glucose efficiently, so the body signals for more fuel. |
+| **Unexplained weight loss** | Losing weight despite eating normally or even more. | The body begins breaking down fat and muscle for energy because glucose isn’t entering cells. |
+| **Fatigue / low energy** | Feeling unusually tired, sluggish, or lacking stamina. | Cells are starved of glucose, the body’s primary energy source. |
+| **Blurred vision** | Vision that is intermittently fuzzy or “out of focus.” | High glucose changes the shape and flexibility of the eye’s lens. |
+| **Slow‑healing cuts, sores, or infections** | Cuts that take longer than usual to close, frequent skin infections, especially around the feet or groin. | High glucose impairs white‑blood‑cell function and reduces circulation. |
+| **Tingling, numbness, or pain in the hands/feet (peripheral neuropathy)** | Burning, prickling, or loss of sensation, often starting in the toes or fingertips. | Long‑standing high glucose damages peripheral nerves. |
+| **Darkened skin patches (acanthosis nigricans)** | Thick, velvety, darkened areas, commonly",118,512,630,1773.31,0.000372,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656373.7158358,,7.0
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",llm_only,"Common first‑line antihypertensive drugs include:
+
+| Class | Example(s) |
+|-------|------------|
+| **ACE inhibitors** | Lisinopril, Enalapril, Ramipril |
+| **Angiotensin II receptor blockers (ARBs)** | Losartan, Valsartan, Olmesartan |
+| **Calcium‑channel blockers** | Amlodipine, Diltiazem, Nifedipine |
+| **Thiazide diuretics** | Hydrochlorothiazide, Chlorthalidone |
+| **Beta‑blockers** (often for specific indications) | Metoprolol, Atenolol, Bisoprolol |
+
+Any of these agents can be used to treat hypertension, with the choice guided by patient comorbidities, tolerability, and guideline recommendations.",102,274,376,1360.55,0.000222,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656379.0368712,,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",basic_rag,The provided context does not contain information about a drug used to treat hypertension.,373,70,443,633.53,0.000261,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656383.5498405,5.0,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",graphrag,"**Common classes of drugs used to treat hypertension (high blood pressure)**  
+
+| Drug class | Typical examples | How they work (basic mechanism) |
+|------------|------------------|----------------------------------|
+| **ACE inhibitors** | Lisinopril, Enalapril, Ramipril | Block the conversion of angiotensin I to angiotensin II → vasodilation & reduced aldosterone‑mediated sodium retention |
+| **Angiotensin II receptor blockers (ARBs)** | Losartan, Valsartan, Olmesartan | Block angiotensin II receptors → vasodilation & decreased sodium‑water retention |
+| **Calcium‑channel blockers** | Amlodipine, Diltiazem, Verapamil | Inhibit calcium influx into vascular smooth muscle → arterial relaxation; some also slow heart rate |
+| **Thiazide (and thiazide‑like) diuretics** | Hydrochlorothiazide, Chlorthalidone, Indapamide | Increase renal excretion of sodium and water → lower blood volume and peripheral resistance |
+| **Beta‑blockers** | Metoprolol, Atenolol, Carvedilol | Reduce heart rate, contractility, and renin release → lower cardiac output and peripheral resistance |
+| **Renin inhibitors** | Aliskiren | Directly inhibit renin → decrease formation of angiotensin I and II |
+| **Alpha‑blockers** | Doxazosin, Prazosin | Block peripheral α‑adrenergic receptors → vasodilation |
+| **Combined agents** | Lisinopril + hydrochlorothiazide, Losartan + hydrochlorothiazide, Amlodipine + valsartan, etc. | Provide complementary mechanisms in a single pill |
+
+### Choosing a medication
+- **First‑line options** in most",117,512,629,1568.69,0.000371,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656389.0831318,,7.0
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",llm_only,"**Metformin – Common and Notable Side Effects**
+
+| Category | Typical Frequency | Description |
+|----------|-------------------|-------------|
+| **Gastro‑intestinal** | Very common (≥10 %) | Nausea, vomiting, abdominal discomfort, loss of appetite, diarrhea, metallic taste. Usually transient; taking the drug with meals or using an extended‑release (XR) formulation reduces these effects. |
+| **Vitamin B12 deficiency** | Up to 10 % after long‑term use | Decreased absorption can lead to mild anemia, peripheral neuropathy, or cognitive changes. Periodic B12 level checks are recommended for patients on metformin > 2–3 years. |
+| **Lactic acidosis** | Rare (<0.1 %) but serious | Accumulation of lactate leading to metabolic acidosis (symptoms: malaise, myalgias, respiratory distress, abdominal pain, hypotension). Risk is higher in renal impairment, hepatic disease, heart failure, severe infection, or excessive alcohol intake. |
+| **Hypoglycemia** | Uncommon when used alone | Metformin does not stimulate insulin secretion, so hypoglycemia is rare unless combined with other glucose‑lowering agents (e.g., sulfonylureas, insulin). |
+| **Skin reactions** | Uncommon | Rash, pruritus, or urticaria. |
+| **Weight loss** | Common (beneficial) | Modest (~1–3 kg) reduction, often viewed as a therapeutic advantage. |
+| **Other** | Infrequent | Elevated liver enzymes, mild elevation of serum creatinine (usually reversible), taste disturbances, dizziness. |
+
+### Key Points for Clinicians & Patients
+- **Renal function monitoring**: Check eGFR before initiation and at least annually; avoid if eGFR < 30 mL/min/1.73 m² (dose‑adjust or discontinue if 30–45 mL/min/1.73 m²).  
+- **Start low, go slow**: Begin with 500 mg once daily (or 850 mg XR) and titrate up to minimize GI upset.",102,512,614,1765.77,0.000362,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656395.0602198,,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",basic_rag,The provided context does not contain information about the side effects of Metformin.,443,86,529,856.18,0.000312,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656399.868724,5.0,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",graphrag,"**Metformin (biguanide oral antihyperglycemic) – most frequently reported and clinically important side‑effects**
+
+| Category | Specific adverse effect | Typical frequency / clinical notes |
+|----------|------------------------|------------------------------------|
+| **Gastro‑intestinal** | Nausea, vomiting, abdominal discomfort, bloating, flatulence, diarrhea, loss of appetite, dyspepsia, constipation | Very common (≥10 % of patients). Diarrhea is the most frequent GI complaint and is often the reason patients discontinue therapy. |
+| **Taste / oral sensations** | Metallic or “bitter” taste, oral dryness | Common (≈5‑10 %). Usually transient. |
+| **Metabolic / nutritional** | Vitamin B12 deficiency (with long‑term use), folate deficiency | Occurs in up to 10‑30 % of patients after ≥2 years of therapy; may present as peripheral neuropathy or macrocytic anemia. Periodic B12 monitoring is recommended. |
+| **Weight** | Modest weight loss (≈1‑3 kg) | Frequently observed; considered a therapeutic benefit in many type‑2 diabetes patients. |
+| **Hypoglycaemia** | Usually **not** seen when metformin is used alone; can occur when combined with insulin, sulfonylureas, or other glucose‑lowering agents | Rare when metformin is monotherapy. |
+| **Lactic acidosis** (serious, rare) | Metabolic acidosis with elevated lactate, nausea, vomiting, abdominal pain, dyspnea, somnolence, hypotension | Incidence ≈3–9 cases per 100 000 patient‑years. Risk is markedly increased in patients with renal impairment (eGFR < 30 mL/min/1.73 m²), hepatic failure, severe heart failure, hypoxia, or excessive alcohol intake. |
+| **Dermatologic** | Rash, pruritus, urticaria, erythema multiforme, Stevens‑Johnson syndrome (very rare) | Mostly mild; severe cutaneous reactions are exceedingly uncommon.",117,512,629,1427.81,0.000371,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656405.6678338,,7.0
+s04,1,What causes Anemia?,"Anemia is caused by iron deficiency, vitamin B12 deficiency, chronic disease, or blood loss.",llm_only,"**Anemia** is a condition in which the blood lacks enough healthy red blood cells (RBCs) or hemoglobin to carry adequate oxygen to the body’s tissues. The underlying causes can be grouped into several major categories:
+
+| Category | Typical Mechanisms | Common Examples |
+|----------|-------------------|-----------------|
+| **Nutritional deficiencies** | Insufficient raw material for hemoglobin synthesis or RBC production | • Iron deficiency (most common worldwide)  <br>• Vitamin B₁₂ deficiency (pernicious anemia, malabsorption)  <br>• Folate (vitamin B9) deficiency |
+| **Blood loss** | Acute or chronic loss of RBCs exceeds production | • Acute hemorrhage (trauma, surgery)  <br>• Chronic gastrointestinal bleeding (ulcers, malignancy, angiodysplasia, NSAID use)  <br>• Menstrual or obstetric blood loss |
+| **Decreased RBC production** | Bone‑marrow failure or suppression, or impaired erythropoiesis | • Aplastic anemia  <br>• Myelodysplastic syndromes  <br>• Leukemia, lymphoma, multiple myeloma  <br>• Chronic kidney disease (↓ erythropoietin)  <br>• Endocrine disorders (hypothyroidism, hypopituitarism)  <br>• Chemotherapy or radiation therapy |
+| **Increased RBC destruction (hemolysis)** | Premature removal of RBCs by the spleen or intravascular lysis | • Inherited hemolytic anemias (sickle cell disease, thalassemia, hereditary spherocytosis, G6PD deficiency)  <br>• Autoimmune hemolytic anemia  <br>• Infections (malaria, babesiosis)  <br>• Mechanical destruction (prosthetic heart valves, microangiopathic processes) |
+| **Chronic disease / inflammation** | Cytokine‑mediated inhibition of iron utilization and erythropoiesis | • Anemia of chronic disease (ACD) seen in rheumatoid arthritis, inflammatory bowel disease, chronic infections, cancers |",98,512,610,1778.53,0.00036,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656411.944105,,
+s04,1,What causes Anemia?,"Anemia is caused by iron deficiency, vitamin B12 deficiency, chronic disease, or blood loss.",basic_rag,"The provided excerpts do not contain information about the causes of anemia. Therefore, I cannot answer that question based on the given context.",449,101,550,767.07,0.000325,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656417.3442035,5.0,
+s04,1,What causes Anemia?,"Anemia is caused by iron deficiency, vitamin B12 deficiency, chronic disease, or blood loss.",graphrag,"**Anemia** is a condition in which the number of red blood cells (RBCs) or the amount of hemoglobin they contain is insufficient to meet the body’s physiological needs.  Because hemoglobin carries oxygen, anemia can lead to fatigue, shortness of breath, pallor, and a host of other symptoms.  
+
+The underlying **causes of anemia** can be grouped into four major pathophysiologic categories:
+
+| Category | Typical Mechanism | Common Causes / Examples |
+|----------|-------------------|--------------------------|
+| **1. Decreased RBC production** (often due to nutrient deficiency or marrow failure) | The bone marrow cannot make enough healthy RBCs. | • **Iron‑deficiency anemia** – chronic blood loss (e.g., gastrointestinal bleeding, heavy menstrual periods), inadequate dietary iron, or malabsorption (celiac disease, bariatric surgery).<br>• **Vitamin B12 deficiency** – pernicious anemia (autoimmune gastritis), malabsorption (Crohn’s disease, ileal resection), strict vegan diet, certain medications (metformin, proton‑pump inhibitors).<br>• **Folate deficiency** – poor diet, alcoholism, malabsorption, certain anticonvulsants (phenytoin, carbamazepine).<br>• **Aplastic anemia** – immune‑mediated destruction of hematopoietic stem cells, exposure to radiation, benzene, chloramphenicol, viral infections (hepatitis, EBV).<br>• **Myelodysplastic syndromes (MDS)** – clonal marrow disorders, often in older adults.<br>• **Bone‑marrow infiltration** – leukemia, lymphoma, metastatic solid tumors, myelofibrosis. |
+| **2. Increased RBC loss** (hemorrhage) | Blood is lost faster than it can be replaced. | • **Acute hemorrhage** – trauma, surgery, gastrointestinal ulcer, ruptured aneurysm.<br>• **",113,512,625,1771.65,0.000369,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656423.5312603,,7.0
+s05,1,How is Asthma treated?,"Asthma is treated with inhaled corticosteroids, bronchodilators like albuterol, and avoiding triggers.",llm_only,"**Asthma treatment follows a step‑wise, individualized plan that combines medication, trigger control, and patient education.**  
+
+| Goal | Main Strategies |
+|------|-----------------|
+| **1. Rapid relief of symptoms** (rescue) | • **Short‑acting β₂‑agonists (SABA)** – e.g., albuterol, levalbuterol (inhaler or nebulizer). <br>• **Short‑acting anticholinergics** (e.g., ipratropium) – added for severe exacerbations. |
+| **2. Long‑term control** (prevent inflammation & exacerbations) | **Inhaled corticosteroids (ICS)** – first‑line for persistent asthma (beclomethasone, budesonide, fluticasone, etc.). <br>**Combination inhalers** – low‑dose ICS + long‑acting β₂‑agonist (LABA) for step 2–3 (e.g., fluticasone/salmeterol). <br>**Leukotriene receptor antagonists** – montelukast, zafirlukast (oral, useful for aspirin‑sensitive or exercise‑induced asthma). <br>**Long‑acting muscarinic antagonists (LAMA)** – tiotropium as add‑on for moderate‑severe disease. <br>**Theophylline** – oral, limited use because of side‑effects and monitoring needs. |
+| **3. Management of severe or refractory disease** | **Oral systemic corticosteroids** – short courses for acute exacerbations; occasional low‑dose maintenance in very severe cases. <br>**Biologic agents** (for patients with specific phenotypes): <br> • **Anti‑IgE** – omalizumab. <br> • **Anti‑",99,512,611,1931.14,0.00036,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656429.9390059,,
+s05,1,How is Asthma treated?,"Asthma is treated with inhaled corticosteroids, bronchodilators like albuterol, and avoiding triggers.",basic_rag,"Asthma, especially mild‑to‑moderate acute exacerbations in children, is commonly treated with systemic corticosteroids.  The current literature highlighted in the excerpt shows that **dexamethasone** can be used as an effective alternative to the traditionally‑used **prednisone**.  Dexamethasone provides the same anti‑inflammatory benefit for an acute asthma flare while offering practical advantages such as better taste, easier dosing (which improves compliance), and lower cost.  Although its role in children who are hospitalized still requires further study, the evidence to date supports dexamethasone as a viable option for managing acute asthma attacks in the outpatient pediatric setting.",418,245,663,1002.28,0.000391,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656435.3685277,5.0,
+s05,1,How is Asthma treated?,"Asthma is treated with inhaled corticosteroids, bronchodilators like albuterol, and avoiding triggers.",graphrag,"**Asthma is a chronic inflammatory disease of the airways that is managed with a combination of medication, lifestyle measures, and regular monitoring.**  
+The goal of treatment is to keep symptoms under control, maintain normal activity, prevent exacerbations, and preserve lung function. The approach is usually organized as a **step‑wise plan** (e.g., the Global Initiative for Asthma – GINA – recommendations) that is adjusted according to the patient’s level of control.
+
+Below is a concise, evidence‑based overview of the main components of asthma treatment.
+
+---
+
+## 1. General (non‑pharmacologic) Measures  
+
+| Measure | Why it matters | Practical tips |
+|---------|----------------|----------------|
+| **Trigger avoidance** | Reduces airway inflammation and bronchoconstriction | Identify allergens (dust‑mite, pet dander, pollen, mold, cockroach), irritants (tobacco smoke, strong odors, cold air), and occupational exposures; use allergen‑proof bedding, HEPA filters, smoke‑free environment. |
+| **Vaccinations** | Prevent respiratory infections that can precipitate attacks | Annual influenza vaccine; pneumococcal vaccine per CDC schedule. |
+| **Asthma Action Plan** | Empowers patients to self‑manage and recognize early worsening | Written plan with “green/yellow/red” zones, medication doses, when to seek medical help. |
+| **Patient education & self‑monitoring** | Improves adherence and early detection of loss of control | Teach inhaler technique, peak flow monitoring, symptom diary. |
+| **Weight control, exercise, and breathing techniques** | Obesity and deconditioning worsen symptoms; regular",114,512,626,1775.4,0.000369,0.0,0.0,0.0,False,"ERROR: Error code: 400 - {'error': {'message': 'The model `llama3-70b-8192` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",1777656441.3089428,,7.0

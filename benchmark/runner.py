@@ -27,27 +27,32 @@ class BenchmarkRunner:
     metrics (BERTScore, LLM Judge), and logs results to JSONL and CSV.
     """
     
-    def __init__(self, pipelines: list, results_dir: str = "./results"):
+    def __init__(self, pipelines: list, results_dir: str = "./results", mode: str = "quick"):
         """Initialize the benchmark runner.
         
         Args:
             pipelines: List of pipeline instances to benchmark
             results_dir: Directory to save results (default: "./results")
+            mode: "quick" (30 queries) or "full" (200 PubMedQA records)
         """
         self.pipelines = pipelines
         self.results_dir = results_dir
+        self.mode = mode
         
         # Create results directory
         os.makedirs(results_dir, exist_ok=True)
         
         # Initialize log file
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.log_path = os.path.join(results_dir, f"benchmark_{timestamp}.jsonl")
+        if mode == "full":
+            self.log_path = os.path.join(results_dir, f"full_benchmark_{timestamp}.jsonl")
+        else:
+            self.log_path = os.path.join(results_dir, f"benchmark_{timestamp}.jsonl")
         self.csv_path = self.log_path.replace(".jsonl", ".csv")
         
         self.records: List[Dict[str, Any]] = []
         
-        logger.info(f"BenchmarkRunner initialized")
+        logger.info(f"BenchmarkRunner initialized (mode: {mode})")
         logger.info(f"Results will be saved to: {self.log_path}")
     
     def __repr__(self) -> str:
@@ -90,7 +95,7 @@ class BenchmarkRunner:
                         query["reference"]
                     )
                     
-                    # Build complete record
+                    # Build complete record with all required columns
                     record = {
                         "query_id": query["id"],
                         "hop_level": query["hop_level"],
@@ -103,7 +108,8 @@ class BenchmarkRunner:
                         "total_tokens": result.get("total_tokens", 0),
                         "latency_ms": result.get("latency_ms", 0),
                         "cost_usd": result.get("cost_usd", 0),
-                        "bert_f1": bert_scores["bert_f1"],
+                        "bert_f1_raw": bert_scores["bert_f1_raw"],
+                        "bert_f1_rescaled": bert_scores["bert_f1_rescaled"],
                         "bert_precision": bert_scores["bert_precision"],
                         "bert_recall": bert_scores["bert_recall"],
                         "llm_judge_passed": judge_result["passed"],
@@ -128,7 +134,8 @@ class BenchmarkRunner:
                         f"    ✓ {result['pipeline_name']}: "
                         f"tokens={record['total_tokens']}, "
                         f"latency={record['latency_ms']:.0f}ms, "
-                        f"bert_f1={record['bert_f1']:.3f}, "
+                        f"bert_f1_raw={record['bert_f1_raw']:.3f}, "
+                        f"bert_f1_rescaled={record['bert_f1_rescaled']:.3f}, "
                         f"judge={'PASS' if record['llm_judge_passed'] else 'FAIL'}"
                     )
                     
@@ -186,8 +193,8 @@ class BenchmarkRunner:
         # Group by pipeline and compute means
         numeric_cols = [
             "tokens_prompt", "tokens_completion", "total_tokens",
-            "latency_ms", "cost_usd", "bert_f1", "bert_precision",
-            "bert_recall"
+            "latency_ms", "cost_usd", "bert_f1_raw", "bert_f1_rescaled",
+            "bert_precision", "bert_recall"
         ]
         
         # Only include columns that exist
@@ -214,6 +221,105 @@ class BenchmarkRunner:
                     logger.info(f"    {col}: {val:.4f}")
         
         logger.info("\n" + "="*80)
+    
+    def run_full_benchmark(self, records: List[Dict], pipelines: List, delay_seconds: float = 0.5) -> Dict:
+        """Run full benchmark on PubMedQA records (200 queries).
+        
+        Optimized version that runs only LLM-Only and GraphRAG pipelines
+        with BERTScore evaluation only (skips LLM Judge for speed).
+        
+        Args:
+            records: List of PubMedQA records with question and answer
+            pipelines: List of pipeline instances (only uses llm_only and graphrag)
+            delay_seconds: Delay between API calls (default: 0.5)
+            
+        Returns:
+            Dict with summary statistics per pipeline
+        """
+        # Filter to first 200 records
+        records = records[:200]
+        
+        # Filter pipelines to only llm_only and graphrag
+        filtered_pipelines = [p for p in pipelines if p.name in ["llm_only", "graphrag"]]
+        if not filtered_pipelines:
+            logger.error("No valid pipelines for full benchmark (need llm_only and/or graphrag)")
+            return {}
+        
+        logger.info(f"\n{'='*80}")
+        logger.info("FULL BENCHMARK MODE (200 PubMedQA records)")
+        logger.info(f"{'='*80}")
+        logger.info(f"Pipelines: {[p.name for p in filtered_pipelines]}")
+        logger.info(f"Records: {len(records)}")
+        logger.info(f"Delay: {delay_seconds}s between calls")
+        logger.info(f"Note: BERTScore only (LLM Judge skipped for speed)")
+        logger.info(f"{'='*80}\n")
+        
+        run_count = 0
+        total_runs = len(records) * len(filtered_pipelines)
+        
+        for i, record in enumerate(records):
+            # Print progress every 10 records
+            if i % 10 == 0:
+                logger.info(f"Progress: {i}/200 records processed ({i/2:.0f}%)")
+            
+            question = record.get("question", "")
+            reference = record.get("answer", "")
+            
+            for pipeline in filtered_pipelines:
+                run_count += 1
+                
+                try:
+                    # Run pipeline
+                    result = pipeline.run(question)
+                    
+                    # Compute BERTScore only (skip LLM Judge for speed)
+                    bert_scores = compute_bertscore(result["answer"], reference)
+                    
+                    # Build record
+                    rec = {
+                        "record_idx": i,
+                        "query": question,
+                        "reference": reference[:200],  # Truncate for storage
+                        "pipeline_name": result["pipeline_name"],
+                        "answer": result["answer"][:500],  # Truncate for storage
+                        "tokens_prompt": result.get("tokens_prompt", 0),
+                        "tokens_completion": result.get("tokens_completion", 0),
+                        "total_tokens": result.get("total_tokens", 0),
+                        "latency_ms": result.get("latency_ms", 0),
+                        "cost_usd": result.get("cost_usd", 0),
+                        "bert_f1_raw": bert_scores["bert_f1_raw"],
+                        "bert_f1_rescaled": bert_scores["bert_f1_rescaled"],
+                        "bert_precision": bert_scores["bert_precision"],
+                        "bert_recall": bert_scores["bert_recall"],
+                        "timestamp": time.time()
+                    }
+                    
+                    self.records.append(rec)
+                    
+                    # Write to JSONL
+                    with open(self.log_path, "a") as f:
+                        f.write(json.dumps(rec) + "\n")
+                    
+                except Exception as e:
+                    logger.error(f"    ✗ ERROR in {pipeline.name} on record {i}: {e}")
+                
+                # Delay between API calls
+                if delay_seconds > 0:
+                    time.sleep(delay_seconds)
+        
+        logger.info(f"\nFull benchmark complete. Processed {run_count}/{total_runs} runs.")
+        
+        # Return summary
+        if self.records:
+            df = pd.DataFrame(self.records)
+            summary = df.groupby("pipeline_name").agg({
+                "total_tokens": "mean",
+                "latency_ms": "mean",
+                "cost_usd": "mean",
+                "bert_f1_rescaled": "mean"
+            }).to_dict()
+            return summary
+        return {}
 
 
 if __name__ == "__main__":

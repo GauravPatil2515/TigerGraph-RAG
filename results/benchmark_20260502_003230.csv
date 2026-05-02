@@ -1,0 +1,122 @@
+query_id,hop_level,query,reference,pipeline_name,answer,tokens_prompt,tokens_completion,total_tokens,latency_ms,cost_usd,bert_f1,bert_precision,bert_recall,llm_judge_passed,llm_judge_raw,timestamp,retrieved_docs_count,graph_context_tokens
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",llm_only,"**Common symptoms of Type 2 diabetes**
+
+| Symptom | Typical description |
+|---------|----------------------|
+| **Increased thirst (polydipsia)** | Feeling unusually thirsty despite adequate fluid intake |
+| **Frequent urination (polyuria)** | Need to urinate more often, especially at night |
+| **Increased hunger (polyphagia)** | Persistent feeling of hunger even after eating |
+| **Unexplained weight loss or gain** | Losing weight despite normal eating, or gaining weight due to insulin resistance |
+| **Fatigue** | Persistent tiredness or lack of energy |
+| **Blurred vision** | Vision changes that improve after blood sugar is controlled |
+| **Slow‑healing cuts or infections** | Wounds, sores, or infections that take longer to heal |
+| **Numbness or tingling in hands/feet** (peripheral neuropathy) | Tingling, burning, or loss of sensation, especially in the feet |
+| **Darkened skin patches** (acanthosis nigricans) | Thick, velvety dark patches, often on the neck, armpits, or groin |
+| **Recurrent urinary or yeast infections** | Especially in women, frequent bladder or vaginal infections |
+
+*Note:* Many people with early‑stage Type 2 diabetes have **no noticeable symptoms** and are diagnosed through routine blood‑glucose screening. If you experience any of the above signs, especially in combination, it’s advisable to consult a healthcare professional for evaluation.",103,381,484,1496.02,0.000286,-0.0708,-0.4074,0.3119,True,PASS,1777662166.0589504,,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",basic_rag,"Common symptoms of type 2 diabetes include:
+
+- **Increased thirst (polydipsia) and frequent urination (polyuria)**
+- **Unexplained weight loss or difficulty losing weight**
+- **Persistent fatigue or low energy**
+- **Blurred vision**
+- **Slow‑healing cuts, sores, or frequent infections (especially skin, gum, or urinary tract)**
+- **Numbness, tingling, or pain in the hands or feet (peripheral neuropathy)**
+- **Darkened skin patches, often in the neck or armpits (acanthosis nigricans)**
+- **Occasional nausea or abdominal discomfort**
+
+Many individuals are asymptomatic at diagnosis, which is why routine screening is important,",624,300,924,3091.13,0.000545,0.271,-0.0432,0.6225,True,PASS,1777662178.7294757,5.0,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",graphrag,"Common symptoms of type 2 diabetes include increased thirst and hunger, frequent urination, unexplained weight loss or gain, fatigue, blurred vision, slow‑healing cuts or infections, and tingling or numbness in the hands or feet.",120,126,246,1174.65,0.000145,0.5798,0.4033,0.7669,True,PASS,1777662187.8391263,,5.0
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",llm_only,"Several drug classes are commonly used to treat hypertension, and the choice depends on the patient’s overall health, comorbidities, and response to therapy. First‑line options include:
+
+| Class | Typical First‑Line Agents | Key Points |
+|-------|---------------------------|------------|
+| **Thiazide diuretics** | Hydrochlorothiazide, Chlorthalidone | Often the initial choice; effective, inexpensive, and reduce fluid volume. |
+| **ACE inhibitors** | Lisinopril, Enalapril, Ramipril | Good for patients with diabetes, chronic kidney disease, or heart failure; may cause cough or angio‑edema. |
+| **Angiotensin II receptor blockers (ARBs)** | Losartan, Valsartan, Olmesartan | Similar benefits to ACE inhibitors but less cough; useful if ACE‑I not tolerated. |
+| **Calcium‑channel blockers** | Amlodipine, Diltiazem, Nifedipine | Effective in older adults and Black patients; can cause peripheral edema or flushing. |
+| **Beta‑blockers** (often added later) | Metoprolol, Atenolol, Carvedilol | Helpful in patients with coronary artery disease, prior MI, or certain arrhythmias; less favored as sole first‑line in uncomplicated hypertension. |
+
+**Example of a commonly prescribed single‑agent regimen:**  
+- **Lisinopril 10–20 mg daily** (ACE inhibitor)  
+or  
+- **Amlodipine 5–10 mg daily** (calcium‑channel blocker)  
+or  
+- **Hydrochlorothiazide 12.5–25 mg daily** (thiazide diuretic)
+
+Often, clinicians start with one of these agents and titrate the dose, adding a second drug from a different class if target blood pressure (<130/80 mm",102,512,614,2107.45,0.000362,-0.0462,-0.4053,0.366,True,PASS,1777662197.5889797,,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",basic_rag,"Desflurane – an inhaled anesthetic – is used intra‑operatively to control hypertension (e.g., during vascular or aortic surgery) without causing major cardiac depression.",625,264,889,1331.41,0.000525,0.0912,0.0492,0.1323,False,FAIL,1777662208.061212,5.0,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",graphrag,"First‑line antihypertensive agents include thiazide diuretics (e.g., hydrochlorothiazide), ACE inhibitors (e.g., lisinopril), angiotensin II receptor blockers (e.g., losartan), and calcium‑channel blockers (e.g., amlodipine).",119,146,265,926.3,0.000156,0.3545,0.1075,0.6235,True,PASS,1777662216.2199147,,5.0
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",llm_only,"**Metformin – Common and Important Side‑Effect Profile**
+
+| Category | Typical Frequency | Examples of Side Effects |
+|----------|-------------------|--------------------------|
+| **Gastro‑intestinal** | Very common (up to 30 % of patients) | Nausea, vomiting, abdominal discomfort, loss of appetite, diarrhea, metallic taste, bloating, flatulence |
+| **Vitamin B12 deficiency** | 5–10 % after ≥1 year of therapy | Decreased B12 levels → anemia, peripheral neuropathy, cognitive changes (often asymptomatic at first) |
+| **Lactic acidosis (rare but serious)** | <0.1 % (≈1 case per 30,000 patient‑years) | Metabolic acidosis with elevated lactate, muscle pain, rapid breathing, somnolence; risk ↑ with renal/hepatic impairment, hypoxia, sepsis, alcohol intoxication |
+| **Hypoglycemia** | Uncommon when used alone (rare) | Usually only when combined with insulin or secretagogues (e.g., sulfonylureas) |
+| **Dermatologic** | Uncommon | Rash, pruritus, urticaria, rare Stevens‑Johnson syndrome |
+| **Hepatic effects** | Very rare | Elevated transaminases, hepatitis‑like picture (usually reversible) |
+| **Other** | Infrequent | Headache, dizziness, fatigue, weight loss (generally modest), mild elevation of serum creatinine (often reversible) |
+
+### Key Points & Risk Factors
+
+- **Renal function**: Metformin is contraindicated in eGFR < 30 mL/min/1.73 m²; dose reduction is required when eGFR is 30–45 mL/min/1.73 m².
+- **Acute illness** (e.g., dehydration, sepsis, cardiac failure, major surgery) can precipitate lactic acidosis → temporarily hold the drug.
+- **Alcohol**: Excess intake increases lactic acidosis risk.
+- **Pregnancy & lactation**: Generally considered safe (Category B), but monitor for GI upset.
+- **Drug interactions**: Cimet",102,512,614,1774.22,0.000362,-0.1005,-0.538,0.4198,True,PASS,1777662225.7844436,,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",basic_rag,"Metformin’s most common adverse effects are gastrointestinal:
+
+- **Nausea, vomiting, abdominal discomfort**
+- **Diarrhea** (often the dose‑limiting symptom)
+- **Loss of appetite** and a metallic taste
+
+Less frequent but clinically important reactions include:
+
+- **Lactic acidosis** – a rare, serious condition that can occur in patients with renal impairment, hepatic disease, or severe hypoxia.
+- **Vitamin B12 deficiency** – long‑term therapy may reduce B12 absorption, leading to anemia or neuropathy.
+- **Skin reactions** such as rash or, rarely, hypersensitivity.
+
+These side effects are usually dose‑related and often improve with gradual",668,300,968,1246.09,0.000571,0.2561,-0.024,0.5654,True,PASS,1777662235.987254,5.0,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",graphrag,"Common side effects of metformin include gastrointestinal symptoms such as nausea, diarrhea, abdominal discomfort, and a metallic taste; it can also lead to vitamin B12 deficiency with long‑term use. Rare but serious adverse effects are lactic acidosis, especially in patients with renal impairment or other risk factors.",119,140,259,2073.09,0.000153,0.5155,0.2775,0.7735,True,PASS,1777662246.3262568,,5.0
+s04,1,What causes Anemia?,"Anemia is caused by iron deficiency, vitamin B12 deficiency, chronic disease, or blood loss.",llm_only,"**Anemia** is a condition in which the blood lacks enough healthy red blood cells (RBCs) or hemoglobin to carry adequate oxygen to the body’s tissues. The underlying causes can be grouped into four main categories:
+
+| Category | Typical Mechanisms | Common Examples |
+|----------|-------------------|-----------------|
+| **1. Decreased RBC production** | • Insufficient raw materials (iron, vitamin B12, folate) <br>• Impaired marrow function or hormonal signals | • Iron‑deficiency anemia (dietary lack, chronic GI loss) <br>• Vitamin B12 or folate deficiency (poor intake, malabsorption, pernicious anemia) <br>• Anemia of chronic disease/inflammation (CKD, rheumatoid arthritis, cancer) <br>• Aplastic anemia (bone‑marrow failure) <br>• Myelodysplastic syndromes, leukemia, lymphoma |
+| **2. Increased RBC loss** | • Acute or chronic bleeding that exceeds the marrow’s ability to replace cells | • Gastrointestinal bleeding (ulcers, malignancy, angiodysplasia) <br>• Menstrual or obstetric blood loss <br>• Trauma or surgery <br>• Hemorrhagic disorders (e.g., anticoagulant therapy, coagulopathies) |
+| **3. Premature RBC destruction (hemolysis)** | • Intrinsic RBC defects or extrinsic immune/mechanical forces that shorten RBC lifespan | • Hereditary hemolytic anemias (sickle cell disease, thalassemia, hereditary spherocytosis, G6PD deficiency) <br>• Autoimmune hemolytic anemia <br>• Mechanical hemolysis (prosthetic heart valves, microangiopathic processes such as TTP/HUS) <br>• Infections (malaria, babesiosis) <br>• Certain drugs (e.g., quinine, penicillins) |
+| **4. Dilutional (relative) anemia** | • Expansion of plasma volume without a proportional rise in RBC mass | • Pregnancy <br>• Chronic heart failure or renal disease",98,512,610,2593.56,0.00036,-0.0339,-0.5066,0.5358,True,PASS,1777662257.1831279,,
+s04,1,What causes Anemia?,"Anemia is caused by iron deficiency, vitamin B12 deficiency, chronic disease, or blood loss.",basic_rag,"Anemia arises when the blood’s capacity to carry oxygen is reduced, most commonly due to:
+
+* **Blood loss** – surgical or traumatic bleeding can lower hematocrit, producing pre‑operative anemia.  
+* **Nutr",638,300,938,2441.85,0.000553,0.2508,0.1054,0.403,False,FAIL,1777662267.9446182,5.0,
+s04,1,What causes Anemia?,"Anemia is caused by iron deficiency, vitamin B12 deficiency, chronic disease, or blood loss.",graphrag,"Anemia results when red‑blood‑cell production is insufficient, when red cells are destroyed too quickly, or when blood is lost. Common causes include iron, vitamin B12 or folate deficiency; chronic kidney disease, inflammatory or malignant diseases that suppress marrow; hereditary or acquired hemolytic disorders; and acute or chronic hemorrhage.",115,151,266,2020.15,0.000157,0.4922,0.2978,0.6994,True,PASS,1777662277.9636846,,5.0
+s05,1,How is Asthma treated?,"Asthma is treated with inhaled corticosteroids, bronchodilators like albuterol, and avoiding triggers.",llm_only,"**Asthma treatment follows a step‑wise, individualized plan that includes both quick‑relief (rescue) measures for acute symptoms and long‑term controller therapy to reduce inflammation and prevent attacks.**  
+
+---
+
+### 1. Acute (rescue) treatment
+| Situation | First‑line medication | Typical dose & route | Add‑on if needed |
+|-----------|----------------------|----------------------|------------------|
+| Sudden wheeze, cough, dyspnea (mild‑moderate) | **Short‑acting β₂‑agonist (SABA)** – albuterol (salbutamol) | 1–2 puffs (90‑100 µg per puff) via metered‑dose inhaler (MDI) with spacer **or** 2.5 mg nebulized every 20 min × 3 doses | If no response → oral corticosteroid (prednisone 40‑60 mg daily × 5‑7 days) |
+| Severe exacerbation (hospital/ED) | **High‑flow O₂** + **SABA** (neb. 2.5 mg every 20 min) | Add **systemic corticosteroid** (IV methylprednisolone 40‑125 mg) | Consider **ipratropium bromide** (0.5 mg neb.) and **magnesium sulfate** (2 g IV) for refractory cases |
+
+---
+
+### 2. Long‑term controller (maintenance) therapy
+| Step (GINA 2024) | Preferred controller(s) | When to add |
+|------------------|------------------------|-------------|
+| **Step 1** (intermittent symptoms) | As‑needed low‑dose **ICS‑formoterol** (or SABA)",99,512,611,2690.12,0.00036,-0.1936,-0.5755,0.2507,True,PASS,1777662287.995477,,
+s05,1,How is Asthma treated?,"Asthma is treated with inhaled corticosteroids, bronchodilators like albuterol, and avoiding triggers.",basic_rag,"Asthma is managed with two complementary strategies:
+
+**1. Maintenance (long‑term) therapy**  
+* **Inhaled corticosteroids (ICS)** – the most effective controller; they reduce airway inflammation and lower hospital admission rates, outperforming cromones in comparative studies.  
+* **Other controller options** – cromones can be used, but evidence shows they are less effective than ICS for preventing admissions.  
+
+**2. Acute‑exacerbation (short‑term) therapy**  
+* **Systemic corticosteroids** – a short course (≈5 days) of oral prednisone or prednisolone is standard.  
+* **Dexamethasone** – an effective alternative to",611,300,911,1268.73,0.000537,0.0855,-0.1588,0.3521,False,FAIL,1777662297.722257,5.0,
+s05,1,How is Asthma treated?,"Asthma is treated with inhaled corticosteroids, bronchodilators like albuterol, and avoiding triggers.",graphrag,"Asthma is managed with **quick‑relief (rescue) medications** such as short‑acting β2‑agonist inhalers to reverse acute bronchoconstriction, and **controller (maintenance) therapies** like inhaled corticosteroids (often combined with long‑acting β2‑agonists) to reduce airway inflammation. For moderate‑to‑severe disease, additional options include leukotriene receptor antagonists, oral steroids during exacerbations, and biologic agents (e.g., anti‑IL‑5, anti‑IgE) for patients with refractory eosinophilic or allergic asthma. Avoiding known triggers and having an individualized asthma action plan are also essential components of treatment.",116,231,347,952.03,0.000205,0.2421,-0.0266,0.5376,True,PASS,1777662306.1389081,,5.0

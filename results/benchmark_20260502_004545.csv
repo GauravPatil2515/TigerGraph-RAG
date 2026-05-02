@@ -1,0 +1,482 @@
+query_id,hop_level,query,reference,pipeline_name,answer,tokens_prompt,tokens_completion,total_tokens,latency_ms,cost_usd,bert_f1,bert_precision,bert_recall,llm_judge_passed,llm_judge_raw,timestamp,retrieved_docs_count,graph_context_tokens
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",llm_only,"**Common symptoms of Type 2 diabetes**
+
+| Symptom | Typical description |
+|---------|----------------------|
+| **Increased thirst (polydipsia)** | Feeling unusually thirsty despite adequate fluid intake |
+| **Frequent urination (polyuria)** | Need to urinate more often, especially at night |
+| **Increased hunger (polyphagia)** | Persistent feeling of hunger even after eating |
+| **Unexplained weight loss or gain** | Often weight loss despite normal eating; some people gain weight due to insulin resistance |
+| **Fatigue** | Persistent tiredness or lack of energy |
+| **Blurred vision** | Vision may become fuzzy, especially after meals |
+| **Slow wound healing** | Cuts, sores, or infections take longer to heal |
+| **Recurrent infections** | Especially skin, gum, urinary‑tract, or yeast infections |
+| **Numbness or tingling** | In the hands or feet (early signs of peripheral neuropathy) |
+| **Darkened skin patches** | “Acanthosis nigricans” – thick, velvety dark areas, often on the neck, armpits, or groin |
+
+**Note:** Many people with early‑stage Type 2 diabetes have no noticeable symptoms; the condition is often discovered through routine blood‑glucose screening. If you experience any of the above signs, especially in combination, it’s advisable to consult a healthcare professional for evaluation.",103,367,470,2606.02,0.000277,-0.0895,-0.4003,0.2601,True,PASS,1777662955.9267955,,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",basic_rag,"Common symptoms of type 2 diabetes include:
+
+- **Increased thirst (polydipsia)** and frequent urination (polyuria)  
+- **Increased hunger (polyphagia)** despite eating normally  
+- Unexplained **weight loss** or difficulty losing weight  
+- **Fatigue** or feeling unusually tired  
+- **Blurred vision** that comes on gradually  
+- **Recurrent infections** (e.g., skin, urinary tract, yeast infections)  
+- **Slow‑healing cuts or bruises** and other wound‑healing problems  
+- Numbness, tingling, or pain in the hands or feet (early signs of neuropathy)  
+
+These symptoms",624,300,924,2168.79,0.000545,0.1562,-0.1572,0.5076,True,PASS,1777662962.0527983,5.0,
+s01,1,What are the symptoms of Type 2 Diabetes?,"Symptoms include increased thirst, frequent urination, fatigue, blurred vision, and slow-healing sores.",graphrag,"Common symptoms of type 2 diabetes include increased thirst and hunger, frequent urination, unexplained weight loss or gain, fatigue, blurred vision, slow‑healing cuts or infections, and tingling or numbness in the hands or feet.",120,126,246,956.25,0.000145,0.5798,0.4033,0.7669,True,PASS,1777662966.9633393,,5.0
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",llm_only,"Several drug classes are commonly used to treat hypertension, including:
+
+- **Thiazide diuretics** (e.g., hydrochlorothiazide)  
+- **ACE inhibitors** (e.g., lisinopril)  
+- **Angiotensin II receptor blockers (ARBs)** (e.g., losartan)  
+- **Calcium‑channel blockers** (e.g., amlodipine)  
+- **Beta‑blockers** (e.g., metoprolol)  
+
+First‑line therapy often starts with a thiazide diuretic, an ACE inhibitor, an ARB, or a calcium‑channel blocker, depending on the patient’s comorbidities and tolerance.",102,262,364,1358.74,0.000215,0.2089,-0.0944,0.5473,True,PASS,1777662971.8373494,,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",basic_rag,"Common antihypertensive drugs include ACE inhibitors (e.g., enalapril, lisinopril), angiotensin‑II receptor blockers (e.g., losartan, valsartan), calcium‑channel blockers (e.g., amlodipine, diltiazem), thiazide diuretics (e.g., hydrochlorothiazide), and beta‑blockers (e.g., atenolol, metoprol",625,300,925,2491.21,0.000546,0.2958,-0.0135,0.6412,True,PASS,1777662978.0151522,5.0,
+s02,1,What drug is used to treat Hypertension?,"Common drugs include ACE inhibitors like lisinopril, beta-blockers, calcium channel blockers, and diuretics.",graphrag,"Lisinopril, an ACE‑inhibitor, is commonly used as a first‑line oral medication for treating hypertension. Other first‑line options include thiazide diuretics, calcium‑channel blockers, and ARBs.",119,131,250,1159.4,0.000148,0.5129,0.3792,0.6523,True,PASS,1777662982.9309855,,5.0
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",llm_only,"**Metformin – Common and Important Side‑Effect Profile**
+
+| Category | Typical Frequency | Examples of Side Effects |
+|----------|-------------------|--------------------------|
+| **Gastro‑intestinal** | Very common (up to 30 % of patients) | Nausea, vomiting, abdominal discomfort, loss of appetite, diarrhea, metallic taste, bloating, flatulence |
+| **Vitamin B12 deficiency** | 5–10 % after ≥1 year of therapy | Decreased B12 levels → anemia, peripheral neuropathy, cognitive changes (often asymptomatic at first) |
+| **Lactic acidosis (rare but serious)** | <0.1 % (≈1 case per 30,000 patient‑years) | Metabolic acidosis with elevated lactate, muscle pain, rapid breathing, somnolence; risk ↑ with renal/hepatic impairment, hypoxia, sepsis, alcohol intoxication |
+| **Hypoglycemia** | Uncommon when used alone (rare) | Usually only when combined with insulin or secretagogues (e.g., sulfonylureas) |
+| **Dermatologic** | Infrequent | Rash, pruritus, urticaria, rare Stevens‑Johnson syndrome |
+| **Hepatic effects** | Rare | Elevated transaminases, hepatitis‑like picture (usually reversible) |
+| **Other** | Occasional | Headache, dizziness, fatigue, weight loss (generally modest), mild elevation of serum creatinine (due to reduced GFR) |
+
+### Key Points & Precautions
+- **Renal function:** Metformin is contraindicated in eGFR < 30 mL/min/1.73 m²; dose reduction is required when eGFR is 30–45 mL/min/1.73 m².
+- **Acute illness:** Hold metformin during severe dehydration, surgery, contrast imaging, or any condition that may precipitate renal dysfunction or hypoxia.
+- **Alcohol:** Excessive intake increases lactic‑acidosis risk.
+- **Pregnancy & lactation:** Generally considered safe (Category B); monitor for GI upset.
+- **Monitoring:** Check serum B12 annually (or sooner",102,512,614,3016.41,0.000362,-0.1024,-0.5402,0.4184,True,PASS,1777662989.29648,,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",basic_rag,"Metformin’s most common adverse effects are gastrointestinal:
+
+- **Nausea, vomiting, abdominal discomfort, and loss of appetite**
+- **Diarrhea** (often the dose‑limiting symptom)
+- **Metallic taste** or flatulence
+
+Less frequent but clinically important effects include:
+
+- **Lactic acidosis** – a rare, serious complication that can occur in patients with renal impairment, hepatic disease, or conditions that predispose to hypoxia.
+- **Vitamin B12 deficiency** – long‑term therapy may reduce B12 absorption, leading to anemia or neuropathy.
+- **Hypoglycemia** – uncommon when metformin is used alone, but risk increases when combined with other glucose‑lowering agents (e.g., sulfonylureas, insulin).
+
+These side effects are generally dose‑related",668,300,968,1302.23,0.000571,0.2055,-0.1107,0.56,True,PASS,1777662994.4192405,5.0,
+s03,1,What are the side effects of Metformin?,"Side effects include nausea, diarrhea, stomach upset, and rarely lactic acidosis.",graphrag,"Common side effects of metformin include gastrointestinal symptoms such as nausea, diarrhea, abdominal discomfort, and a metallic taste; it can also lead to vitamin B12 deficiency with long‑term use. Rare but serious adverse effects are lactic acidosis, especially in patients with renal impairment or other risk factors.",119,140,259,731.08,0.000153,0.5155,0.2775,0.7735,True,PASS,1777662998.9060585,,5.0
+s04,1,What causes Anemia?,"Anemia is caused by iron deficiency, vitamin B12 deficiency, chronic disease, or blood loss.",llm_only,"**Anemia** is a condition in which the blood lacks enough healthy red blood cells (RBCs) or hemoglobin to carry adequate oxygen to the body’s tissues. The underlying causes can be grouped into four main categories:
+
+| Category | Typical Mechanisms | Common Examples |
+|----------|-------------------|-----------------|
+| **1. Decreased RBC production** | • Insufficient nutrients needed for erythropoiesis  <br>• Bone‑marrow failure or infiltration  <br>• Hormonal (e.g., low erythropoietin) or genetic defects | • Iron‑deficiency anemia (dietary lack, chronic blood loss) <br>• Vitamin B12 or folate deficiency (poor intake, malabsorption, pernicious anemia) <br>• Aplastic anemia, myelodysplastic syndromes, leukemia, lymphoma, myelofibrosis <br>• Chronic kidney disease (low erythropoietin) |
+| **2. Increased RBC destruction (hemolysis)** | • Intrinsic RBC membrane, enzyme, or hemoglobin defects  <br>• Autoimmune or mechanical damage  <br>• Infections or toxins | • Hereditary spherocytosis, sickle‑cell disease, G6PD deficiency, thalassemia <br>• Autoimmune hemolytic anemia, drug‑induced hemolysis <br>• Mechanical hemolysis (prosthetic heart valves, microangiopathic processes such as TTP/HUS) |
+| **3. Acute or chronic blood loss** | • External loss (trauma, surgery, gastrointestinal bleeding) <br>• Internal loss (menstruation, uterine fibroids, cancers) | • Peptic ulcer disease, colorectal cancer, diverticulosis, hemorrhoids <br>• Heavy menstrual bleeding (menorrhagia) <br>• Post‑operative or traumatic hemorrhage |
+| **4. Anemia of chronic disease/inflammation** | • Cytokine‑mediated sequestration of iron and reduced erythropoietin response  <br>• Shortened RBC lifespan | • Rheumatoid arthritis, systemic lupus",98,512,610,3412.04,0.00036,-0.0489,-0.519,0.5174,True,PASS,1777663005.4565587,,
+s04,1,What causes Anemia?,"Anemia is caused by iron deficiency, vitamin B12 deficiency, chronic disease, or blood loss.",basic_rag,,638,300,938,3601.79,0.000553,0.0,0.0,0.0,False,FAIL,1777663012.8318503,5.0,
+s04,1,What causes Anemia?,"Anemia is caused by iron deficiency, vitamin B12 deficiency, chronic disease, or blood loss.",graphrag,"Anemia results when red‑blood‑cell production is insufficient, when red cells are destroyed too quickly, or when blood is lost. Common causes include iron, vitamin B12 or folate deficiency; chronic kidney disease, inflammatory or malignant diseases that suppress marrow; hereditary or acquired hemolytic disorders; and acute or chronic hemorrhage.",115,151,266,1780.32,0.000157,0.4922,0.2978,0.6994,True,PASS,1777663018.1532562,,5.0
+s05,1,How is Asthma treated?,"Asthma is treated with inhaled corticosteroids, bronchodilators like albuterol, and avoiding triggers.",llm_only,"**Asthma treatment is aimed at controlling symptoms, preventing exacerbations, and preserving lung function. Management combines medication, trigger avoidance, and self‑monitoring.**
+
+| Goal | Typical Approach |
+|------|-------------------|
+| **Rapid relief of acute symptoms** | • **Short‑acting β₂‑agonists (SABA)** – albuterol, levalbuterol (inhaler or nebulizer).<br>• **Systemic corticosteroids** for moderate‑to‑severe exacerbations (prednisone/prednisolone oral or methylprednisolone IV). |
+| **Long‑term control (preventive)** | **Inhaled corticosteroids (ICS)** – first‑line for persistent asthma (e.g., budesonide, fluticasone).<br>**Combination inhalers** – low‑dose ICS + long‑acting β₂‑agonist (LABA) (e.g., fluticasone/salmeterol, budesonide/formoterol).<br>**Leukotriene receptor antagonists (LTRAs)** – montelukast, zafirlukast (add‑on or alternative for mild disease).<br>**Long‑acting muscarinic antagonists (LAMA)** – tiotropium (add‑on for moderate‑severe disease).<br>**Biologic agents** for severe eosinophilic or allergic asthma: <br> • Anti‑IgE: omalizumab<br> • Anti‑IL‑5/IL‑5R: mepolizumab, benralizumab, reslizumab<br> • Anti‑IL‑4Rα: dupilumab |
+| **Trigger avoidance & environmental control** | • Identify allergens (dust mites, pet dander, pollen, mold, cockroach) and reduce exposure.<br>• Eliminate tobacco smoke and occupational irritants.<br>• Use air filters, dehumidifiers, mattress covers, etc. |
+| **Self‑management** | • **Written",99,512,611,1777.48,0.00036,-0.1094,-0.5436,0.4065,True,PASS,1777663022.868935,,
+s05,1,How is Asthma treated?,"Asthma is treated with inhaled corticosteroids, bronchodilators like albuterol, and avoiding triggers.",basic_rag,"Asthma is managed with two main therapeutic strategies:
+
+**1. Maintenance (controller) therapy**  
+- **Inhaled corticosteroids (ICS)** are the cornerstone; they reduce airway inflammation and lower the risk of hospital admission. Studies show they are more effective than cromones for preventing asthma‑related admissions.  
+- **Other controller options** (e.g., cromones, leukotriene modifiers) may be used when ICS are unsuitable, but they are less effective for admission prevention.
+
+**2. Acute‑exacerbation (reliever) therapy**  
+- **Short‑course systemic corticosteroids** (5‑day oral prednisone or prednisolone) are standard for moderate‑to‑severe",611,300,911,1700.61,0.000537,0.1032,-0.1283,0.3545,False,FAIL,1777663028.1910124,5.0,
+s05,1,How is Asthma treated?,"Asthma is treated with inhaled corticosteroids, bronchodilators like albuterol, and avoiding triggers.",graphrag,"Asthma is managed with **quick‑relief (rescue) medications** such as short‑acting β2‑agonist inhalers to reverse acute bronchoconstriction, and **controller (maintenance) therapies** like inhaled corticosteroids (often combined with long‑acting β2‑agonists) to reduce airway inflammation. For moderate‑to‑severe disease, additional options include leukotriene receptor antagonists, oral steroids during exacerbations, and biologic agents (e.g., anti‑IL‑5, anti‑IgE) for patients with refractory eosinophilic or allergic asthma. Avoiding known triggers and having an individualized asthma action plan are also essential components of treatment.",116,231,347,1978.19,0.000205,0.2421,-0.0266,0.5376,True,PASS,1777663033.7541735,,5.0
+s06,1,What are symptoms of Hypertension?,"Often called the silent killer, symptoms include headaches, shortness of breath, nosebleeds in severe cases.",llm_only,"**Hypertension (high blood pressure) is often called the “silent killer” because most people have no obvious symptoms.** When symptoms do occur, they are usually nonspecific and tend to appear only when blood pressure is markedly elevated (≥ 180/120 mm Hg) or when complications develop.
+
+| Commonly reported symptoms (usually in severe or uncontrolled hypertension) |
+| -------------------------------------------------------------------------- |
+| • **Headache** – often described as a throbbing or pressure‑type pain, typically in the occipital region |
+| • **Dizziness or light‑headedness** |
+| • **Blurred or “spotty” vision** (due to retinal vessel changes) |
+| • **Chest discomfort or pain** (possible sign of cardiac strain) |
+| • **Shortness of breath** (especially on exertion) |
+| • **Nosebleeds** (epistaxis) |
+| • **Palpitations** (awareness of rapid or irregular heartbeat) |
+| • **Fatigue or weakness** |
+| • **Feeling of “fullness” in the head** or “pressure” in the ears |
+
+### Key points
+- **Most people with mild‑to‑moderate hypertension feel completely normal.** Routine blood‑pressure checks are essential for detection.
+- When symptoms are present, they are not specific to hypertension and can overlap with many other conditions; therefore, they should prompt a medical evaluation rather than be taken as a definitive diagnosis.
+- Persistent or sudden onset of any of the above symptoms, especially headache, chest pain, shortness of breath, or visual changes, warrants immediate medical attention, as they may indicate hypertensive urgency/emergency or end‑organ damage.",100,426,526,2558.77,0.00031,-0.0589,-0.4201,0.3561,True,PASS,1777663039.6630442,,
+s06,1,What are symptoms of Hypertension?,"Often called the silent killer, symptoms include headaches, shortness of breath, nosebleeds in severe cases.",basic_rag,"Hypertension is frequently “silent,” with most patients having no obvious symptoms. When symptoms do occur, they are usually nonspecific and may include:
+
+- **Headache** (often described as a dull, throbbing pain, especially in the occipital region)  
+- **Dizziness or light‑headedness**  
+- **Blurred or impaired vision** (due to retinal changes)  
+- **Palpitations or a feeling of a rapid heartbeat**  
+- **Chest discomfort or tightness**  
+- **Shortness of breath** on exertion  
+- **Fatigue** or a general sense of malaise  
+
+Because these signs are vague, hypertension is often detected only through routine blood",610,300,910,2434.54,0.000537,0.0939,-0.1477,0.3571,True,PASS,1777663046.2148683,5.0,
+s06,1,What are symptoms of Hypertension?,"Often called the silent killer, symptoms include headaches, shortness of breath, nosebleeds in severe cases.",graphrag,"Hypertension is often called a “silent” condition because most people have no obvious symptoms; it is usually detected by routine blood‑pressure measurement. When symptoms do occur, they may include persistent headaches, dizziness, blurred vision, shortness of breath, chest discomfort, or a pounding sensation in the neck or ears. If you notice any of these signs, especially alongside high readings, you should have your blood pressure checked by a healthcare professional.",117,157,274,2590.7,0.000162,0.3374,0.1761,0.5072,True,PASS,1777663052.1517801,,5.0
+s07,1,What is the treatment for Iron Deficiency Anemia?,"Treatment includes iron supplements, dietary changes, and treating underlying causes of blood loss.",llm_only,"**Iron‑deficiency anemia (IDA) is treated by replenishing iron stores, correcting the underlying cause, and monitoring response.**  
+
+| Step | What to do | Typical details |
+|------|------------|-----------------|
+| **1. Identify & treat the cause** | Stop bleeding, treat malabsorption, address dietary insufficiency, manage chronic disease, etc. | e.g., treat GI ulcer, hookworm, heavy menstrual bleeding, celiac disease. |
+| **2. Iron replacement** | **First‑line: oral iron** | • Ferrous sulfate 325 mg (≈ 65 mg elemental Fe) 1–3 × daily <br>• Alternatives: ferrous gluconate, ferrous fumarate, or newer formulations (polysaccharide‑iron complex, ferric maltol) that cause fewer GI side effects. <br>• Take on an empty stomach with water or orange juice; avoid calcium, antacids, tea/coffee within 2 h. |
+| | **If oral iron is not tolerated or ineffective** | • Intravenous iron (e.g., iron sucrose, ferric gluconate, ferric carboxymaltose, iron isomaltoside). <br>• Indications: severe anemia (Hb < 8 g/dL), malabsorption, ongoing blood loss, pregnancy with rapid correction needed, or intolerance to oral iron. |
+| | **Severe or symptomatic anemia** | • Red blood cell transfusion (1 unit raises Hb ≈ 1 g/dL) – reserved for hemodynamic instability, cardiac ischemia, or when rapid rise is required. |
+| **3. Adjuncts** | • Vitamin C (250–500 mg) with each dose to improve absorption. <br>• Folate (0.4–1 mg daily) if folate deficiency co‑exists. |
+| **4. Monitoring** | • Hemoglobin & hematocrit: re‑check in 2–4 weeks. <br>• Reticulocyte count rises within 7",104,512,616,2586.06,0.000363,-0.1249,-0.5721,0.4098,True,PASS,1777663058.030009,,
+s07,1,What is the treatment for Iron Deficiency Anemia?,"Treatment includes iron supplements, dietary changes, and treating underlying causes of blood loss.",basic_rag,"Iron deficiency anemia is treated by replenishing body iron stores and correcting the underlying cause of the loss or poor absorption.
+
+**First‑line therapy**
+- **Oral iron salts** (ferrous sulfate, ferrous gluconate, or ferrous fumarate) 100–200 mg elemental iron daily, divided into 2–3 doses.  
+- Take on an empty stomach with water or orange juice to improve absorption; avoid calcium, antacids, tea/coffee within 2 h.  
+- Continue for 3–6 months after hemoglobin normalizes to refill stores (check ferritin).
+
+**Dietary measures**
+- Increase intake of heme iron (red meat, poultry, fish) and non‑heme iron (legumes, fortified cereals, leafy greens) plus vitamin C‑rich foods to enhance absorption.
+
+**When oral iron is unsuitable**
+- **Intravenous iron** (e.g., iron sucrose, ferric gluconate, ferric carboxymaltose) for patients with malabsorption, intolerance to oral iron, severe anemia",638,300,938,1186.24,0.000553,0.0573,-0.2861,0.4479,True,PASS,1777663062.7990704,5.0,
+s07,1,What is the treatment for Iron Deficiency Anemia?,"Treatment includes iron supplements, dietary changes, and treating underlying causes of blood loss.",graphrag,"Iron deficiency anemia is treated primarily with iron replacement—typically oral ferrous salts (e.g., ferrous sulfate 325 mg ≈ 65 mg elemental iron) taken 1–3 times daily, along with dietary counseling to increase iron‑rich foods and vitamin C for better absorption. If oral therapy is ineffective, not tolerated, or the anemia is severe, intravenous iron preparations or, rarely, blood transfusion may be used, while also addressing any underlying source of blood loss.",121,192,313,1485.57,0.000185,0.2374,0.0034,0.4913,True,PASS,1777663067.277194,,5.0
+s08,1,What are the symptoms of Kidney Disease?,"Symptoms include fatigue, swollen ankles, shortness of breath, nausea, and decreased urine output.",llm_only,"**Kidney disease (chronic or acute) often develops slowly, so early stages may have few or no noticeable signs. When symptoms do appear, they commonly include:**
+
+- **Changes in urine**
+  - Increased or decreased frequency
+  - Foamy, bubbly, or frothy urine (protein)
+  - Dark‑colored (tea‑colored) urine
+  - Blood in the urine (hematuria)
+  - Difficulty starting urination or a weak stream
+
+- **Swelling (edema)**
+  - Hands, feet, ankles, or around the eyes due to fluid retention
+
+- **Fatigue & weakness**
+  - Reduced red‑blood‑cell production (anemia) leads to tiredness and shortness of breath
+
+- **Shortness of breath**
+  - Fluid buildup in the lungs or anemia‑related low oxygen delivery
+
+- **Persistent itching (pruritus)**
+  - Build‑up of waste products in the skin
+
+- **Loss of appetite, nausea, or vomiting**
+  - Accumulation of toxins can affect the gastrointestinal tract
+
+- **Metallic taste in the mouth & bad breath**
+  - Uremic toxins cause a “urine‑like” taste or odor
+
+- **High blood pressure (hypertension)**
+  - Kidneys help regulate blood pressure; dysfunction often raises it
+
+- **Muscle cramps or restless legs**
+  - Electrolyte imbalances (especially low calcium or high phosphorus)
+
+- **Difficulty concentrating or mental confusion**
+  - Uremia can affect brain function, especially in advanced disease
+
+- **Bone pain or fractures**
+  - Disturbed calcium/phosphorus balance leads to renal osteodystrophy
+
+**Key point:** Many people with early chronic kidney disease have no symptoms; routine blood tests (eGFR, creatinine) and urine analysis are essential for detection. If you notice any of the above, especially persistent swelling, changes in urine, or uncontrolled hypertension, seek medical evaluation promptly.",101,479,580,2821.17,0.000342,-0.0433,-0.3899,0.3523,True,PASS,1777663073.2446508,,
+s08,1,What are the symptoms of Kidney Disease?,"Symptoms include fatigue, swollen ankles, shortness of breath, nausea, and decreased urine output.",basic_rag,"Common symptoms of kidney disease include:
+
+- **Fluid retention**: swelling (edema) in the legs, ankles, feet, or around the eyes.
+- **Changes in urination**: increased or decreased frequency, foamy or bubbly urine, dark‑colored urine, or difficulty urinating.
+- **Fatigue and weakness**: due to anemia and toxin buildup.
+- **Shortness of breath**: from fluid accumulation in the lungs or anemia.
+- **Loss of appetite, nausea, and vomiting**: caused by waste products in the blood.
+- **Itching (pruritus)**: from excess phosphorus and waste accumulation.
+- **High blood pressure**: often resistant to treatment.
+- **Muscle cramps and restless legs**: related to electrolyte imbalances.
+- **Metallic taste in the",660,300,960,1010.68,0.000566,0.2302,-0.0433,0.5317,True,PASS,1777663078.1575296,5.0,
+s08,1,What are the symptoms of Kidney Disease?,"Symptoms include fatigue, swollen ankles, shortness of breath, nausea, and decreased urine output.",graphrag,"Kidney disease often causes swelling (edema) in the legs, ankles, or face, fatigue and weakness, and changes in urination such as increased frequency, foamy or bloody urine, or reduced output. Other common signs include high blood pressure, loss of appetite, nausea, and persistent itching. Early detection is important because symptoms may be subtle at first.",118,130,248,755.08,0.000146,0.4589,0.3108,0.6141,True,PASS,1777663082.2685282,,5.0
+s09,1,What causes Type 1 Diabetes?,Type 1 Diabetes is caused by autoimmune destruction of insulin-producing beta cells in the pancreas.,llm_only,"Type 1 diabetes is an autoimmune disease in which the body’s immune system mistakenly attacks and destroys the insulin‑producing β‑cells of the pancreatic islets of Langerhans.  
+
+**Key contributors**
+
+| Factor | How it contributes |
+|--------|---------------------|
+| **Genetic susceptibility** | Certain HLA class II alleles (e.g., HLA‑DR3, DR4, DQ8) and non‑HLA genes (INS, PTPN22, IL2RA, etc.) increase the risk, but no single gene is determinative. |
+| **Autoimmune dysregulation** | Loss of immune tolerance leads to autoreactive T‑cells and auto‑antibodies (e.g., GAD65, IA‑2, ZnT8) that infiltrate the pancreas (insulitis) and kill β‑cells. |
+| **Environmental triggers** | • Viral infections (coxsackie‑B, enteroviruses, rubella, cytomegalovirus) that may mimic β‑cell antigens or cause by‑stander inflammation.<br>• Early‑life factors such as rapid weight gain, cow‑milk exposure, or vitamin D deficiency that modulate immune development.<br>• Gut microbiome alterations that affect systemic immunity.<br>• Certain toxins or dietary components (e.g., nitrosamines) have been suggested but lack definitive proof. |
+| **Other modifiers** | • Sex (boys slightly more affected in childhood).<br>• Geographic and seasonal patterns (higher incidence in northern latitudes and in winter/spring births), implying a role for sunlight‑vitamin D and viral seasonality. |
+
+In summary, type 1 diabetes results from a combination of **genetic predisposition** and **environmental/immune triggers** that together cause an autoimmune attack on pancreatic β‑cells, leading to absolute insulin deficiency. Lifestyle factors such as diet or obesity do not cause the disease, though they can influence its clinical course.",100,471,571,4014.88,0.000337,-0.0011,-0.4592,0.547,True,PASS,1777663089.4266236,,
+s09,1,What causes Type 1 Diabetes?,Type 1 Diabetes is caused by autoimmune destruction of insulin-producing beta cells in the pancreas.,basic_rag,"Type 1 diabetes is caused by an autoimmune attack that destroys the insulin‑producing β‑cells of the pancreatic islets. Genetic susceptibility (e.g., HLA‑DR/DQ alleles and other loci such as the insulin and PTPN22 genes) predisposes individuals, but the disease typically requires an environmental trigger—such as viral infections, early‑life diet factors, or gut microbiome changes—to initiate the immune response. The resulting loss of β‑cell mass leads to absolute insulin deficiency, requiring lifelong exogenous insulin therapy.",628,225,853,1301.17,0.000503,0.3752,0.1292,0.643,True,PASS,1777663094.3398352,5.0,
+s09,1,What causes Type 1 Diabetes?,Type 1 Diabetes is caused by autoimmune destruction of insulin-producing beta cells in the pancreas.,graphrag,Type 1 diabetes is caused by an autoimmune attack that destroys the insulin‑producing β‑cells of the pancreas; this loss of β‑cells is driven by a combination of genetic susceptibility and environmental triggers such as certain viral infections or other immune‑system stressors.,117,109,226,955.93,0.000133,0.5905,0.4033,0.7896,True,PASS,1777663098.84622,,5.0
+s10,1,How is Depression treated?,"Depression is treated with antidepressants, psychotherapy, lifestyle changes, and in severe cases, ECT.",llm_only,"**Depression (major depressive disorder) is usually managed with a combination of pharmacologic, psychologic, and lifestyle interventions. The exact plan is tailored to the individual’s severity, history, comorbidities, and preferences.**
+
+---
+
+### 1. Pharmacotherapy  
+| Drug class | Common agents | Typical use | Key points |
+|------------|---------------|-------------|------------|
+| **Selective serotonin reuptake inhibitors (SSRIs)** | Fluoxetine, sertraline, escitalopram, citalopram, paroxetine | First‑line for most adults | Generally well‑tolerated; may cause GI upset, sexual dysfunction, insomnia; start low, titrate slowly |
+| **Serotonin‑norepinephrine reuptake inhibitors (SNRIs)** | Venlafaxine, duloxetine, desvenlafaxine | First‑line; useful when pain or anxiety co‑occur | Can raise blood pressure at higher doses; similar side‑effect profile to SSRIs |
+| **Atypical antidepressants** | Bupropion, mirtazapine, vortioxetine | Adjunct or alternative when SSRIs/SNRIs not tolerated | Bupropion → less sexual side effects, may increase seizure risk; Mirtazapine → appetite/weight gain, sedation |
+| **Tricyclic antidepressants (TCAs)** | Amitriptyline, nortriptyline, imipramine | Second‑line or for treatment‑resistant cases | Anticholinergic, cardiac toxicity; require ECG monitoring in older adults |
+| **Monoamine oxidase inhibitors (MAOIs)** | Phenelzine, tranylcypromine | Rarely used; effective for atypical depression | Dietary tyramine restrictions; drug‑interaction risk |
+| **Rapid‑acting agents** | **Ketamine (IV",98,512,610,2592.35,0.00036,-0.0509,-0.507,0.4952,True,PASS,1777663104.5411599,,
+s10,1,How is Depression treated?,"Depression is treated with antidepressants, psychotherapy, lifestyle changes, and in severe cases, ECT.",basic_rag,"Depression is managed with a combination of **pharmacologic and psychologic interventions**, guided by regular outcome monitoring.
+
+* **Medication** – Antidepressants are commonly prescribed; prescribing patterns can vary by geographic and ethnic factors.  
+* **Psychotherapy** – Structured psychological treatments (e.g., CBT, interpersonal therapy) are effective; longer treatment duration may lower the chance of patients returning to care, although causal proof is lacking.  
+* **Measurement‑based care** – Routine use of patient‑rated scales such as the PHQ‑9 is feasible even in low‑resource settings and helps track severity and response.  
+* **Remission status** – Achieving",595,300,895,3464.58,0.000528,0.187,-0.0853,0.4872,True,PASS,1777663111.7432926,5.0,
+s10,1,How is Depression treated?,"Depression is treated with antidepressants, psychotherapy, lifestyle changes, and in severe cases, ECT.",graphrag,"Depression is typically treated with a combination of psychotherapy (such as cognitive‑behavioral therapy or interpersonal therapy) and antidepressant medications (e.g., SSRIs, SNRIs, tricyclics). In many cases, lifestyle interventions—regular exercise, adequate sleep, and social support—are added to enhance recovery, and more severe or treatment‑resistant cases may require additional options like electroconvulsive therapy or newer neuromodulation techniques.",115,139,254,646.28,0.00015,0.4132,0.1888,0.6553,True,PASS,1777663115.836133,,5.0
+t01,2,What drugs treat Hypertension and also have interactions with Metformin?,"ACE inhibitors and diuretics used for hypertension can interact with metformin, potentially affecting kidney function.",llm_only,"**Antihypertensive agents that are known to interact with metformin (clinically relevant or frequently cited in prescribing information)**  
+
+| Drug (example) | Class | How it can affect metformin use | Practical implication |
+|----------------|-------|--------------------------------|-----------------------|
+| **Lisinopril, Enalapril, Ramipril** | ACE‑inhibitor | May cause **acute kidney injury (AKI)** or worsen chronic renal impairment, especially when combined with diuretics or NSAIDs. Reduced renal clearance can raise metformin plasma levels → higher risk of **lactic acidosis**. | Check serum creatinine/eGFR before starting or dose‑adjusting either drug. Hold metformin if eGFR falls < 30 mL/min/1.73 m². |
+| **Losartan, Valsartan, Irbesartan** | ARB | Same renal‑function concerns as ACE‑inhibitors. ARBs can also cause a modest rise in serum potassium,",106,512,618,1975.71,0.000365,0.1178,-0.2406,0.5274,True,PASS,1777663120.9769216,,
+t01,2,What drugs treat Hypertension and also have interactions with Metformin?,"ACE inhibitors and diuretics used for hypertension can interact with metformin, potentially affecting kidney function.",basic_rag,"The provided excerpts do not contain any information about antihypertensive agents that have known drug‑drug interactions with metformin. Therefore, based on the given context, no specific hypertension drugs with metformin interactions can be identified.",658,199,857,3175.11,0.000506,0.3374,0.2726,0.4028,False,FAIL,1777663127.8277164,5.0,
+t01,2,What drugs treat Hypertension and also have interactions with Metformin?,"ACE inhibitors and diuretics used for hypertension can interact with metformin, potentially affecting kidney function.",graphrag,,123,250,373,1662.04,0.00022,0.0,0.0,0.0,False,FAIL,1777663133.0537844,,5.0
+t02,2,Which diseases cause symptoms that Ibuprofen can help treat?,"Ibuprofen helps with pain and inflammation in conditions like arthritis, headaches, fever, and menstrual cramps.",llm_only,"**Ibuprofen (a non‑steroidal anti‑inflammatory drug) is used to relieve pain, reduce inflammation, and lower fever.**  
+Typical diseases or conditions whose symptoms are commonly treated with ibuprofen include:
+
+- **Arthritic disorders**
+  - Osteoarthritis  
+  - Rheumatoid arthritis  
+  - Ankylosing spondylitis  
+
+- **Musculoskeletal problems**
+  - Low‑back pain, neck pain, and other spinal pain  
+  - Muscle strains and sprains  
+  - Tendinitis, bursitis, and other soft‑tissue inflammation  
+  - Gout flares (acute attacks)  
+
+- **Acute injuries and post‑operative pain**
+  - Minor fractures, contusions, and surgical site pain  
+
+- **Headache and facial pain**
+  - Tension‑type headache  
+  - Migraine (as adjunct therapy)  
+  - Dental pain (toothache, after dental procedures)  
+
+- **Menstrual (dysmenorrhea) cramps**  
+
+- **Fever and viral‑upper‑respiratory‑tract symptoms**
+  - Common cold, influenza, and other febrile illnesses  
+
+- **Other inflammatory conditions**
+  - Minor skin conditions with inflammation (e.g., mild cellulitis‑related pain)  
+  - Certain types of peripheral neuropathic pain when inflammation is a component  
+
+> **Note:** Ibuprofen treats the *symptoms* (pain, inflammation, fever) rather than the underlying disease itself. Always follow dosing guidelines and consult a healthcare professional for chronic or severe conditions.",104,468,572,4237.7,0.000337,-0.0389,-0.471,0.4728,True,PASS,1777663141.4400446,,
+t02,2,Which diseases cause symptoms that Ibuprofen can help treat?,"Ibuprofen helps with pain and inflammation in conditions like arthritis, headaches, fever, and menstrual cramps.",basic_rag,,642,300,942,1112.01,0.000556,0.0,0.0,0.0,False,FAIL,1777663145.860391,5.0,
+t02,2,Which diseases cause symptoms that Ibuprofen can help treat?,"Ibuprofen helps with pain and inflammation in conditions like arthritis, headaches, fever, and menstrual cramps.",graphrag,"Ibuprofen relieves pain, fever, and inflammation associated with conditions such as osteoarthritis, rheumatoid arthritis, gout, menstrual cramps, tension‑type or migraine headaches, dental pain, back and musculoskeletal injuries (e.g., sprains, strains, bursitis, tendinitis), and febrile illnesses caused by infections.",121,203,324,1038.74,0.000191,0.5139,0.2571,0.7942,True,PASS,1777663150.247928,,5.0
+t03,2,What conditions affect the kidney and have available drug treatments?,"Chronic kidney disease, kidney infections, and diabetic nephropathy can be treated with ACE inhibitors, antibiotics, and blood sugar control.",llm_only,"Below is a concise overview of the most common kidney‑related disorders that have specific pharmacologic therapies approved (or widely used off‑label) in clinical practice.  The list is organized by disease category, with the principal drug classes (and representative agents) that are used to treat each condition.  All drugs should be prescribed and monitored by a qualified clinician; dosing, contraindications, and drug‑disease interactions vary with the patient’s stage of kidney disease and comorbidities.
+
+| Kidney condition | Typical pathophysiology / key target | Representative drug(s) (FDA‑approved or guideline‑endorsed) |
+|------------------|--------------------------------------|------------------------------------------------------------|
+| **Chronic Kidney Disease (CKD) – progression slowing** | Hyperfiltration, proteinuria, RAAS activation | • **ACE inhibitors** (e.g., lisinopril, enalapril)  <br>• **Angiotensin‑II receptor blockers (ARBs)** (e.g., losartan, valsartan)  <br>• **SGL‑2 inhibitors** (dapagliflozin, empagliflozin – approved for CKD even without diabetes)  <br>• **Non‑steroidal mineralocorticoid receptor antagonists** (finerenone) |
+| **Diabetic nephropathy** | Hyperglycemia‑induced glomerular injury, proteinuria | Same agents as CKD (ACE‑I/ARB, SGL‑2i, finerenone)  <br>• **GL",104,512,616,2282.17,0.000363,-0.0994,-0.4577,0.312,True,PASS,1777663155.9809268,,
+t03,2,What conditions affect the kidney and have available drug treatments?,"Chronic kidney disease, kidney infections, and diabetic nephropathy can be treated with ACE inhibitors, antibiotics, and blood sugar control.",basic_rag,,652,300,952,1090.19,0.000562,0.0,0.0,0.0,False,FAIL,1777663160.4928696,5.0,
+t03,2,What conditions affect the kidney and have available drug treatments?,"Chronic kidney disease, kidney infections, and diabetic nephropathy can be treated with ACE inhibitors, antibiotics, and blood sugar control.",graphrag,"Kidney‑affecting diseases with approved pharmacologic therapies include chronic kidney disease (treated with ACE inhibitors, ARBs, SGLT2 inhibitors, and diuretics), diabetic nephropathy (ACE‑I/ARB ± SGLT2 inhibitors), various glomerulonephritides (corticosteroids, cyclophosph",121,250,371,1155.78,0.000219,0.3718,0.1563,0.6036,True,PASS,1777663165.2026672,,5.0
+t04,2,Which diabetes medications cause weight gain as a side effect?,"Insulin, sulfonylureas like glipizide, and thiazolidinediones like pioglitazone are associated with weight gain.",llm_only,"**Diabetes drugs that are commonly associated with weight gain**
+
+| Drug class (examples) | Typical weight‑change effect | Why it tends to increase weight |
+|-----------------------|-----------------------------|---------------------------------|
+| **Insulin** (rapid‑acting, short‑acting, intermediate‑acting, long‑acting) | +2–6 kg (average) | Improves glucose utilization and reduces glucosuria, so calories that were previously lost in the urine are retained; also stimulates lipogenesis. |
+| **Sulfonylureas** (glyburide, glipizide, glimepiride, glimepiride‑MR) | +1–4 kg | Increases insulin secretion → more anabolic effect; can cause hypoglycemia → compensatory extra food intake. |
+| **Meglitinides** (repaglinide, nateglinide) | +1–3 kg | Same mechanism as sulfonylureas (stimulates rapid insulin release) with a similar weight‑gain tendency. |
+| **Thiazolidinediones (TZDs)** (pioglitazone, rosiglitazone) | +2–5 kg | Improves peripheral insulin sensitivity and promotes adipogenesis (fat storage) especially in subcutaneous tissue; also causes fluid retention. |
+| **Combination products that contain any of the above** (e.g., insulin + GLP‑1 agonist, sulfonylurea + metformin) | Weight effect follows the weight‑gain component | The weight‑gain component usually dominates unless the partner drug has a strong weight‑loss effect. |
+
+**Notes**
+
+* The magnitude of weight gain varies among individuals and depends on dose, duration of therapy, baseline BMI, diet,",104,512,616,1772.16,0.000363,-0.0407,-0.3759,0.3399,True,PASS,1777663170.5283728,,
+t04,2,Which diabetes medications cause weight gain as a side effect?,"Insulin, sulfonylureas like glipizide, and thiazolidinediones like pioglitazone are associated with weight gain.",basic_rag,"Diabetes agents most commonly associated with weight gain are:
+
+| Drug class | Typical weight‑gain effect |
+|------------|---------------------------|
+| **Insulin** (basal, prandial, premixed) | 2–5 kg (dose‑dependent; due to anabolic effect and reduced glucosuria) |
+| **Sulfonylureas** (e.g., glipizide, glyburide, glimepiride) | 1–3 kg (stimulate insulin secretion and promote adipogenesis) |
+| **Thiazolidinediones** (pioglitazone, rosiglitazone) | 2–4 kg (increase peripheral fat storage and fluid retention) |
+| **Meglitinides** (repaglinide, nateglinide) – less pronounced but similar to sulfonylureas | ~1 kg |
+| **Combination",649,300,949,1318.83,0.00056,0.2018,-0.1101,0.5511,True,PASS,1777663175.435763,5.0,
+t04,2,Which diabetes medications cause weight gain as a side effect?,"Insulin, sulfonylureas like glipizide, and thiazolidinediones like pioglitazone are associated with weight gain.",graphrag,"Diabetes drugs most commonly associated with weight gain include insulin, sulfonylureas (e.g., glipizide, glyburide, glimepiride), thiazolidinediones (pioglitazone, rosiglitazone), and the meglitinide class (repaglinide, nateglinide).",121,231,352,1374.92,0.000208,0.5952,0.4385,0.7599,True,PASS,1777663180.3610427,,5.0
+t05,2,What symptoms overlap between Asthma and Heart Failure?,"Both conditions share shortness of breath and wheezing, making differential diagnosis important.",llm_only,"**Symptoms that can be seen in both asthma and heart‑failure patients**
+
+| Symptom | Why it occurs in asthma | Why it occurs in heart failure |
+|---------|------------------------|--------------------------------|
+| **Shortness of breath (dyspnea)** | Airway narrowing & bronchospasm → increased airway resistance | Pulmonary congestion/edema → stiff, fluid‑filled lungs → reduced gas exchange |
+| **Wheezing or “rattling” breath sounds** | Turbulent airflow through constricted bronchi | Fluid in the interstitium and alveoli can produce a high‑pitched “cardiac wheeze” (often called “cardiac asthma”) |
+| **Cough (often dry, sometimes productive)** | Irritation of inflamed airways | Cough reflex from pulmonary congestion or edema |
+| **Chest tightness or “pressure” sensation** | Bronchial smooth‑muscle spasm | Perception of increased left‑ventricular filling pressure |
+| **Exercise intolerance / reduced functional capacity** | Bronchoconstriction triggered by exertion | Inability of the heart to increase output during activity |
+| **Fatigue / low energy** | Poor oxygen delivery due to ventilation‑perfusion mismatch | Low cardiac output and systemic congestion |
+| **Orthopnea (difficulty breathing when lying flat)** | May be reported when severe asthma limits diaphragmatic movement | Classic sign of left‑sided failure (fluid shifts to lungs when supine) |
+| **Paroxysmal nocturnal dyspnea (waking up short‑of‑breath)** | Night‑time bronchospasm or allergen exposure | Sudden shift of fluid into pulmonary circulation while recumbent |
+| **Rapid, shallow breathing (tachypnea)** | Compensatory response to airway obstruction | Compensatory response to reduced oxygenation from pulmonary edema |
+
+**Key points**
+
+- The overlap is largely due to",103,512,615,4021.92,0.000363,-0.1146,-0.5144,0.3531,True,PASS,1777663187.7237544,,
+t05,2,What symptoms overlap between Asthma and Heart Failure?,"Both conditions share shortness of breath and wheezing, making differential diagnosis important.",basic_rag,"Both asthma and heart‑failure commonly present with:
+
+- **Dyspnea (shortness of breath)** – exertional and at rest, often worsening when lying flat (orthopnea) in heart failure and during bronchoconstriction in asthma.  
+- **Cough** – usually dry or productive; can be triggered by airway irritation in asthma and by pulmonary congestion in heart failure.  
+- **Wheezing** – audible during expiration in asthma; may also be heard in heart‑failure‑related pulmonary edema.  
+- **Chest tightness or discomfort** – a sensation of pressure that can be reported in both conditions.  
+- **Fatigue/Reduced exercise tolerance** – secondary to limited ventilation in asthma and reduced cardiac output in heart failure.  
+
+These overlapping symptoms can make differential diagnosis challenging and often require objective testing (spirometry, echocardiography, natriuretic peptides) to distinguish the underlying cause.",624,270,894,2734.75,0.000527,0.1206,-0.1982,0.479,True,PASS,1777663193.989779,5.0,
+t05,2,What symptoms overlap between Asthma and Heart Failure?,"Both conditions share shortness of breath and wheezing, making differential diagnosis important.",graphrag,"Both asthma and heart failure commonly cause **shortness of breath (dyspnea)**, **cough**, **wheezing or crackles**, and **fatigue/feeling of chest tightness**. These overlapping symptoms can make distinguishing the two conditions challenging without further evaluation.",120,214,334,2066.49,0.000197,0.3897,0.2064,0.5844,True,PASS,1777663198.9935474,,5.0
+t06,2,Which drugs used for depression also treat chronic pain?,SNRIs like duloxetine and tricyclics like amitriptyline are used for both depression and chronic pain conditions.,llm_only,"**Antidepressants that are also used to treat chronic pain**
+
+| Class | Drug (examples) | Pain conditions where it’s commonly used | Key points |
+|-------|----------------|------------------------------------------|------------|
+| **Serotonin‑norepinephrine reuptake inhibitors (SNRIs)** | • **Duloxetine**  <br>• **Venlafaxine** (extended‑release) | • Diabetic peripheral neuropathy <br>• Fibromyalgia <br>• Chronic musculoskeletal pain (e.g., low‑back, osteoarthritis) <br>• Some neuropathic pain syndromes | ↑ serotonin + norepinephrine enhances descending inhibitory pain pathways. Duloxetine is FDA‑approved for several of the above indications. |
+| **Tricyclic antidepressants (TCAs)** | • **Amitriptyline** <br>• **Nortriptyline** <br>• **Desipramine** <br>• **Imipramine** | • Neuropathic pain (post‑herpetic neuralgia, diabetic neuropathy) <br>• Migraine prophylaxis <br>• Chronic tension‑type headache <br>• Fibromyalgia (off‑label) | Strong antihistamine, anticholinergic, and sodium‑channel‑blocking effects contribute to analgesia. Start low (10‑25 mg at night) and titrate slowly. |
+| **Selective serotonin reuptake inhibitors (SSRIs)** (less",103,512,615,5861.43,0.000363,-0.0709,-0.4292,0.3403,False,FAIL,1777663208.2120762,,
+t06,2,Which drugs used for depression also treat chronic pain?,SNRIs like duloxetine and tricyclics like amitriptyline are used for both depression and chronic pain conditions.,basic_rag,"Several antidepressants have established efficacy for chronic pain conditions:
+
+| Drug class | Representative agents | Pain conditions treated |
+|------------|-----------------------|--------------------------|
+| **Serotonin‑norepinephrine reuptake inhibitors (SNRIs)** | Duloxetine, Venlafaxine, Milnacipran | Diabetic peripheral neuropathy, fibromyalgia, chronic musculoskeletal pain, chronic low‑back pain |
+| **Tricyclic antidepressants (TCAs)** | Amitriptyline, Nortriptyline, Desipramine, Imipramine | Neuropathic pain (post‑herpetic neuralgia, diabetic neuropathy), tension‑type headache, migraine prophylaxis, chronic musculoskeletal pain |
+| **Selective serotonin reuptake inhibitors (SSR",596,300,896,1116.97,0.000529,0.1535,-0.0658,0.3901,True,PASS,1777663212.9436843,5.0,
+t06,2,Which drugs used for depression also treat chronic pain?,SNRIs like duloxetine and tricyclics like amitriptyline are used for both depression and chronic pain conditions.,graphrag,"Several antidepressants are also effective for chronic pain, most notably the serotonin‑norepinephrine reuptake inhibitors duloxetine and venlafaxine, and the tricyclic agents amitriptyline and nortriptyline. These drugs relieve pain by enhancing descending inhibitory pathways in the central nervous system. (SSRIs such as fluoxetine have limited analgesic benefit and are not routinely used for pain.)",120,196,316,928.15,0.000186,0.5053,0.3473,0.6715,True,PASS,1777663217.215859,,5.0
+t07,2,What diseases caused by inflammation are treated with steroids?,"Rheumatoid arthritis, lupus, asthma, and inflammatory bowel disease are inflammation-related diseases treated with corticosteroids.",llm_only,"**Inflammatory diseases that are commonly treated with glucocorticoid steroids (systemic, inhaled, topical, or intra‑articular)**  
+
+| Category | Representative Conditions | Typical Steroid Formulation |
+|----------|---------------------------|-----------------------------|
+| **Respiratory** | • Asthma (acute exacerbations, chronic control)  <br>• Chronic obstructive pulmonary disease (COPD) exacerbations  <br>• Allergic rhinitis  <br>• Acute eosinophilic pneumonia | Inhaled (fluticasone, budesonide), oral (prednisone), IV (methylprednisolone) |
+| **Rheumatologic / Musculoskeletal** | • Rheumatoid arthritis (flare)  <br>• Psoriatic arthritis  <br>• Ankylosing spondylitis flares  <br>• Gout (acute)  <br>• Polymyalgia rheumatica  <br>• Giant‑cell arteritis  <br>• Systemic lupus erythematosus (organ‑system flares)  <br>• Dermatomyositis / polymyositis  <br>• Osteoarthritis (intra‑articular injections for severe synovitis) | Oral (prednisone, prednisolone), IV (methylprednisolone “pulse”), intra‑articular (triamcinolone, methylprednisolone) |
+| **Dermatologic** | • Atopic dermatitis (moderate‑severe)  <br>• Contact dermatitis  <br>• Psoriasis (especially erythrodermic or pustular)  <br>• Lichen planus, discoid lupus, bullous pemphigoid  <br>• Severe urticaria / angio‑edema | Top",103,512,615,3201.18,0.000363,-0.1261,-0.5588,0.3878,True,PASS,1777663224.8559217,,
+t07,2,What diseases caused by inflammation are treated with steroids?,"Rheumatoid arthritis, lupus, asthma, and inflammatory bowel disease are inflammation-related diseases treated with corticosteroids.",basic_rag,"Inflammatory conditions that are commonly managed with systemic or inhaled corticosteroids include:
+
+* **Polymyalgia rheumatica (PMR)** – steroids reduce pain and prevent progression to giant‑cell arteritis.  
+* **Giant‑cell arteritis (GCA)** – high‑dose steroids are first‑line to prevent visual loss.  
+* **Rheumatoid arthritis (RA)** – steroids are used for flares or as bridge therapy.  
+* **Inflammatory bowel disease** (Crohn’s disease and ulcerative colitis) – oral or intravenous steroids induce remission of active disease",636,300,936,1049.09,0.000552,0.22,0.0033,0.4535,True,PASS,1777663228.4796162,5.0,
+t07,2,What diseases caused by inflammation are treated with steroids?,"Rheumatoid arthritis, lupus, asthma, and inflammatory bowel disease are inflammation-related diseases treated with corticosteroids.",graphrag,"Steroids are used to suppress inflammation in many conditions, including rheumatoid arthritis, systemic lupus erythematosus, inflammatory bowel disease (Crohn’s disease and ulcerative colitis), asthma and other severe allergic reactions, dermatitis, sarcoidosis, vasculitis, and acute exacerbations of multiple sclerosis. In each case the drug’s anti‑inflammatory and immunosuppressive effects help control disease activity and relieve symptoms.",120,189,309,1610.16,0.000182,0.4232,0.238,0.62,True,PASS,1777663232.9882443,,5.0
+t08,2,Which antibiotics treat respiratory infections and have kidney-related side effects?,Aminoglycosides and some fluoroquinolones treat respiratory infections but can cause nephrotoxicity.,llm_only,"**Antibiotics commonly used for respiratory infections that are known to have kidney‑related adverse effects**
+
+| Antibiotic (class) | Typical respiratory use | Kidney‑related side‑effects | Key monitoring / precautions |
+|--------------------|------------------------|----------------------------|------------------------------|
+| **Vancomycin** (glycopeptide) | Hospital‑acquired/ventilator‑associated pneumonia (MRSA) | Dose‑dependent **nephrotoxicity** (acute tubular necrosis, rise in serum creatinine) | Trough levels 10‑15 µg/mL (non‑ICU) or 15‑20 µg/mL (ICU); check creatinine & urine output at baseline and at least every 48‑72 h |
+| **Aminoglycosides** – Gentamicin, Tobramycin, Am",105,512,617,1772.27,0.000364,0.0423,-0.2202,0.331,True,PASS,1777663238.3100867,,
+t08,2,Which antibiotics treat respiratory infections and have kidney-related side effects?,Aminoglycosides and some fluoroquinolones treat respiratory infections but can cause nephrotoxicity.,basic_rag,"Vancomycin – an anti‑Gram‑positive agent used for respiratory infections such as MRSA pneumonia – is associated with nephrotoxicity. Therapeutic drug monitoring shows that trough (Cmin) levels predict both efficacy and kidney‑related safety, indicating its renal side",642,300,942,1249.69,0.000556,0.2983,0.1829,0.4175,False,FAIL,1777663242.8189476,5.0,
+t08,2,Which antibiotics treat respiratory infections and have kidney-related side effects?,Aminoglycosides and some fluoroquinolones treat respiratory infections but can cause nephrotoxicity.,graphrag,"Antibiotics commonly used for respiratory infections that are known for kidney‑related side effects include aminoglycosides (e.g., gentamicin, amikacin) and vancomycin—both can cause dose‑dependent nephrotoxicity. Fluoroquinolones such as ciprofloxacin and levofloxacin are also used for respiratory pathogens and may rarely precipitate acute interstitial nephritis or crystal‑induced renal injury.",122,225,347,1431.5,0.000205,0.43,0.1944,0.6853,True,PASS,1777663247.4323606,,5.0
+t09,2,What cardiovascular conditions are caused by Diabetes complications?,"Diabetes increases risk of coronary artery disease, heart failure, peripheral artery disease, and stroke.",llm_only,"**Cardiovascular diseases that arise as complications of diabetes**
+
+| Category | Typical conditions | How diabetes contributes |
+|----------|-------------------|---------------------------|
+| **Macro‑vascular disease** (accelerated atherosclerosis) | • **Coronary artery disease** – stable/unstable angina, myocardial infarction (MI)  <br>• **Cerebrovascular disease** – ischemic stroke, transient ischemic attack (TIA)  <br>• **Peripheral arterial disease (PAD)** – intermittent claudication, critical limb ischemia  <br>• **Aortic/large‑vessel aneurysm** (less common) | Chronic hyperglycaemia → endothelial dysfunction, oxidative stress, inflammation, dyslipidaemia → plaque formation & progression. |
+| **Cardiac‑specific complications** | • **Diabetic cardiomyopathy** – left‑ventricular hypertrophy, diastolic dysfunction, eventual systolic failure  <br>• **Heart failure** (both with reduced and preserved ejection fraction)  <br>• **Arrhythmias** –",102,512,614,2485.25,0.000362,-0.052,-0.4214,0.3737,False,FAIL,1777663252.525415,,
+t09,2,What cardiovascular conditions are caused by Diabetes complications?,"Diabetes increases risk of coronary artery disease, heart failure, peripheral artery disease, and stroke.",basic_rag,"Diabetes‑related complications promote several cardiovascular diseases, most notably:
+
+* **Accelerated atherosclerosis** → extensive coronary plaque burden.  
+* **Complex coronary lesions** – higher rates of bifurcation and ostial stenoses, which predispose to acute coronary syndromes.  
+* **Coronary artery disease (CAD",611,300,911,1625.61,0.000537,0.2664,0.0374,0.5141,True,PASS,1777663256.7489753,5.0,
+t09,2,What cardiovascular conditions are caused by Diabetes complications?,"Diabetes increases risk of coronary artery disease, heart failure, peripheral artery disease, and stroke.",graphrag,"Diabetes accelerates atherosclerosis, leading to coronary artery disease, myocardial infarction, peripheral arterial disease, and stroke. It also promotes hypertension, diabetic cardiomyopathy, and heart‑failure‑related remodeling, increasing the risk of heart failure and arrhythmias. These cardiovascular complications arise from chronic hyperglycemia‑induced endothelial damage, inflammation, and metabolic disturbances.",119,166,285,740.04,0.000168,0.5644,0.2994,0.8543,True,PASS,1777663260.330615,,5.0
+t10,2,Which conditions treated by beta-blockers also benefit from ACE inhibitors?,"Heart failure, post-MI recovery, and hypertension all benefit from both beta-blockers and ACE inhibitors.",llm_only,"**Conditions in which both β‑blockers and ACE‑inhibitors are routinely used and provide complementary benefit**
+
+| Condition | Why β‑blocker helps | Why ACE‑inhibitor helps | Typical guideline‑based role |
+|-----------|-------------------|------------------------|------------------------------|
+| **Hypertension** | ↓ heart rate, ↓ cardiac output, ↓ renin release | ↓ systemic vascular resistance, ↓ aldosterone, renal protection | Often combined as first‑line dual therapy when BP is not at target. |
+| **Heart failure with reduced ejection fraction (HFrEF)** | Improves survival by reducing sympathetic drive, heart rate, and myocardial oxygen demand | Reduces after‑load, prevents ventricular remodeling, improves survival | Both are core components of guideline‑directed medical therapy (GDMT) – usually started together or sequentially. |
+| **Post‑myocardial infarction (especially with LV dysfunction or HF)** | Limits infarct‑related arrhythmias, reduces myocardial oxygen demand, attenuates adverse remodeling | Prevents ventricular remodeling, lowers after‑load, improves survival | Recommended in all patients without contraindications; β‑blocker added first, ACE‑I added early (",106,512,618,1870.25,0.000365,-0.0169,-0.3643,0.3796,True,PASS,1777663265.156342,,
+t10,2,Which conditions treated by beta-blockers also benefit from ACE inhibitors?,"Heart failure, post-MI recovery, and hypertension all benefit from both beta-blockers and ACE inhibitors.",basic_rag,"Beta‑blockers and ACE inhibitors share therapeutic benefit in several cardiovascular disorders, most notably:
+
+* **Hypertension** – both drug classes lower blood pressure via complementary mechanisms (β‑adrenergic blockade reduces cardiac output; ACE inhibition reduces systemic vascular resistance).
+* **Chronic heart failure with reduced ejection fraction** – β‑blockers improve survival by attenuating sympathetic activation",609,300,909,2355.08,0.000536,0.2844,0.1283,0.4485,True,PASS,1777663270.5950458,5.0,
+t10,2,Which conditions treated by beta-blockers also benefit from ACE inhibitors?,"Heart failure, post-MI recovery, and hypertension all benefit from both beta-blockers and ACE inhibitors.",graphrag,"Beta‑blockers and ACE inhibitors are both first‑line therapies for hypertension, for systolic heart failure (reduced‑ejection‑fraction heart failure), and for patients after a myocardial infarction—especially when left‑ventricular dysfunction is present.",123,221,344,1029.16,0.000203,0.3416,0.1585,0.5362,True,PASS,1777663275.4367363,,5.0
+h01,3,Which conditions treated by ACE inhibitors have symptoms overlapping with Diabetes side effects?,Heart failure and kidney disease treated by ACE inhibitors share symptoms like fatigue and edema with diabetic complications.,llm_only,"**Conditions commonly treated with ACE‑inhibitors that can produce symptoms that look like (or mask) the side‑effects of diabetes**
+
+| Condition (ACE‑I indication) | Typical ACE‑I‑related symptoms | Diabetes‑related side‑effects that overlap |
+|------------------------------|--------------------------------|--------------------------------------------|
+| **Essential hypertension** | • Dizziness or light‑headedness (especially after the first dose)  <br>• Generalised fatigue  <br>• Headache | • Fatigue  <br>• Dizziness/light‑headedness (often from hypoglycaemia or orthostatic changes)  <br>• Headache |
+| **Chronic heart failure (CHF)** | • Fatigue and reduced exercise tolerance  <br>• Dyspnoea on exertion",107,512,619,4380.29,0.000365,0.0401,-0.2698,0.3878,True,PASS,1777663282.8736396,,
+h01,3,Which conditions treated by ACE inhibitors have symptoms overlapping with Diabetes side effects?,Heart failure and kidney disease treated by ACE inhibitors share symptoms like fatigue and edema with diabetic complications.,basic_rag,,626,300,926,1927.85,0.000546,0.0,0.0,0.0,True,PASS,1777663287.4666257,5.0,
+h01,3,Which conditions treated by ACE inhibitors have symptoms overlapping with Diabetes side effects?,Heart failure and kidney disease treated by ACE inhibitors share symptoms like fatigue and edema with diabetic complications.,graphrag,"ACE‑inhibitors are used for hypertension, heart‑failure (and post‑",124,250,374,1765.75,0.000221,0.2309,0.1537,0.309,False,FAIL,1777663292.175022,,5.0
+h02,3,Find drugs that treat Disease A whose side effects are also symptoms of a kidney-related Disease B.,Diuretics for hypertension can cause electrolyte imbalances that mimic symptoms of kidney disease such as weakness and confusion.,llm_only,Could you please specify which disease you’re referring to as **Disease A** (the condition you want to treat) and which kidney‑related condition you mean by **Disease B** (the disease whose symptoms overlap with the drug’s side effects)? With those details I can provide a focused list of appropriate drugs.,112,317,429,1092.48,0.000253,0.0737,-0.0505,0.2023,False,FAIL,1777663296.2641983,,
+h02,3,Find drugs that treat Disease A whose side effects are also symptoms of a kidney-related Disease B.,Diuretics for hypertension can cause electrolyte imbalances that mimic symptoms of kidney disease such as weakness and confusion.,basic_rag,"The supplied excerpts do not mention specific drugs, disease names, or side‑effect profiles. Consequently, they do not provide enough information to identify any medication that treats a particular Disease A whose adverse effects overlap with symptoms of a kidney‑related Disease B. Additional sources detailing drug indications and side‑effect spectra would be required to answer this query.",646,217,863,840.63,0.000509,0.1291,0.0412,0.2184,False,FAIL,1777663300.1827726,5.0,
+h02,3,Find drugs that treat Disease A whose side effects are also symptoms of a kidney-related Disease B.,Diuretics for hypertension can cause electrolyte imbalances that mimic symptoms of kidney disease such as weakness and confusion.,graphrag,Dr,129,250,379,2996.23,0.000224,-0.1034,0.1016,-0.2962,False,FAIL,1777663306.3013852,,5.0
+h03,3,What drug chain connects Hypertension treatment to a side effect that causes another treatable condition?,"ACE inhibitors for hypertension can cause a persistent cough, which may lead to sleep disruption, managed with antihistamines.",llm_only,"**Hypertension drug → side‑effect → secondary treatable condition**
+
+| Hypertension drug (class) | Typical agent | Common side‑effect that creates a new condition | Treatable secondary condition | Typical treatment for the secondary condition |
+|---------------------------|--------------|---------------------------------------------------|------------------------------|-----------------------------------------------|
+| **Thiazide diuretics**    | Hydrochlorothiazide, chlorthalidone, indapamide | **Hyperuricemia** (↑ serum uric acid) → can precipitate **gout attacks** | Gout (acute or chronic) | Xanthine‑oxidase inhibitors (allopurinol, febuxostat) or uricosurics (probenecid); acute attacks with colchicine, NSAIDs, or corticosteroids |
+
+**Why this chain matters**
+
+1. **Hypertension treatment** – Thiazide diuretics are first‑line agents for most patients with primary hypertension because they lower blood pressure effectively and reduce cardiovascular risk.  
+2. **Side‑effect** – By decreasing renal uric acid excretion, thiazides raise serum uric acid levels in a substantial proportion of patients (≈20‑30 %).  
+3. **",111,512,623,1979.76,0.000368,-0.1405,-0.4138,0.1623,False,FAIL,1777663311.420794,,
+h03,3,What drug chain connects Hypertension treatment to a side effect that causes another treatable condition?,"ACE inhibitors for hypertension can cause a persistent cough, which may lead to sleep disruption, managed with antihistamines.",basic_rag,"The chain is:
+
+**ACE‑inhibitor (used for hypertension) → cough or angioedema (characteristic side‑effects) → these adverse events are themselves treatable (by stopping the ACE‑I and, if needed, using cough‑suppressants, antihistamines, steroids or other specific therapy).**",651,237,888,850.88,0.000524,0.2323,0.098,0.3722,True,PASS,1777663315.115133,5.0,
+h03,3,What drug chain connects Hypertension treatment to a side effect that causes another treatable condition?,"ACE inhibitors for hypertension can cause a persistent cough, which may lead to sleep disruption, managed with antihistamines.",graphrag,"A common example is the thiazide‑diuretic class (e.g., hydrochlorothiazide) used for hypertension, which can raise serum uric acid levels, leading to gout—a condition that can then be treated with urate‑lowering drugs",128,250,378,1151.34,0.000223,0.2985,0.1484,0.4559,True,PASS,1777663319.6136012,,5.0
+h04,3,Which diseases share both a common drug treatment and a common complication affecting the heart?,Diabetes and Hypertension share treatments like ACE inhibitors and both lead to cardiac complications including heart failure and coronary disease.,llm_only,,109,512,621,2619.41,0.000366,0.0,0.0,0.0,False,FAIL,1777663324.9804714,,
+h04,3,Which diseases share both a common drug treatment and a common complication affecting the heart?,Diabetes and Hypertension share treatments like ACE inhibitors and both lead to cardiac complications including heart failure and coronary disease.,basic_rag,,619,300,919,938.56,0.000542,0.0,0.0,0.0,False,FAIL,1777663328.6039264,5.0,
+h04,3,Which diseases share both a common drug treatment and a common complication affecting the heart?,Diabetes and Hypertension share treatments like ACE inhibitors and both lead to cardiac complications including heart failure and coronary disease.,graphrag,,126,250,376,1180.46,0.000222,0.0,0.0,0.0,False,FAIL,1777663332.3167741,,5.0
+h05,3,What conditions caused by chronic inflammation lead to treatments that have immune-suppression side effects?,"Rheumatoid arthritis, Crohn's disease, and lupus are inflammatory conditions where biologics cause immune suppression, increasing infection risk.",llm_only,"**Chronic‑inflammatory diseases whose standard therapy often includes immunosuppressive drugs (with attendant infection‑risk, metabolic, and other side‑effects)**  
+
+| Condition (chronic inflammation) | Typical immunosuppressive agents used | Why the disease is “inflammatory” |
+|-----------------------------------|----------------------------------------|-----------------------------------|
+| **Rheumatoid arthritis** | Methotrexate, leflunomide, TNF‑α inhibitors, IL‑6R blockers, JAK inhibitors, low‑dose prednisone | Synovial membrane infiltration by cytokine‑producing immune cells → joint destruction |
+| **Psoriatic arthritis / Plaque psoriasis** | Methotrexate, cyclosporine, biologics (TNF‑α, IL‑17, IL‑23 blockers), apremilast, JAK inhibitors | Th17‑driven skin and joint inflammation |
+| **Ankylosing spondyl",111,512,623,1976.85,0.000368,0.0918,-0.1837,0.3961,True,PASS,1777663337.8797622,,
+h05,3,What conditions caused by chronic inflammation lead to treatments that have immune-suppression side effects?,"Rheumatoid arthritis, Crohn's disease, and lupus are inflammatory conditions where biologics cause immune suppression, increasing infection risk.",basic_rag,"Chronic‑inflammatory diseases that are commonly managed with immunosuppressive drugs include:
+
+* **Rheumatoid arthritis** – treated with sulfasalazine, methotrexate, biologics and short‑course corticosteroids, all of which can cause leukopenia, hepatitis, rash, eosinophilia, etc.  
+* **Inflammatory bowel disease** (Crohn’s disease, ulcerative colitis) – therapy often involves sulfasalazine, azathioprine, biologics and systemic steroids, which carry risks of infection, hepatic toxicity and bone‑marrow suppression.  
+* **Asthma (especially severe or eosinophilic phenotypes)** – inhaled or oral corticosteroids are the mainstay and can",627,300,927,2662.28,0.000547,0.2634,0.0107,0.5394,False,FAIL,1777663344.6039538,5.0,
+h05,3,What conditions caused by chronic inflammation lead to treatments that have immune-suppression side effects?,"Rheumatoid arthritis, Crohn's disease, and lupus are inflammatory conditions where biologics cause immune suppression, increasing infection risk.",graphrag,"Chronic‑inflammation diseases such as rheumatoid arthritis, inflammatory bowel disease (Crohn’s disease and ulcerative colitis), psoriasis/psoriatic arthritis, systemic lupus erythematosus, ankylosing spondylitis and other autoimmune vasculitides are commonly managed with corticosteroids, DMARDs, biologics or other immunosuppressants, all",128,250,378,1973.82,0.000223,0.3896,0.2119,0.5779,True,PASS,1777663350.142043,,5.0
+h06,3,"Which pain medications treat arthritis, affect kidney function, and interact with blood pressure drugs?","NSAIDs like ibuprofen treat arthritis but reduce kidney function and interact with antihypertensives, increasing cardiovascular risk.",llm_only,"**Pain meds that are commonly used for arthritis, can impair kidney function, and may interfere with blood‑pressure drugs**
+
+| Drug (class) | Typical arthritis use | How it affects the kidneys | Interaction with antihypertensives |
+|--------------|----------------------|----------------------------|-------------------------------------|
+| **Ibuprofen** (non‑selective NSAID) | Osteoarthritis, rheumatoid arthritis, acute flare‑ups | Decreases renal prostaglandins → reduced renal blood flow, can cause acute kidney injury (AKI) or worsen chronic kidney disease (CKD) | Blunts the blood‑pressure‑lowering effect of ACE‑I/ARBs, β‑blockers, diuretics; may cause fluid retention and raise BP |
+| **Naproxen** (non‑selective NSAID) | OA, RA, gout flares | Same prostaglandin‑mediated renal vasoconstriction; risk of AKI/CKD | Similar to ibuprofen – reduces efficacy of ACE‑I/ARBs, thiazides, loop diuretics; may increase BP |
+| **Diclofenac** (non‑selective NSAID) | OA, RA, ankylosing spondylitis | Potent renal prostag",110,512,622,2991.14,0.000367,0.1176,-0.2827,0.583,False,FAIL,1777663356.8981397,,
+h06,3,"Which pain medications treat arthritis, affect kidney function, and interact with blood pressure drugs?","NSAIDs like ibuprofen treat arthritis but reduce kidney function and interact with antihypertensives, increasing cardiovascular risk.",basic_rag,"Non‑steroidal anti‑inflammatory drugs (NSAIDs) – both non‑selective agents such as **ibuprofen** (and other drugs like naproxen, diclofenac) and COX‑2‑selective agents such as **etoricoxib** – are used to relieve arthritic pain. They can impair renal perfusion and function, especially in patients with pre‑existing kidney disease, and they may blunt the antihypertensive effect of drugs that",623,300,923,1287.16,0.000545,0.2903,0.1188,0.4717,True,PASS,1777663361.629256,5.0,
+h06,3,"Which pain medications treat arthritis, affect kidney function, and interact with blood pressure drugs?","NSAIDs like ibuprofen treat arthritis but reduce kidney function and interact with antihypertensives, increasing cardiovascular risk.",graphrag,"Non‑steroidal anti‑inflammatory drugs (NSAIDs) such as ibuprofen, naproxen, diclofenac and the COX‑2‑selective agent celecoxib are commonly used for arthritis pain; they can reduce renal perfusion and worsen kidney function, and they may blunt the blood‑pressure‑lowering effects of ACE inhibitors, ARBs, diuretics and beta‑blockers.  Consequently, these NSAIDs are the primary pain meds that both affect the kidneys and interact with antihypertensive drugs.",127,250,377,1949.52,0.000222,0.3697,0.1671,0.5866,True,PASS,1777663366.9263184,,5.0
+h07,3,"Trace the link between obesity, insulin resistance, fatty liver disease, and available treatments.","Obesity leads to insulin resistance causing Type 2 Diabetes and NAFLD; treatments include metformin, lifestyle intervention, and GLP-1 agonists.",llm_only,"**Obesity → Insulin Resistance → Non‑Alcoholic Fatty Liver Disease (NAFLD) → Treatment Options**
+
+| Step | Key Mechanisms | Clinical Consequences |
+|------|----------------|-----------------------|
+| **1. Obesity (especially visceral adiposity)** | • Expansion of adipose tissue → adipocyte hypertrophy, hypoxia, macrophage infiltration  <br>• ↑ Release of free fatty acids (FFAs) and pro‑inflammatory adipokines (TNF‑α, IL‑6, resistin)  <br>• ↓ Adiponectin (protective) | • Systemic low‑grade inflammation  <br>• Lipotoxicity to liver and muscle |
+| **2. Development of Insulin Resistance (IR)** | • FFA overload → ectopic lipid deposition in skeletal muscle & liver → impaired insulin signaling (PKB/Akt pathway)  <br>• Inflammatory cytokines activate serine kinases (JNK, IKKβ) that phosphorylate IRS‑1 → ↓ insulin action  <br>• Hyperinsulinemia further promotes de‑novo lipogenesis (DNL) in liver | • ↑ Hepatic glucose production → hyperglycemia  <br>• ↑ pancreatic β‑cell stress → risk of type‑2 diabetes (T2DM) |
+| **3. Hepatic Steatosis (NAFLD)** | • Excess FFAs + DNL (driven by insulin + SREBP‑1c) → triglyceride accumulation in hepatocytes  <br>• Impaired VLDL export & mitochondrial",110,512,622,1977.86,0.000367,-0.1514,-0.4737,0.2134,True,PASS,1777663372.0480568,,
+h07,3,"Trace the link between obesity, insulin resistance, fatty liver disease, and available treatments.","Obesity leads to insulin resistance causing Type 2 Diabetes and NAFLD; treatments include metformin, lifestyle intervention, and GLP-1 agonists.",basic_rag,"Obesity creates excess adipose tissue that releases free fatty acids and inflammatory cytokines, provoking systemic **insulin resistance**. Insulin‑resistant states raise plasma glucose and stimulate hepatic de‑novo lipogenesis, leading to accumulation of triglycerides in the liver and the development of **non‑alcoholic fatty liver disease (NAFLD)**, which can progress to non",623,300,923,1070.43,0.000545,0.2344,0.1489,0.3213,True,PASS,1777663376.4214602,5.0,
+h07,3,"Trace the link between obesity, insulin resistance, fatty liver disease, and available treatments.","Obesity leads to insulin resistance causing Type 2 Diabetes and NAFLD; treatments include metformin, lifestyle intervention, and GLP-1 agonists.",graphrag,"Obesity promotes chronic excess adipose‑tissue inflammation, which impairs insulin signaling and leads to systemic insulin resistance; the resulting hyperinsulinemia and lipotoxicity drive hepatic fat accumulation and progression to non‑alcoholic fatty liver disease (NAFLD).  Reversing the cascade relies primarily on weight loss (diet, exercise, or bariatric surgery) to improve insulin sensitivity, while pharmacologic options such as GLP‑1 receptor agonists, metformin, pioglitazone, or vitamin E can further reduce hepatic steatosis and inflammation in selected patients.",127,210,337,2004.98,0.000199,0.3545,0.175,0.5448,True,PASS,1777663381.9797297,,5.0
+h08,3,What neurological conditions arise as complications of Diabetes and what drugs treat both the cause and effect?,Diabetic neuropathy arises from uncontrolled blood sugar; treated by controlling diabetes with metformin and neuropathic pain with duloxetine.,llm_only,"**Neurological complications of diabetes**
+
+| Complication | Typical clinical picture | Why it occurs in diabetes |
+|--------------|--------------------------|---------------------------|
+| **Distal symmetric poly‑neuropathy (DSPN)** | Burning, tingling, loss of sensation in feet‑hands; can progress to ulceration & foot loss | Chronic hyper‑glycaemia → oxidative stress, advanced‑glycation end‑products, micro‑vascular ischemia |
+| **Diabetic",111,512,623,1670.46,0.000368,0.0712,-0.054,0.2009,False,"ERROR: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kd5p0qtve6qa5q57dez4r0bb` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99968, Requested 235. Please try again in 2m55.392s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",1777663386.9939125,,
+h08,3,What neurological conditions arise as complications of Diabetes and what drugs treat both the cause and effect?,Diabetic neuropathy arises from uncontrolled blood sugar; treated by controlling diabetes with metformin and neuropathic pain with duloxetine.,basic_rag,,644,300,944,1512.6,0.000557,0.0,0.0,0.0,False,"ERROR: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kd5p0qtve6qa5q57dez4r0bb` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99962, Requested 138. Please try again in 1m26.4s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",1777663391.7012432,5.0,
+h08,3,What neurological conditions arise as complications of Diabetes and what drugs treat both the cause and effect?,Diabetic neuropathy arises from uncontrolled blood sugar; treated by controlling diabetes with metformin and neuropathic pain with duloxetine.,graphrag,,128,250,378,1569.7,0.000223,0.0,0.0,0.0,False,"ERROR: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kd5p0qtve6qa5q57dez4r0bb` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99956, Requested 138. Please try again in 1m21.216s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",1777663396.8303504,,5.0
+h09,3,Which immune disorders trigger hormonal diseases that require both immunosuppressants and hormone replacement?,"Hashimoto's thyroiditis is an autoimmune disorder causing hypothyroidism, requiring levothyroxine and sometimes immunosuppression.",llm_only,"**Immune‑mediated diseases that destroy an endocrine gland and at the same time need immunosuppressive therapy (to halt the immune attack) plus hormone replacement (to replace the lost hormone) include:**
+
+| Immune disorder | Hormonal disease it produces | Typical hormone(s) replaced | Immunosuppressive therapy used |
+|-----------------|------------------------------|-----------------------------|--------------------------------|
+| **Autoimmune adrenalitis** (primary adrenal insufficiency) – most often seen in **Autoimmune Polyendocrine Syndrome type 1 (APS‑1) or type 2 (APS‑2)** | Addison’s disease (loss of cortisol ± aldosterone) | Glucocorticoid (hydrocortisone) ± mineralocorticoid (fludrocortisone) | High‑dose glucocorticoids for acute crisis; long‑term low",110,512,622,2383.65,0.000367,0.0161,-0.2303,0.2853,False,"ERROR: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kd5p0qtve6qa5q57dez4r0bb` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99950, Requested 316. Please try again in 3m49.824s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",1777663402.351413,,
+h09,3,Which immune disorders trigger hormonal diseases that require both immunosuppressants and hormone replacement?,"Hashimoto's thyroiditis is an autoimmune disorder causing hypothyroidism, requiring levothyroxine and sometimes immunosuppression.",basic_rag,,638,300,938,4340.56,0.000553,0.0,0.0,0.0,False,"ERROR: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kd5p0qtve6qa5q57dez4r0bb` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99941, Requested 138. Please try again in 1m8.256s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",1777663409.725982,5.0,
+h09,3,Which immune disorders trigger hormonal diseases that require both immunosuppressants and hormone replacement?,"Hashimoto's thyroiditis is an autoimmune disorder causing hypothyroidism, requiring levothyroxine and sometimes immunosuppression.",graphrag,"Autoimmune adrenalitis (often part of autoimmune polyendocrine syndrome I) destroys the adrenal cortex, causing Addison’s disease; treatment combines glucocorticoid/mineralocorticoid replacement with immunosuppressants such as steroids or azathioprine. Autoimmune hypophysitis inflames the pituitary gland, leading to deficiencies of ACTH, TSH, LH/FSH, etc.; patients need hormone replacement (e.g., hydrocortisone, levothyroxine, sex steroids) together with immunosuppressive therapy",127,250,377,1368.42,0.000222,0.2957,0.1073,0.4964,False,"ERROR: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kd5p0qtve6qa5q57dez4r0bb` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99936, Requested 251. Please try again in 2m41.567999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",1777663414.8484492,,5.0
+h10,3,What heart conditions caused by hypertension complications are treated by drugs that also affect Diabetes management?,Hypertension causes heart failure and left ventricular hypertrophy; ACE inhibitors and ARBs treat these while also protecting kidneys in diabetics.,llm_only,,110,512,622,3208.24,0.000367,0.0,0.0,0.0,False,FAIL,1777663480.5911446,,
+h10,3,What heart conditions caused by hypertension complications are treated by drugs that also affect Diabetes management?,Hypertension causes heart failure and left ventricular hypertrophy; ACE inhibitors and ARBs treat these while also protecting kidneys in diabetics.,basic_rag,"Hypertension‑related cardiac complications that are commonly managed with agents that also influence diabetes care include:
+
+* **Left‑ventricular hypertrophy (LVH) / enlarged left‑ventricular dimensions** – the primary structural change driven by high blood pressure.  
+* **Left‑atrial enlargement** – more pronounced when metabolic‑syndrome criteria are present.  
+* **Ischaemic heart disease (angina) and",638,300,938,1471.66,0.000553,0.2213,0.0523,0.4,False,"ERROR: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kd5p0qtve6qa5q57dez4r0bb` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99993, Requested 224. Please try again in 3m7.488s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",1777663485.3192372,5.0,
+h10,3,What heart conditions caused by hypertension complications are treated by drugs that also affect Diabetes management?,Hypertension causes heart failure and left ventricular hypertrophy; ACE inhibitors and ARBs treat these while also protecting kidneys in diabetics.,graphrag,,127,250,377,1961.04,0.000222,0.0,0.0,0.0,False,"ERROR: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kd5p0qtve6qa5q57dez4r0bb` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99987, Requested 138. Please try again in 1m48s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",1777663490.6209757,,5.0
