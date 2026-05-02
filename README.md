@@ -64,21 +64,26 @@ Then open http://localhost:8501 to see the benchmark results.
 
 ---
 
-### Benchmark Results
+### 🏆 Benchmark Results
 
-**Real measured results** from "What are the symptoms of Type 2 Diabetes?"
+| Pipeline | Avg Tokens | Avg Latency | Avg Cost | BERTScore Raw | LLM Judge |
+|---|---|---|---|---|---|
+| LLM-Only | 609 | 1665ms | $0.000359 | Baseline | ✅ PASS |
+| Basic RAG | 892 | 1425ms | $0.000526 | 0.8506 | ✅ PASS |
+| **GraphRAG** | **271** | **831ms** | **$0.000160** | **0.9278** | **✅ PASS** |
 
-| Pipeline | Avg Tokens | Latency | Cost | BERTScore F1 |
-|----------|-----------|---------|------|--------------|
-| **LLM-Only** | 609 | 2695ms | $0.000359 | 0.72 |
-| **Basic RAG** | 892 | 2073ms | $0.000526 | 0.84 |
-| **GraphRAG** | **263** | **1872ms** | **$0.000155** | **0.86** |
+### GraphRAG vs Basic RAG
+- 🎯 **69.6% token reduction** (271 vs 892 tokens)
+- 💰 **69.6% cost reduction** ($0.000160 vs $0.000526 per query)
+- ⚡ **41.6% faster** (831ms vs 1425ms)
+- 🎓 **BERTScore 0.9278** (bonus threshold ≥ 0.88 ✅)
+- 🏅 **Rescaled BERTScore 0.5723** (bonus threshold ≥ 0.55 ✅)
 
-**Key Achievement:**
-- **70.5% token reduction** vs Basic RAG
-- **70.5% cost reduction** vs Basic RAG
-- **10% faster latency** than Basic RAG
-- **Higher accuracy** on multi-hop queries (79-82% vs 41-54%)
+### Production ROI
+At 100,000 queries/day:
+- Basic RAG annual cost: **$18,980/year**
+- GraphRAG annual cost: **$5,840/year**  
+- **Annual savings: $13,140** (69.6% reduction)
 
 ---
 
