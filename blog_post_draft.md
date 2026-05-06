@@ -1,33 +1,33 @@
-# How We Cut LLM Token Costs by 79.5% Using TigerGraph GraphRAG
+# Revolutionizing Medical RAG: How GraphRAG Smashes the Token Paradox
 
 ## The Problem: The "RAG Token Paradox"
-Standard Vector RAG often retrieves large chunks of text that contain mostly noise. This leads to:
-1. **High Costs**: Paying for tokens that don't help answer the question.
-2. **Latency**: LLMs take longer to process bloated contexts.
-3. **Accuracy Issues**: Irrelevant context can distract the model.
+In medical AI, precision is non-negotiable. However, standard Vector RAG often retrieves large chunks of semi-relevant text, leading to the "RAG Token Paradox":
+1. **High Costs**: Paying for thousands of "noisy" tokens that don't directly answer the clinician's query.
+2. **Latency**: LLMs struggle with bloated context windows, slowing down critical decision-making.
+3. **Hallucination Risk**: Irrelevant context distracts the model, leading to potential medical errors.
 
-## The Solution: Knowledge Graph-Augmented Retrieval
-By using **TigerGraph Cloud**, we built a medical knowledge graph from the **PubMedQA** dataset. Instead of searching by similarity alone, we perform multi-hop traversals:
-`Question -> Entity -> Related Documents -> Concise Context`.
+## The Solution: TigerGraph-Powered Multi-Hop Retrieval
+By using **TigerGraph Cloud**, we transformed the **PubMedQA** dataset into a high-fidelity medical knowledge graph. Instead of naive similarity search, we perform deep multi-hop traversals:
+`Clinician Query -> Entity Recognition -> Graph Hop -> Targeted Document Extraction`.
 
-## The Numbers That Matter
+## Performance Breakthrough
+Our audit across 30 complex medical queries (1, 2, and 3-hop) reveals a clear winner:
 
-| Pipeline    | Tokens | Cost/query | BERTScore |
-|-------------|--------|------------|-----------|
-| LLM-Only    | ~150   | $0.000088  | baseline  |
-| Basic RAG   | ~610   | $0.000360  | 0.87      |
-| **GraphRAG**| **~125**| **$0.000074**| **0.93** |
+| Pipeline | Avg Tokens | BERTScore (Raw) | Judge Pass Rate |
+| :--- | :--- | :--- | :--- |
+| LLM-Only | ~240 | Baseline | 83% |
+| Basic RAG | ~850 | 0.865 | 93% |
+| **GraphRAG (Elite)** | **~260** | **0.912** | **97%** |
 
-**Result: 79.5% fewer tokens. Same accuracy. Significantly more efficient.**
+**The Result: 70% fewer tokens vs. Basic RAG with a significant boost in medical accuracy.**
 
-## Technical Stack
-- **Database**: TigerGraph Cloud (MedGraph)
-- **LLM**: Llama 3.3 70B (via Groq)
-- **Framework**: Python, pyTigerGraph, ChromaDB (for baseline)
-- **Evaluation**: BERTScore, LLM-as-a-Judge
+## ROI Analysis: Efficiency at Scale
+At a scale of 100,000 queries per day, switching from Basic RAG to **GraphRAG saves over $12,500/year** in LLM costs alone. By compressing context through graph-based reasoning, we provide the LLM with "the signal, not the noise."
 
-## ROI Analysis
-At 100,000 queries/day, switching from Basic RAG to GraphRAG saves over **$10,000/year** while maintaining superior medical precision.
+## Technical Excellence
+- **TigerGraph Cloud**: Direct REST++ traversals for sub-100ms context retrieval.
+- **Groq Llama-3.3-70B**: Lightning-fast inference on specialized medical context.
+- **Automated Audit**: BERTScore (roberta-large) + LLM Judge (Llama-3) validation.
 
 ---
-*Stay tuned for the full technical walkthrough and GitHub repository link!*
+*Developed for the TigerGraph GraphRAG Inference Hackathon 2024.*

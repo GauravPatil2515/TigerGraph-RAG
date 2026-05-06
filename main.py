@@ -1,21 +1,28 @@
-"""Main entrypoint for GraphRAG Hackathon.
+"""
+Module: main.py
+Description: Main entrypoint for GraphRAG Hackathon project. 
+             Handles orchestration of data loading, ingestion, and 
+             benchmark execution across multiple pipelines.
 
-Full pipeline orchestration:
-1. Load PubMedQA dataset
-2. Ingest into ChromaDB (if needed)
-3. Check TigerGraph health and ingest (if healthy)
-4. Initialize all 3 pipelines
-5. Run benchmark on all 30 queries
-6. Save results and print summary
+Author: Gaurav Patil
+Project: GraphRAG Inference Hackathon — TigerGraph 2026
+GitHub: https://github.com/GauravPatil2515/TigerGraph-RAG
+
+Key Features:
+    - Multi-mode execution: "quick" (30 queries) or "full" (200 records)
+    - Automated data ingestion for TigerGraph and ChromaDB
+    - Comprehensive structured logging to console and file
+    - Post-run summary and dashboard pointers
 """
 
 import argparse
 import logging
 import sys
 import os
+from typing import List, Dict, Any
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
+# Ensure project root is in path for local imports
+sys.path.insert(0, os.getcwd())
 from data.loader import load_pubmedqa
 from ingest.chroma_ingest import ingest_to_chroma
 from ingest import tigergraph_ingest as tg_client
@@ -25,147 +32,96 @@ from pipelines.pipeline_c_graphrag import GraphRAGPipeline
 from benchmark.queries import BENCHMARK_QUERIES
 from benchmark.runner import BenchmarkRunner
 
+# --- Structured Logging Configuration ---
+# Creates logs/ directory if not present
+os.makedirs("logs", exist_ok=True)
+
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s | %(name)s | %(levelname)s | %(message)s',
+    handlers=[
+        logging.StreamHandler(),                          # console output
+        logging.FileHandler('logs/benchmark.log')         # file output
+    ]
 )
 logger = logging.getLogger(__name__)
 
-
-def parse_args():
-    """Parse command line arguments."""
-    parser = argparse.ArgumentParser(
-        description="GraphRAG Hackathon - Run benchmark across 3 pipelines"
-    )
+def parse_args() -> argparse.Namespace:
+    """
+    Parse command line arguments for the benchmark run.
+    
+    Returns:
+        argparse.Namespace: Parsed arguments with mode and ingest flags.
+    """
+    parser = argparse.ArgumentParser(description="GraphRAG Hackathon Benchmark Orchestrator")
     parser.add_argument(
-        "--skip-ingest",
-        action="store_true",
-        help="Skip data ingestion (use existing DBs)"
-    )
-    parser.add_argument(
-        "--pipelines",
-        type=str,
-        default="a,b,c",
-        help="Comma-separated list of pipelines to run: a,b,c (default: all)"
-    )
-    parser.add_argument(
-        "--queries",
-        type=int,
-        default=30,
-        help="Number of queries to run (default: 30)"
-    )
-    parser.add_argument(
-        "--mode",
-        type=str,
-        default="quick",
+        "--mode", 
+        type=str, 
+        default="quick", 
         choices=["quick", "full"],
-        help="Benchmark mode: quick (30 queries) or full (200 PubMedQA records)"
+        help="Run mode: 'quick' for curated 30 queries, 'full' for 200 dataset records."
+    )
+    parser.add_argument(
+        "--skip-ingest", 
+        action="store_true",
+        help="Skip the data ingestion phase (useful if DBs are already populated)."
     )
     return parser.parse_args()
 
+def main() -> None:
+    """
+    Main orchestration logic.
+    
+    Performs data loading, optional ingestion, pipeline initialization,
+    and triggers the benchmark runner.
+    """
+    args: argparse.Namespace = parse_args()
+    logger.info("="*80)
+    logger.info(f"🚀 GraphRAG Audit Run | Mode: {args.mode} | Skip Ingest: {args.skip_ingest}")
+    logger.info("="*80)
 
-def main():
-    """Main entrypoint."""
-    args = parse_args()
+    # 1. Load PubMedQA Dataset (1000 records total)
+    records: List[Dict[str, Any]] = load_pubmedqa(1000)
     
-    logger.info("="*80)
-    logger.info("GraphRAG Hackathon - Benchmark Runner")
-    logger.info("="*80)
-    
-    # Parse pipelines to run
-    pipeline_map = {"a": "llm_only", "b": "basic_rag", "c": "graphrag"}
-    selected_pipelines = [pipeline_map[p.strip()] for p in args.pipelines.split(",") if p.strip() in pipeline_map]
-    logger.info(f"Selected pipelines: {selected_pipelines}")
-    logger.info(f"Benchmark mode: {args.mode}")
-    
-    # Limit queries based on mode
-    if args.mode == "full":
-        queries_to_run = []  # Will use PubMedQA records directly in full mode
-        logger.info("Full mode: Will run on 200 PubMedQA records")
-    else:
-        queries_to_run = BENCHMARK_QUERIES[:args.queries]
-        logger.info(f"Quick mode: Running {len(queries_to_run)} benchmark queries")
-    
-    # 1. Load PubMedQA dataset
-    logger.info("\n[Step 1/5] Loading PubMedQA dataset...")
-    records = load_pubmedqa(1000)
-    
-    # 2. Check ChromaDB and ingest if needed
+    # 2. Ingestion Phase
     if not args.skip_ingest:
-        logger.info("\n[Step 2/5] Ingesting into ChromaDB...")
+        logger.info("📥 Ingesting into ChromaDB and TigerGraph...")
         ingest_to_chroma(records)
+        tg_client.ingest_documents(records[:500])
     else:
-        logger.info("\n[Step 2/5] Skipping ChromaDB ingestion (--skip-ingest)")
+        logger.info("⏭️ Skipping ingestion as requested.")
     
-    # 3. Check TigerGraph health and ingest if healthy
-    if not args.skip_ingest and "graphrag" in selected_pipelines:
-        logger.info("\n[Step 3/5] Checking TigerGraph GraphRAG health...")
-        if tg_client.check_health():
-            logger.info("TigerGraph is healthy. Ingesting documents...")
-            tg_client.ingest_documents(records[:500])  # Use subset for graph
-        else:
-            logger.warning("TigerGraph health check failed. GraphRAG pipeline may not work.")
-    else:
-        if args.skip_ingest:
-            logger.info("\n[Step 3/5] Skipping TigerGraph ingestion (--skip-ingest)")
-        else:
-            logger.info("\n[Step 3/5] Skipping TigerGraph (not selected)")
+    # 3. Initialize Evaluation Pipelines
+    # Pipeline A (LLM-Only) and Pipeline C (GraphRAG) are always run
+    pipes: List[Any] = [RawLLMPipeline(), GraphRAGPipeline()]
     
-    # 4. Initialize selected pipelines
-    logger.info("\n[Step 4/5] Initializing pipelines...")
-    pipelines = []
+    # Pipeline B (Basic RAG) is included in quick mode for head-to-head comparison
+    if args.mode == "quick":
+        pipes.insert(1, BasicRAGPipeline())
     
-    if "llm_only" in selected_pipelines:
-        pipe_a = RawLLMPipeline()
-        pipelines.append(pipe_a)
-        logger.info(f"  ✓ Initialized {pipe_a}")
-    
-    if "basic_rag" in selected_pipelines:
-        pipe_b = BasicRAGPipeline()
-        pipelines.append(pipe_b)
-        logger.info(f"  ✓ Initialized {pipe_b}")
-    
-    if "graphrag" in selected_pipelines:
-        pipe_c = GraphRAGPipeline()
-        pipelines.append(pipe_c)
-        logger.info(f"  ✓ Initialized {pipe_c}")
-    
-    if not pipelines:
-        logger.error("No valid pipelines selected! Exiting.")
-        sys.exit(1)
-    
-    # 5. Run benchmark (quick or full mode)
-    logger.info("\n[Step 5/5] Running benchmark...")
-    runner = BenchmarkRunner(pipelines=pipelines, results_dir="./results", mode=args.mode)
-    
+    # 4. Prepare Evaluation Queries
+    queries: List[Dict[str, Any]] = []
     if args.mode == "full":
-        # Full mode: Run on 200 PubMedQA records with BERTScore only
-        summary = runner.run_full_benchmark(records, pipelines, delay_seconds=0.5)
-        df = runner.save_csv()
-        if summary:
-            logger.info("\n" + "="*80)
-            logger.info("FULL BENCHMARK SUMMARY")
-            logger.info("="*80)
-            for pipeline_name, metrics in summary.items():
-                logger.info(f"\n  {pipeline_name}:")
-                for metric, value in metrics.items():
-                    logger.info(f"    {metric}: {value:.4f}")
+        # Transform raw PubMedQA records into benchmark-compatible query format
+        queries = [
+            {"id": f"full_{i}", "query": r["question"], "reference": r["answer"], "hop_level": 1} 
+            for i, r in enumerate(records[:200])
+        ]
+        logger.info(f"Prepared {len(queries)} records for full benchmark evaluation.")
     else:
-        # Quick mode: Run on benchmark queries with full evaluation
-        runner.run(queries_to_run, delay_seconds=1.5)
-        df = runner.save_csv()
-        runner.print_summary(df)
-    
-    # 7. Final message
-    logger.info("\n" + "="*80)
-    logger.info("✅ Run complete!")
-    logger.info("="*80)
-    logger.info(f"Results saved to: {runner.csv_path}")
-    logger.info("\n📊 Launch dashboard:")
-    logger.info("   streamlit run dashboard/app.py")
-    logger.info("="*80)
+        queries = BENCHMARK_QUERIES
+        logger.info(f"Using curated benchmark set: {len(queries)} queries.")
 
+    # 5. Execute Benchmark Run
+    runner = BenchmarkRunner(pipelines=pipes)
+    runner.run(queries, delay=1.0)
+    csv_path: Optional[str] = runner.save()
+    
+    if csv_path:
+        logger.info("="*80)
+        logger.info(f"✅ Benchmark Complete! Results: {csv_path}")
+        logger.info("📊 View performance insights: streamlit run dashboard/app.py")
+        logger.info("="*80)
 
 if __name__ == "__main__":
     main()
-

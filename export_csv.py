@@ -1,11 +1,21 @@
-# export_csv.py
-from data.loader import load_medquad
+"""
+Module: export_csv.py
+Description: Utility script to generate structured CSV data for TigerGraph 
+             bulk ingestion. Exports nodes (Diseases, Drugs, Symptoms) and 
+             edges (Treats, Causes) to the csv_export/ directory.
+
+Author: Gaurav Patil
+Project: GraphRAG Inference Hackathon — TigerGraph 2026
+"""
+
+from data.loader import load_pubmedqa
 import pandas as pd, os
 
 os.makedirs("csv_export", exist_ok=True)
-records = load_medquad(500)
+# Load a subset of records to help define the graph schema context
+records = load_pubmedqa(500)
 
-# Diseases
+# Diseases nodes
 pd.DataFrame([
     {"name": "diabetes",      "description": "metabolic disease with high blood sugar"},
     {"name": "hypertension",  "description": "high blood pressure condition"},
@@ -17,7 +27,7 @@ pd.DataFrame([
     {"name": "obesity",       "description": "excess body weight condition"},
 ]).to_csv("csv_export/diseases.csv", index=False)
 
-# Drugs
+# Drugs nodes
 pd.DataFrame([
     {"name": "metformin",       "treats": "diabetes",     "side_effect": "nausea"},
     {"name": "lisinopril",      "treats": "hypertension", "side_effect": "dry cough"},
@@ -29,7 +39,7 @@ pd.DataFrame([
     {"name": "amlodipine",      "treats": "hypertension", "side_effect": "swelling"},
 ]).to_csv("csv_export/drugs.csv", index=False)
 
-# Symptoms
+# Symptoms nodes
 pd.DataFrame([
     {"name": "fatigue",           "caused_by": "diabetes"},
     {"name": "frequent urination","caused_by": "diabetes"},

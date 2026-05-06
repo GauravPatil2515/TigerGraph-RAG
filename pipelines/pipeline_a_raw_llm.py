@@ -1,98 +1,115 @@
-"""Pipeline A: Raw LLM (LLM-Only) for GraphRAG Hackathon.
+"""
+Module: pipeline_a_raw_llm.py
+Description: Baseline pipeline — no retrieval, direct LLM inference. 
+             Serves as the worst-case cost/accuracy baseline for comparison 
+             against RAG-based approaches.
 
-This pipeline makes direct API calls to Groq without any retrieval augmentation.
-Serves as the baseline for comparison.
+Author: Gaurav Patil
+Project: GraphRAG Inference Hackathon — TigerGraph 2026
+GitHub: https://github.com/GauravPatil2515/TigerGraph-RAG
+
+Key Features:
+    - Zero-shot inference using Groq Llama-3
+    - Establishing baseline metrics for token usage and latency
+    - No external knowledge retrieval
 """
 
 import time
 import logging
+import os
+import sys
 from typing import Dict, Any
 from groq import Groq
-import sys
-import os
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import GROQ_API_KEY, GROQ_MODEL, COST_PER_1K_TOKENS
+# Ensure project root is in path for config import
+sys.path.insert(0, os.getcwd())
+from config import GROQ_API_KEY, GROQ_MODEL, COST_PER_1K
 
-logging.basicConfig(level=logging.INFO)
+# Configure structured logging
 logger = logging.getLogger(__name__)
 
-
 class RawLLMPipeline:
-    """Raw LLM pipeline - direct Groq API calls without retrieval.
+    """
+    RawLLMPipeline: Pipeline A of the 3-pipeline benchmark system.
     
-    This pipeline serves as the baseline for comparison with RAG pipelines.
-    It sends queries directly to the LLM without any context retrieval.
+    Implements a direct LLM call without any retrieval augmentation.
+    Used to measure the 'pure' intelligence and cost baseline of the model.
+
+    Attributes:
+        client (Groq): Initialized Groq LLM client
+        name (str): Pipeline identifier for CSV logging
     """
     
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the Raw LLM pipeline with Groq client."""
         self.client = Groq(api_key=GROQ_API_KEY)
-        self.name = "llm_only"
-    
-    def __repr__(self) -> str:
-        """Return string representation of the pipeline."""
-        return f"RawLLMPipeline(name='{self.name}')"
-    
+        self.name: str = "llm_only"
+        logger.info(f"✅ {self.name} pipeline initialized")
+
     def run(self, query: str) -> Dict[str, Any]:
-        """Run the raw LLM pipeline.
-        
-        Args:
-            query: The medical question to answer
-            
-        Returns:
-            Dict with pipeline_name, answer, tokens_prompt, tokens_completion,
-            total_tokens, latency_ms, cost_usd
         """
-        messages = [
-            {
-                "role": "system",
-                "content": "You are a helpful medical research assistant. Answer concisely and accurately based on your knowledge."
-            },
-            {"role": "user", "content": query}
-        ]
+        Run the raw LLM pipeline for a given query.
         
-        start = time.perf_counter()
+        Executes a zero-shot completion request using the Groq API.
+
+        Args:
+            query: User's medical question text.
+
+        Returns:
+            dict: Standard pipeline result dictionary containing:
+                - pipeline_name: "llm_only"
+                - answer: The LLM generated text
+                - tokens_prompt: Input token count
+                - tokens_completion: Output token count
+                - total_tokens: Sum of prompt and completion tokens
+                - latency_ms: Execution time in milliseconds
+                - cost_usd: Calculated cost based on token usage
+        """
+        logger.info(f"Running {self.name} pipeline for query: {query[:50]}...")
+        start: float = time.perf_counter()
+        
         try:
+            # temperature=0.2 chosen to allow slight creative variance while maintaining 
+            # medical consistency (higher than 0.0 but lower than typical creative 0.7)
             response = self.client.chat.completions.create(
                 model=GROQ_MODEL,
-                messages=messages,
-                temperature=0.1,
+                messages=[
+                    {"role": "system", "content": "You are a concise medical assistant. Answer only based on your internal knowledge."},
+                    {"role": "user", "content": query}
+                ],
+                temperature=0.2,
                 max_tokens=512
             )
+            
+            usage = response.usage
+            tokens_p: int = usage.prompt_tokens
+            tokens_c: int = usage.completion_tokens
+            total: int = tokens_p + tokens_c
+            latency: float = (time.perf_counter() - start) * 1000
+            
+            # cost_usd formula: (Total Tokens / 1000) * Price Per 1K
+            cost_usd: float = round((total / 1000) * COST_PER_1K, 6)
+            
+            logger.info(f"Tokens: {total} | Cost: ${cost_usd} | Latency: {latency:.0f}ms")
+            
+            return {
+                "pipeline_name":     self.name,
+                "answer":            response.choices[0].message.content.strip(),
+                "tokens_prompt":     tokens_p,
+                "tokens_completion": tokens_c,
+                "total_tokens":      total,
+                "latency_ms":        round(latency, 2),
+                "cost_usd":          cost_usd
+            }
+            
         except Exception as e:
-            logger.error(f"Groq API error: {e}")
-            raise
-        
-        latency_ms = (time.perf_counter() - start) * 1000
-        
-        usage = response.usage
-        tokens_prompt = usage.prompt_tokens
-        tokens_completion = usage.completion_tokens
-        total_tokens = tokens_prompt + tokens_completion
-        cost_usd = (total_tokens / 1000) * COST_PER_1K_TOKENS
-        
-        return {
-            "pipeline_name": self.name,
-            "answer": response.choices[0].message.content.strip(),
-            "tokens_prompt": tokens_prompt,
-            "tokens_completion": tokens_completion,
-            "total_tokens": total_tokens,
-            "latency_ms": round(latency_ms, 2),
-            "cost_usd": round(cost_usd, 6)
-        }
-
-
-if __name__ == "__main__":
-    logger.info("Testing Raw LLM Pipeline...")
-    pipeline = RawLLMPipeline()
-    logger.info(f"Pipeline: {pipeline}")
-    
-    test_query = "What are the symptoms of Type 2 Diabetes?"
-    logger.info(f"\nTest query: {test_query}")
-    
-    result = pipeline.run(test_query)
-    logger.info(f"\nResult:")
-    for key, value in result.items():
-        logger.info(f"  {key}: {value}")
-
+            logger.error(f"Groq API error in {self.name}: {e}")
+            return {
+                "pipeline_name":     self.name,
+                "answer":            f"Error generating response: {str(e)}",
+                "tokens_prompt":     0,
+                "tokens_completion": 0,
+                "total_tokens":      0,
+                "latency_ms":        0.0,
+                "cost_usd":          0.0
+            }

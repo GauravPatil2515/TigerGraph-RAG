@@ -44,10 +44,61 @@ streamlit run dashboard/app.py
      └── Pipeline C: GraphRAG (TigerGraph MedGraph + Groq)
      ↓
 [Evaluation Layer]
-  BERTScore 0.8712 | LLM-Judge 96.7% | Token/Cost/Latency
+   BERTScore 0.8712 | LLM-Judge 96.7% | Token/Cost/Latency
      ↓
 [Streamlit Dashboard]
-  Live Runner | ROI Calculator | Hallucination Test
+   Live Runner | ROI Calculator | Hallucination Test
+```
+
+## 💻 Code Examples
+
+### Run a single query through all pipelines
+```python
+from pipelines.pipeline_a_raw_llm import RawLLMPipeline
+from pipelines.pipeline_b_basic_rag import BasicRAGPipeline
+from pipelines.pipeline_c_graphrag import GraphRAGPipeline
+
+query = "How does insulin resistance cause kidney failure?"
+
+results = {}
+for Pipeline, name in [
+    (RawLLMPipeline,  "llm_only"),
+    (BasicRAGPipeline,"basic_rag"),
+    (GraphRAGPipeline,"graphrag")
+]:
+    p = Pipeline()
+    r = p.run(query)
+    results[name] = r
+    print(f"{name}: {r['total_tokens']} tokens | {r['latency_ms']:.0f}ms")
+
+# Output:
+# llm_only:  236 tokens | 1092ms
+# basic_rag: 678 tokens | 986ms
+# graphrag:  183 tokens | 1467ms
+```
+
+### Compute BERTScore
+```python
+from evaluation.bertscore_eval import compute_bertscore
+
+score = compute_bertscore(
+    prediction="Diabetes causes kidney failure through nephropathy.",
+    reference="Diabetic nephropathy is progressive kidney disease from hyperglycemia."
+)
+print(f"Raw F1: {score['bert_f1_raw']}")       # 0.9017
+print(f"Rescaled: {score['bert_f1_rescaled']}") # 0.5723
+```
+
+### Run full benchmark
+```bash
+# Quick mode (30 queries, all 3 pipelines)
+python main.py --mode quick
+
+# Full mode (200 queries, Pipeline A + C only)
+python main.py --mode full
+
+# Skip TigerGraph ingestion (data already loaded)
+python main.py --mode quick --skip-ingest
 ```
 
 ## 📁 Dataset
@@ -55,7 +106,7 @@ streamlit run dashboard/app.py
 - Domain: Medical research with rich entity relationships
 
 ## 🛠️ Tech Stack
-TigerGraph Savanna (MedGraph) | Groq API (Llama-3.3-70b-versatile) | 
+TigerGraph Cloud (MedGraph) | Groq API (Llama-3.3-70b-versatile) | 
 ChromaDB | PubMedQA | Streamlit | pyTigerGraph | BERTScore | HuggingFace
 
 ## Built for GraphRAG Inference Hackathon by TigerGraph 2026

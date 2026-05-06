@@ -1,3 +1,12 @@
+"""
+Module: check_connections.py
+Description: Diagnostic script to verify connectivity to all external services
+             required for the GraphRAG pipeline (TigerGraph, Groq, ChromaDB).
+
+Author: Gaurav Patil
+Project: GraphRAG Inference Hackathon — TigerGraph 2026
+"""
+
 import os, sys
 sys.path.insert(0, '.')
 

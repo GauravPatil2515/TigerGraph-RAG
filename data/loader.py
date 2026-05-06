@@ -1,49 +1,75 @@
-"""PubMedQA dataset loader for GraphRAG Hackathon.
+"""
+Module: loader.py
+Description: PubMedQA dataset loader for GraphRAG Hackathon. 
+             Handles high-speed ingestion and preprocessing of medical QA 
+             data from HuggingFace.
 
-This module handles loading and preprocessing of the PubMedQA dataset from HuggingFace.
+Author: Gaurav Patil
+Project: GraphRAG Inference Hackathon — TigerGraph 2026
+
+Key Features:
+    - Automated fetching via 'datasets' library
+    - Context merging and sanitization
+    - Heuristic token count estimation for ingestion planning
 """
 
 import logging
 from typing import List, Dict, Any
-from datasets import load_dataset
 
-logging.basicConfig(level=logging.INFO)
+# Configure structured logging
 logger = logging.getLogger(__name__)
 
-
 def load_pubmedqa(limit: int = 1000) -> List[Dict[str, Any]]:
-    """Load PubMedQA dataset from HuggingFace.
+    """
+    Load and preprocess the PubMedQA dataset from HuggingFace.
     
+    Fetches the 'pqa_labeled' split which contains high-quality, 
+    human-labeled medical questions, contexts, and answers.
+
     Args:
-        limit: Maximum number of records to load (default: 1000)
+        limit: Maximum number of records to load (default: 1000).
         
     Returns:
-        List of dicts with keys: question, answer, context, token_count
+        List[Dict[str, Any]]: List of records, each containing:
+            - question: The medical inquiry
+            - answer: The ground truth long answer
+            - context: Concatenated supporting document text
+            - token_count: Estimated token usage (words * 1.3)
+            
+    Example:
+        records = load_pubmedqa(limit=100)
+        print(records[0]['question'])
     """
-    logger.info(f"Loading PubMedQA dataset (pqa_labeled split, {limit} records)...")
+    logger.info(f"Fetching PubMedQA dataset (pqa_labeled split, limit={limit})...")
     
-    ds = load_dataset("qiaojin/PubMedQA", "pqa_labeled", split="train")
-    records = []
+    try:
+        from datasets import load_dataset
+        ds = load_dataset("qiaojin/PubMedQA", "pqa_labeled", split="train")
+    except Exception as e:
+        logger.error(f"Failed to load dataset: {e}")
+        return []
+
+    records: List[Dict[str, Any]] = []
     
     for i, row in enumerate(ds):
         if i >= limit:
             break
         
-        # Extract question
-        question = row.get("question", "").strip()
+        # Extract and sanitize primary fields
+        question: str = row.get("question", "").strip()
+        answer: str   = row.get("long_answer", "").strip()
         
-        # Extract long answer (reference answer)
-        answer = row.get("long_answer", "").strip()
+        # Merge context snippets into a single coherent block for RAG
+        context_list: List[str] = row.get("context", {}).get("contexts", [])
+        context: str = " ".join(context_list).strip()
         
-        # Extract context - join context.contexts list into one string
-        context_list = row.get("context", {}).get("contexts", [])
-        context = " ".join(context_list).strip()
+        # Calculate heuristic token count estimate (words * 1.3 coefficient)
+        # This is used to estimate ingestion costs and context window usage.
+        total_text: str = f"{question} {answer} {context}"
+        token_count: float = len(total_text.split()) * 1.3
         
-        # Calculate token count estimate: len(text.split()) * 1.3
-        total_text = f"{question} {answer} {context}"
-        token_count = len(total_text.split()) * 1.3
-        
-        if question and answer:  # Only include records with both question and answer
+        # Filter for quality: only include records with complete QA pairs
+        if question and answer:
             records.append({
                 "question": question,
                 "answer": answer,
@@ -51,20 +77,15 @@ def load_pubmedqa(limit: int = 1000) -> List[Dict[str, Any]]:
                 "token_count": round(token_count, 0)
             })
     
-    # Calculate total estimated tokens
-    total_tokens = sum(r["token_count"] for r in records)
-    logger.info(f"Loaded {len(records)} QA pairs from PubMedQA")
-    logger.info(f"Total estimated tokens: {total_tokens:,.0f} (~{total_tokens/1e6:.2f}M tokens)")
+    total_tokens: float = sum(r["token_count"] for r in records)
+    logger.info(f"✅ Successfully loaded {len(records)} records")
+    logger.info(f"📊 Total estimated tokens: {total_tokens:,.0f} (~{total_tokens/1e6:.2f}M tokens)")
     
     return records
 
-
 if __name__ == "__main__":
-    data = load_pubmedqa()
-    logger.info(f"\nSample record:")
+    # Test execution for standalone verification
+    logging.basicConfig(level=logging.INFO)
+    data = load_pubmedqa(5)
     if data:
-        sample = data[0]
-        logger.info(f"  Question: {sample['question'][:100]}...")
-        logger.info(f"  Answer: {sample['answer'][:100]}...")
-        logger.info(f"  Context: {sample['context'][:100]}...")
-        logger.info(f"  Token count: {sample['token_count']}")
+        logger.info(f"Sample Question: {data[0]['question'][:80]}...")
