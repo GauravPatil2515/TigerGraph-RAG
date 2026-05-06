@@ -23,6 +23,7 @@ class GraphRAGPipeline:
         self.token, self.restpp_url, self.graph = get_token_info()
         self.headers = {"Authorization": f"Bearer {self.token}", "Content-Type": "application/json"}
         self.name = "graphrag"
+        self._entity_cache = {}  # Cache to reduce latency
         print(f"✅ GraphRAG Pipeline initialized — Connected to {self.graph}")
 
     def extract_keywords(self, query: str) -> list:
@@ -31,6 +32,10 @@ class GraphRAGPipeline:
         return [w for w in words if w not in stopwords and len(w) > 3]
 
     def graph_search(self, keywords: list) -> str:
+        cache_key = tuple(sorted(keywords))
+        if cache_key in self._entity_cache:
+            return self._entity_cache[cache_key]
+
         context_parts = []
         for kw in keywords[:3]:
             try:
@@ -57,7 +62,10 @@ class GraphRAGPipeline:
                                     context_parts.append(f"Q: {q}\nA: {a}")
             except:
                 continue
-        return "\n\n".join(context_parts[:5]) if context_parts else ""
+        
+        result = "\n\n".join(context_parts[:5]) if context_parts else ""
+        self._entity_cache[cache_key] = result
+        return result
 
     def run(self, query: str) -> dict:
         start = time.perf_counter()
@@ -68,7 +76,7 @@ class GraphRAGPipeline:
         user_msg = f"Context:\n{graph_context}\n\nQuestion: {query}" if graph_context else query
         
         messages = [{"role": "system", "content": system_msg}, {"role": "user", "content": user_msg}]
-        response = self.client.chat.completions.create(model=self.model, messages=messages, temperature=0.1, max_tokens=400)
+        response = self.client.chat.completions.create(model=self.model, messages=messages, temperature=0.1, max_tokens=256)
         
         latency = (time.perf_counter() - start) * 1000
         usage = response.usage
