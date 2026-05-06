@@ -1,12 +1,19 @@
 # graph/schema.py
 import pyTigerGraph as tg
-from config import TG_HOST, TG_GRAPHNAME, TG_APIKEY
+import os
+from config import TG_HOST, TG_GRAPHNAME, TG_SECRET
 
 def get_connection():
+    """Connect to TigerGraph Cloud (Savanna) instance"""
+    host   = TG_HOST
+    graph  = TG_GRAPHNAME
+    secret = TG_SECRET
+
     conn = tg.TigerGraphConnection(
-        host=TG_HOST,
-        graphname=TG_GRAPHNAME,
-        apiToken=TG_APIKEY          # Savanna uses apiToken, not username/password
+        host=host,
+        graphname=graph,
+        gsqlSecret=secret,
+        tgCloud=True          # ← mandatory for .i.tgcloud.io hosts
     )
-    print(f"Connected to: {conn.graphname}")
+    conn.getToken(secret)
     return conn

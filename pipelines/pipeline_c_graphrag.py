@@ -1,206 +1,93 @@
-"""Pipeline C: GraphRAG (TigerGraph REST API + Groq) for GraphRAG Hackathon.
-
-This pipeline uses TigerGraph GraphRAG REST API for graph-based retrieval,
-then augments the LLM prompt with graph context.
-"""
-
-import time
-import logging
-from typing import Dict, Any
+import os, time, requests
 from groq import Groq
-import sys
-import os
+from dotenv import load_dotenv
+import pyTigerGraph as tg
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import GROQ_API_KEY, GROQ_MODEL, COST_PER_1K_TOKENS
-from ingest import tigergraph_ingest as tg_client
+load_dotenv()
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+COST_PER_1K = 0.00059
 
-
-def extract_compressed_context(graph_response: dict, max_chars: int = 800) -> str:
-    """Extract only the essential graph entities and key facts — no raw passage dumps.
-
-    GraphRAG's advantage is that the graph already distilled relationships.
-    We take the shortest path to the answer: entities > key_facts > raw context.
-
-    Args:
-        graph_response: Dict returned from TigerGraph query_graphrag()
-        max_chars: Hard cap on output length (default 800 chars ~ 200 tokens)
-
-    Returns:
-        Compressed context string
-    """
-    parts = []
-
-    # 1. Named entities from graph traversal
-    entities = graph_response.get("entities", [])
-    if entities:
-        entity_strs = []
-        for e in entities[:5]:
-            name = e.get("name") or e.get("id", "")
-            desc = e.get("description") or e.get("summary", "")
-            if name:
-                entity_strs.append(f"{name}: {desc[:80]}" if desc else name)
-        if entity_strs:
-            parts.append("Entities: " + "; ".join(entity_strs))
-
-    # 2. Relationships from graph traversal
-    relationships = graph_response.get("relationships", [])
-    if relationships:
-        rel_strs = []
-        for r in relationships[:4]:
-            src = r.get("source") or r.get("from", "")
-            tgt = r.get("target") or r.get("to", "")
-            rel = r.get("relation") or r.get("type", "related")
-            if src and tgt:
-                rel_strs.append(f"{src} -{rel}-> {tgt}")
-        if rel_strs:
-            parts.append("Relations: " + "; ".join(rel_strs))
-
-    # 3. Key facts / snippets from graph response
-    key_facts = graph_response.get("key_facts") or graph_response.get("facts", [])
-    if key_facts:
-        facts_str = "; ".join(str(f)[:120] for f in key_facts[:3])
-        parts.append(f"Facts: {facts_str}")
-
-    # 4. Fall back to raw context only if nothing else available
-    if not parts:
-        raw = graph_response.get("context", "")
-        if raw:
-            parts.append(raw)
-
-    compressed = "\n".join(parts)
-    return compressed[:max_chars]
-
+def get_token_info():
+    secret = os.getenv("TIGERGRAPH_SECRET")
+    host = os.getenv("TIGERGRAPH_HOST")
+    graph = os.getenv("TIGERGRAPH_GRAPHNAME", "MedGraph")
+    conn = tg.TigerGraphConnection(host=host, graphname=graph, gsqlSecret=secret, tgCloud=True)
+    token = conn.getToken(secret)
+    if isinstance(token, tuple): token = token[0]
+    return token, conn.restppUrl, graph
 
 class GraphRAGPipeline:
-    """GraphRAG pipeline using TigerGraph REST API for retrieval + Groq for generation.
-    
-    This pipeline retrieves relevant context from TigerGraph knowledge graph,
-    then uses the graph context to augment the LLM prompt.
-    """
-    
     def __init__(self):
-        """Initialize the GraphRAG pipeline with Groq client and TigerGraph headers."""
-        self.client = Groq(api_key=GROQ_API_KEY)
+        self.client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        self.model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+        self.token, self.restpp_url, self.graph = get_token_info()
+        self.headers = {"Authorization": f"Bearer {self.token}", "Content-Type": "application/json"}
         self.name = "graphrag"
-    
-    def __repr__(self) -> str:
-        """Return string representation of the pipeline."""
-        return f"GraphRAGPipeline(name='{self.name}')"
-    
-    def run(self, query: str) -> Dict[str, Any]:
-        """Run the GraphRAG pipeline.
+        print(f"✅ GraphRAG Pipeline initialized — Connected to {self.graph}")
+
+    def extract_keywords(self, query: str) -> list:
+        stopwords = {"what","is","are","the","a","an","of","in","for","how","does","do","can","with","and","or","to","it"}
+        words = [w.lower().strip("?.,") for w in query.split()]
+        return [w for w in words if w not in stopwords and len(w) > 3]
+
+    def graph_search(self, keywords: list) -> str:
+        context_parts = []
+        for kw in keywords[:3]:
+            try:
+                # Search for Entity vertex (simplified)
+                # In a real system, we'd use a search endpoint or index.
+                # Here we'll try to get the vertex directly by ID (keyword)
+                r = requests.get(f"{self.restpp_url}/graph/{self.graph}/vertices/Entity/{kw}", headers=self.headers, verify=False)
+                if r.status_code == 200:
+                    ent_data = r.json()
+                    if not ent_data.get("error"):
+                        context_parts.append(f"Entity: {kw}")
+                        # Hop 2: Find Document vertices (mentions)
+                        r2 = requests.get(f"{self.restpp_url}/graph/{self.graph}/edges/Document/mentions/Entity/{kw}", headers=self.headers, verify=False)
+                        if r2.status_code == 200:
+                            edges = r2.json().get("results", [])
+                            for edge in edges[:2]:
+                                doc_id = edge.get("from_id")
+                                r3 = requests.get(f"{self.restpp_url}/graph/{self.graph}/vertices/Document/{doc_id}", headers=self.headers, verify=False)
+                                if r3.status_code == 200:
+                                    doc = r3.json().get("results", [{}])[0]
+                                    attrs = doc.get("attributes", {})
+                                    q = attrs.get("question", "")[:200]
+                                    a = attrs.get("answer", "")[:200]
+                                    context_parts.append(f"Q: {q}\nA: {a}")
+            except:
+                continue
+        return "\n\n".join(context_parts[:5]) if context_parts else ""
+
+    def run(self, query: str) -> dict:
+        start = time.perf_counter()
+        keywords = self.extract_keywords(query)
+        graph_context = self.graph_search(keywords)
         
-        Args:
-            query: The medical question to answer
-            
-        Returns:
-            Dict with pipeline_name, answer, tokens_prompt, tokens_completion,
-            total_tokens, latency_ms, cost_usd, graph_context_tokens
-        """
-        start_total = time.perf_counter()
+        system_msg = "You are a precise medical assistant. Use the provided context to answer concisely."
+        user_msg = f"Context:\n{graph_context}\n\nQuestion: {query}" if graph_context else query
         
-        # Call TigerGraph GraphRAG to get graph context
-        try:
-            graph_response = tg_client.query_graphrag(query, top_k=5, num_hops=2)
-        except Exception as e:
-            logger.error(f"TigerGraph query error: {e}")
-            graph_response = {"error": str(e), "answer": None, "context": ""}
+        messages = [{"role": "system", "content": system_msg}, {"role": "user", "content": user_msg}]
+        response = self.client.chat.completions.create(model=self.model, messages=messages, temperature=0.1, max_tokens=400)
         
-        # Check if GraphRAG returns a direct answer
-        if graph_response.get("answer"):
-            # GraphRAG REST returns a direct answer - use it, skip Groq call
-            answer = graph_response["answer"]
-            tokens_prompt = 0
-            tokens_completion = 0
-            total_tokens = 0
-            cost_usd = 0.0
-            graph_context_tokens = len(answer.split()) * 1.3  # Approximate
-            latency_ms = (time.perf_counter() - start_total) * 1000
-            
-            return {
-                "pipeline_name": self.name,
-                "answer": answer,
-                "tokens_prompt": tokens_prompt,
-                "tokens_completion": tokens_completion,
-                "total_tokens": total_tokens,
-                "latency_ms": round(latency_ms, 2),
-                "cost_usd": round(cost_usd, 6),
-                "graph_context_tokens": round(graph_context_tokens, 0)
-            }
-        
-        # GraphRAG returns context - pass to Groq
-        # Use compressed extraction — graph already distilled key facts
-        context = extract_compressed_context(graph_response, max_chars=800)
-        if not context:
-            context = "No relevant graph context found."
-        
-        # Calculate graph context tokens (compressed)
-        graph_context_tokens = len(context.split())
-        logger.info(f"GraphRAG compressed context: {len(context)} chars / ~{graph_context_tokens} words")
-        
-        # Build a tight prompt — graph context is pre-distilled, no need for verbose instructions
-        messages = [
-            {
-                "role": "system",
-                "content": "You are a concise medical assistant. Use the graph context below to answer factually in 1-3 sentences."
-            },
-            {"role": "user", "content": f"Graph context:\n{context}\n\nQuestion: {query}\nAnswer:"}
-        ]
-        
-        try:
-            response = self.client.chat.completions.create(
-                model=GROQ_MODEL,
-                messages=messages,
-                temperature=0.0,
-                max_tokens=250  # Tight — GraphRAG should be the most token-efficient
-            )
-        except Exception as e:
-            logger.error(f"Groq API error: {e}")
-            raise
-        
-        latency_ms = (time.perf_counter() - start_total) * 1000
-        
+        latency = (time.perf_counter() - start) * 1000
         usage = response.usage
-        tokens_prompt = usage.prompt_tokens
-        tokens_completion = usage.completion_tokens
-        total_tokens = tokens_prompt + tokens_completion
-        cost_usd = (total_tokens / 1000) * COST_PER_1K_TOKENS
+        total = usage.prompt_tokens + usage.completion_tokens
         
         return {
             "pipeline_name": self.name,
             "answer": response.choices[0].message.content.strip(),
-            "tokens_prompt": tokens_prompt,
-            "tokens_completion": tokens_completion,
-            "total_tokens": total_tokens,
-            "latency_ms": round(latency_ms, 2),
-            "cost_usd": round(cost_usd, 6),
-            "graph_context_tokens": graph_context_tokens
+            "tokens_prompt": usage.prompt_tokens,
+            "tokens_completion": usage.completion_tokens,
+            "total_tokens": total,
+            "latency_ms": round(latency, 2),
+            "cost_usd": round((total/1000) * COST_PER_1K, 6),
+            "graph_context_len": len(graph_context),
+            "graph_hops": 2 if graph_context else 0,
         }
 
-
 if __name__ == "__main__":
-    logger.info("Testing GraphRAG Pipeline...")
-    pipeline = GraphRAGPipeline()
-    logger.info(f"Pipeline: {pipeline}")
-    
-    # Check TigerGraph health first
-    if tg_client.check_health():
-        logger.info("✓ TigerGraph health check passed")
-    else:
-        logger.warning("✗ TigerGraph health check failed - pipeline may not work")
-    
-    test_query = "What are the symptoms of Type 2 Diabetes?"
-    logger.info(f"\nTest query: {test_query}")
-    
-    try:
-        result = pipeline.run(test_query)
-        logger.info(f"\nResult:")
-        for key, value in result.items():
-            logger.info(f"  {key}: {value}")
-    except Exception as e:
-        logger.error(f"Pipeline test failed: {e}")
-
+    p = GraphRAGPipeline()
+    res = p.run("What are the symptoms of diabetes?")
+    print(f"✅ Answer: {res['answer'][:200]}")
+    print(f"✅ Tokens: {res['total_tokens']}")

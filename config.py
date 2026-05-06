@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Groq LLM Configuration
 GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
-GROQ_MODEL: str = "openai/gpt-oss-120b"
+GROQ_MODEL: str = "llama-3.3-70b-versatile"
 COST_PER_1K_TOKENS: float = 0.00059
 
 # TigerGraph Configuration
@@ -22,6 +22,7 @@ TG_HOST: str = os.getenv("TIGERGRAPH_HOST", "")
 TG_GRAPHNAME: str = os.getenv("TIGERGRAPH_GRAPHNAME", "MyGraph")
 TG_USERNAME: str = os.getenv("TIGERGRAPH_USERNAME", "tigergraph")
 TG_PASSWORD: str = os.getenv("TIGERGRAPH_PASSWORD", "")
+TG_SECRET: str = os.getenv("TIGERGRAPH_SECRET", "")
 
 # ChromaDB Configuration - absolute path (force absolute)
 _chroma_path = os.getenv("CHROMA_PATH", "./chroma_db")

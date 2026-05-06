@@ -2,9 +2,10 @@
 __pycache__/
 *.pyc
 chroma_db/
-venv/
-venv-ardupilot/
-results/*.jsonl
 *.egg-info/
 .DS_Store
-.streamlit/
+venv/
+results/
+logs/
+data/*.json
+data/*.csv
