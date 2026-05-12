@@ -13,13 +13,16 @@ Key Features:
     - Automated data ingestion for TigerGraph and ChromaDB
     - Comprehensive structured logging to console and file
     - Post-run summary and dashboard pointers
+
+Active Pipeline:
+    create_schema.py → ingest/tigergraph_ingest.py → pipelines/pipeline_c_graphrag.py
 """
 
 import argparse
 import logging
 import sys
 import os
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional  # FIX: Added Optional
 
 # Ensure project root is in path for local imports
 sys.path.insert(0, os.getcwd())
@@ -33,15 +36,14 @@ from benchmark.queries import BENCHMARK_QUERIES
 from benchmark.runner import BenchmarkRunner
 
 # --- Structured Logging Configuration ---
-# Creates logs/ directory if not present
 os.makedirs("logs", exist_ok=True)
 
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s | %(name)s | %(levelname)s | %(message)s',
     handlers=[
-        logging.StreamHandler(),                          # console output
-        logging.FileHandler('logs/benchmark.log')         # file output
+        logging.StreamHandler(),
+        logging.FileHandler('logs/benchmark.log')
     ]
 )
 logger = logging.getLogger(__name__)
@@ -80,7 +82,7 @@ def main() -> None:
     logger.info(f"🚀 GraphRAG Audit Run | Mode: {args.mode} | Skip Ingest: {args.skip_ingest}")
     logger.info("="*80)
 
-    # 1. Load PubMedQA Dataset (1000 records total)
+    # 1. Load PubMedQA Dataset
     records: List[Dict[str, Any]] = load_pubmedqa(1000)
     
     # 2. Ingestion Phase
@@ -89,20 +91,17 @@ def main() -> None:
         ingest_to_chroma(records)
         tg_client.ingest_documents(records[:500])
     else:
-        logger.info("⏭️ Skipping ingestion as requested.")
+        logger.info("⏭️  Skipping ingestion as requested.")
     
     # 3. Initialize Evaluation Pipelines
-    # Pipeline A (LLM-Only) and Pipeline C (GraphRAG) are always run
     pipes: List[Any] = [RawLLMPipeline(), GraphRAGPipeline()]
     
-    # Pipeline B (Basic RAG) is included in quick mode for head-to-head comparison
     if args.mode == "quick":
         pipes.insert(1, BasicRAGPipeline())
     
     # 4. Prepare Evaluation Queries
     queries: List[Dict[str, Any]] = []
     if args.mode == "full":
-        # Transform raw PubMedQA records into benchmark-compatible query format
         queries = [
             {"id": f"full_{i}", "query": r["question"], "reference": r["answer"], "hop_level": 1} 
             for i, r in enumerate(records[:200])

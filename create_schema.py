@@ -1,11 +1,16 @@
 """Create GraphRAG schema in TigerGraph Cloud using pyTigerGraph.
 
-This is the PRIMARY schema setup script for the production pipeline.
-Schema: Document + Entity vertices, mentions edge.
-Run this ONCE before first ingestion.
+This is the ACTIVE schema setup script for this project.
+Run this ONCE before ingesting data.
 
-NOTE: graph/loader.py and export_csv.py define alternative/demo schemas
-      and are NOT used in the production pipeline. See ARCHITECTURE.md.
+Active schema:
+    Vertices: Document (question, answer, context, source)
+              Entity  (entity_type)
+    Edges:    mentions (Document → Entity)  [directed]
+
+Deprecated / not used at runtime:
+    graph/loader.py   — alternative spaCy-based schema (orphaned experiment)
+    export_csv.py     — hardcoded demo CSV export (not production data)
 """
 import pyTigerGraph as tg
 import os
@@ -15,9 +20,9 @@ load_dotenv()
 
 host   = os.getenv("TIGERGRAPH_HOST")
 secret = os.getenv("TIGERGRAPH_SECRET")
-graph  = os.getenv("TIGERGRAPH_GRAPHNAME", "MedGraph")  # fixed: was 'MyGraph'
+graph  = os.getenv("TIGERGRAPH_GRAPHNAME", "MedGraph")  # FIX: was "MyGraph"
 
-print(f"Connecting to: {host} | Graph: {graph}")
+print(f"Connecting to: {host}")
 
 conn = tg.TigerGraphConnection(
     host=host,
@@ -29,8 +34,8 @@ token = conn.getToken(secret)
 if isinstance(token, tuple):
     token = token[0]
 
-conn.apiToken = token
-conn.authHeader = {'Authorization': 'Bearer ' + token}
+conn.apiToken    = token
+conn.authHeader  = {'Authorization': 'Bearer ' + token}
 
 print(f"Token: {token[:20]}...")
 
@@ -40,11 +45,9 @@ try:
     res = conn.gsql(f"CREATE GRAPH {graph} ()")
     print(res)
 except Exception as e:
-    print(f"Graph creation info: {e}")
+    print(f"Graph note: {e}")
 
 # Step 2: Create Schema
-# NOTE: 'related_to' edge is defined for future use (entity-entity relationships).
-# Currently only 'mentions' (Document -> Entity) is populated by ingest/tigergraph_ingest.py
 schema_gsql = f"""
 USE GRAPH {graph}
 
@@ -63,15 +66,15 @@ CREATE VERTEX Entity (
 
 CREATE DIRECTED EDGE mentions (FROM Document, TO Entity)
 """
-# Note: related_to (Entity->Entity) removed — not populated in current pipeline.
-# Re-add when entity co-occurrence logic is implemented.
+# NOTE: related_to (Entity → Entity) edge removed — was never populated
+# Add it back when implementing entity co-occurrence scoring in future.
 
 print("\n--- Creating vertex/edge types ---")
 try:
     res = conn.gsql(schema_gsql)
     print(res)
 except Exception as e:
-    print(f"Schema creation info: {e}")
+    print(f"Schema note: {e}")
 
 # Step 3: Verify
 print("\n--- Verifying schema ---")
