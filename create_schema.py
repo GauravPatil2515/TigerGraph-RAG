@@ -1,4 +1,12 @@
-"""Create GraphRAG schema in TigerGraph Cloud using pyTigerGraph with explicit token handling."""
+"""Create GraphRAG schema in TigerGraph Cloud using pyTigerGraph.
+
+This is the PRIMARY schema setup script for the production pipeline.
+Schema: Document + Entity vertices, mentions edge.
+Run this ONCE before first ingestion.
+
+NOTE: graph/loader.py and export_csv.py define alternative/demo schemas
+      and are NOT used in the production pipeline. See ARCHITECTURE.md.
+"""
 import pyTigerGraph as tg
 import os
 from dotenv import load_dotenv
@@ -7,11 +15,10 @@ load_dotenv()
 
 host   = os.getenv("TIGERGRAPH_HOST")
 secret = os.getenv("TIGERGRAPH_SECRET")
-graph  = os.getenv("TIGERGRAPH_GRAPHNAME", "MyGraph")
+graph  = os.getenv("TIGERGRAPH_GRAPHNAME", "MedGraph")  # fixed: was 'MyGraph'
 
-print(f"Connecting to: {host}")
+print(f"Connecting to: {host} | Graph: {graph}")
 
-# Connect
 conn = tg.TigerGraphConnection(
     host=host,
     graphname=graph,
@@ -22,7 +29,6 @@ token = conn.getToken(secret)
 if isinstance(token, tuple):
     token = token[0]
 
-# Manually set tokens to ensure all methods work
 conn.apiToken = token
 conn.authHeader = {'Authorization': 'Bearer ' + token}
 
@@ -34,9 +40,11 @@ try:
     res = conn.gsql(f"CREATE GRAPH {graph} ()")
     print(res)
 except Exception as e:
-    print(f"Error creating graph: {e}")
+    print(f"Graph creation info: {e}")
 
 # Step 2: Create Schema
+# NOTE: 'related_to' edge is defined for future use (entity-entity relationships).
+# Currently only 'mentions' (Document -> Entity) is populated by ingest/tigergraph_ingest.py
 schema_gsql = f"""
 USE GRAPH {graph}
 
@@ -54,21 +62,21 @@ CREATE VERTEX Entity (
 ) WITH primary_id_as_attribute="true"
 
 CREATE DIRECTED EDGE mentions (FROM Document, TO Entity)
-CREATE DIRECTED EDGE related_to (FROM Entity, TO Entity, weight FLOAT)
 """
+# Note: related_to (Entity->Entity) removed — not populated in current pipeline.
+# Re-add when entity co-occurrence logic is implemented.
 
 print("\n--- Creating vertex/edge types ---")
 try:
-    # We might need to call this in a specific way or wait for graph to be created
     res = conn.gsql(schema_gsql)
     print(res)
 except Exception as e:
-    print(f"Error creating schema: {e}")
+    print(f"Schema creation info: {e}")
 
 # Step 3: Verify
 print("\n--- Verifying schema ---")
 try:
     print("Vertex types:", conn.getVertexTypes())
-    print("Edge types:", conn.getEdgeTypes())
+    print("Edge types:",   conn.getEdgeTypes())
 except Exception as e:
     print(f"Verification error: {e}")
