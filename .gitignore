@@ -9,3 +9,7 @@ results/
 logs/
 data/*.json
 data/*.csv
+*.log
+benchmark_run.log
+csv_export/
+scratch/
