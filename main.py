@@ -19,7 +19,7 @@ import argparse
 import logging
 import sys
 import os
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 # Ensure project root is in path for local imports
 sys.path.insert(0, os.getcwd())
