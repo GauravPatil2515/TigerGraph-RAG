@@ -1,16 +1,23 @@
 streamlit>=1.32.0
-protobuf==3.20.3
 groq>=0.4.0
-chromadb>=0.4.0
-pyTigerGraph>=0.9.0
-bert-score>=0.3.13
-torch>=2.0.0
-datasets>=2.0.0
 pandas>=2.0.0
 plotly>=5.0.0
 python-dotenv>=1.0.0
-tqdm>=4.0.0
-sentence-transformers>=2.0.0
 requests>=2.28.0
-transformers>=4.30.0
+
+# ChromaDB with pinned deps to prevent protobuf/opentelemetry conflicts
+chromadb==0.4.24
+protobuf==3.20.3
+
+# Sentence transformers + embeddings (pinned for pyarrow/datasets compat)
+sentence-transformers==2.7.0
+torch>=2.0.0,<2.4.0
+transformers>=4.30.0,<4.41.0
+datasets==2.19.0
+pyarrow>=12.0.0,<14.0.0
+
+# Evaluation
+bert-score>=0.3.13
+pyTigerGraph>=0.9.0
+tqdm>=4.0.0
 matplotlib

@@ -15,33 +15,68 @@ Author: Gaurav Patil
 Project: GraphRAG Inference Hackathon — TigerGraph 2026
 """
 
-# Force pure-python protobuf implementation to prevent descriptor validation errors in cloud environments
+# ─── CRITICAL: Set env var BEFORE any other imports to fix protobuf descriptor error ───
 import os
 os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
+
+# ─── Lightweight stdlib/data imports only at module level ───
+import sys
+import glob
+import time
+import logging
+from datetime import datetime
 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-import os, sys, glob, time
-import hashlib
-import logging
-from datetime import datetime
 
 # Ensure project root is in path for imports
-sys.path.insert(0, os.getcwd())
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from config import RESULTS_PATH, COST_PER_1K
 from benchmark.queries import BENCHMARK_QUERIES
-from evaluation.bertscore_eval import compute_bertscore
-from evaluation.llm_judge import llm_judge
-from pipelines.pipeline_a_raw_llm import RawLLMPipeline
-from pipelines.pipeline_b_basic_rag import BasicRAGPipeline
-from pipelines.pipeline_c_graphrag import GraphRAGPipeline
+
+# ─── Heavy ML imports are lazy (loaded only on first use) ───────────────────
+# This prevents OOM crashes on 1GB Streamlit Cloud at startup.
+# Pipelines, BERTScore, and LLM Judge are only imported when the user
+# clicks "Run Multi-Pipeline Comparison" in the Live Query Runner tab.
+_compute_bertscore = None
+_llm_judge = None
+_pipelines_cache = {}
+
+def _get_bertscore():
+    global _compute_bertscore
+    if _compute_bertscore is None:
+        from evaluation.bertscore_eval import compute_bertscore
+        _compute_bertscore = compute_bertscore
+    return _compute_bertscore
+
+def _get_llm_judge():
+    global _llm_judge
+    if _llm_judge is None:
+        from evaluation.llm_judge import llm_judge
+        _llm_judge = llm_judge
+    return _llm_judge
+
+def _get_pipeline(name: str):
+    """Lazily import and instantiate a pipeline only when first requested."""
+    if name not in _pipelines_cache:
+        if name == "llm_only":
+            from pipelines.pipeline_a_raw_llm import RawLLMPipeline
+            _pipelines_cache[name] = RawLLMPipeline()
+        elif name == "basic_rag":
+            from pipelines.pipeline_b_basic_rag import BasicRAGPipeline
+            _pipelines_cache[name] = BasicRAGPipeline()
+        elif name == "graphrag":
+            from pipelines.pipeline_c_graphrag import GraphRAGPipeline
+            _pipelines_cache[name] = GraphRAGPipeline()
+    return _pipelines_cache[name]
 
 # Configure structured logging for the dashboard
 logger = logging.getLogger(__name__)
 
-# --- Page Configuration ---
+# ─── Page Configuration ─────────────────────────────────────────────────────
 st.set_page_config(page_title="GraphRAG Audit Dashboard", page_icon="🐯", layout="wide")
 
 # Custom CSS for Dark Mode Aesthetics
@@ -63,38 +98,35 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Improvement 4: Query Response Caching ---
+# ─── Pipeline Runner with Streamlit Caching ─────────────────────────────────
 @st.cache_data(ttl=3600, show_spinner=False)
 def run_cached_pipeline(pipeline_name: str, query: str) -> dict:
     """
     Run pipeline with Streamlit result caching.
-    
-    Caches pipeline results for 1 hour to avoid redundant API calls
-    during dashboard demos. Cache key is pipeline_name + query hash.
-    
+
+    Lazily instantiates pipelines on first invocation to avoid module-level
+    memory allocation on cold boot. Results are cached for 1 hour per
+    (pipeline_name, query) pair.
+
     Args:
         pipeline_name: One of "llm_only", "basic_rag", "graphrag"
         query: User's medical question.
-        
+
     Returns:
         dict: Standard pipeline result dictionary with all metrics.
     """
     logger.info(f"Dashboard Cache Miss for {pipeline_name} with query: {query[:30]}...")
-    pipelines = {
-        "llm_only":  RawLLMPipeline(),
-        "basic_rag": BasicRAGPipeline(),
-        "graphrag":  GraphRAGPipeline()
-    }
-    return pipelines[pipeline_name].run(query)
+    pipeline = _get_pipeline(pipeline_name)
+    return pipeline.run(query)
 
-# --- Improvement 5: Summary Report Generator ---
+# ─── Summary Report Generator ────────────────────────────────────────────────
 def generate_summary_report(df: pd.DataFrame) -> str:
     """
     Generate a formatted markdown summary report from benchmark results.
-    
+
     Args:
         df: Benchmark results DataFrame with all required columns.
-        
+
     Returns:
         str: Formatted markdown report with tables and key metrics.
     """
@@ -105,17 +137,16 @@ def generate_summary_report(df: pd.DataFrame) -> str:
         "bert_f1_raw":      "mean",
         "llm_judge_passed": "mean"
     }).round(4)
-    
-    # Ensure indices exist before accessing
+
     try:
         b_tokens = summary.loc["basic_rag", "total_tokens"]
         g_tokens = summary.loc["graphrag",  "total_tokens"]
         reduction = (b_tokens - g_tokens) / b_tokens * 100
-        llm_pass = summary.loc['graphrag','llm_judge_passed']
-        bert_raw = summary.loc['graphrag','bert_f1_raw']
-    except:
+        llm_pass = summary.loc['graphrag', 'llm_judge_passed']
+        bert_raw = summary.loc['graphrag', 'bert_f1_raw']
+    except Exception:
         return "# Error generating summary report\nInsufficient data."
-    
+
     report = f"""# GraphRAG Benchmark Results
 Generated: {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M')}
 Dataset: PubMedQA | Model: llama-3.3-70b-versatile
@@ -134,7 +165,7 @@ Dataset: PubMedQA | Model: llama-3.3-70b-versatile
 """
     return report
 
-# --- Main Dashboard Logic ---
+# ─── Main Dashboard ──────────────────────────────────────────────────────────
 st.title("🐯 GraphRAG Final Audit Dashboard")
 
 # CSV Loading Logic
@@ -146,12 +177,17 @@ if not csv_files:
 df = pd.read_csv(csv_files[-1])
 
 # Data Sanitization
-for col in ["total_tokens", "bert_f1_raw", "efficiency_score", "llm_judge_passed", "latency_ms"]:
-    if col not in df.columns: df[col] = 0.0
+for col in ["total_tokens", "bert_f1_raw", "efficiency_score", "llm_judge_passed", "latency_ms", "cost_usd"]:
+    if col not in df.columns:
+        df[col] = 0.0
 
 # Sidebar Filters
 st.sidebar.header("Dashboard Filters")
-selected_run = st.sidebar.selectbox("Select Benchmark Run", csv_files[::-1], format_func=lambda x: os.path.basename(x))
+selected_run = st.sidebar.selectbox(
+    "Select Benchmark Run",
+    csv_files[::-1],
+    format_func=lambda x: os.path.basename(x)
+)
 if selected_run != csv_files[-1]:
     df = pd.read_csv(selected_run)
 
@@ -174,9 +210,9 @@ with m2: st.metric("GraphRAG Efficiency Score", f"{gr_efficiency:.3f}", f"+{gr_e
 with m3: st.metric("GraphRAG BERTScore", f"{gr_df['bert_f1_raw'].mean():.4f}", f"{'✅' if gr_df['bert_f1_raw'].mean() >= 0.88 else '❌'}")
 with m4: st.metric("Judge Pass Rate", f"{gr_df['llm_judge_passed'].mean()*100:.1f}%", f"{'✅' if gr_df['llm_judge_passed'].mean() >= 0.9 else '❌'}")
 
-# --- Tab Layout ---
+# ─── Tab Layout ──────────────────────────────────────────────────────────────
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
-    "🔴 Live Query Runner", "📊 Accuracy Curve", "💰 Token & Cost Savings", 
+    "🔴 Live Query Runner", "📊 Accuracy Curve", "💰 Token & Cost Savings",
     "📈 ROI Calculator", "⚡ Latency Distribution", "📋 Full Benchmark Table", "🏗️ Architecture"
 ])
 
@@ -184,46 +220,59 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
 with tab1:
     st.header("🔴 Live Query Runner")
     query_input = st.text_input("Enter medical question for real-time comparison:", key="live_q_input")
-    
-    if st.button("Run Multi-Pipeline Comparison"):
-        ref = next((q["reference"] for q in BENCHMARK_QUERIES if q["query"].lower() == query_input.lower()), "")
-        if not ref: st.info("Custom query detected. Comparison will use baseline LLM as ground-truth reference.")
 
-        cols = st.columns(3)
-        baseline_ans = ""
-        
-        for i, pipe_name in enumerate(["llm_only", "basic_rag", "graphrag"]):
-            with cols[i]:
-                st.subheader(pipe_name.replace("_", " ").upper())
-                res = run_cached_pipeline(pipe_name, query_input)
-                
-                if pipe_name == "llm_only": baseline_ans = res["answer"]
-                final_ref = ref if ref else baseline_ans
-                
-                # Evaluation for display
-                bs = compute_bertscore(res["answer"], final_ref)
-                judge = llm_judge(query_input, res["answer"], final_ref)
-                
-                st.write(f"**Answer:**\n{res['answer']}")
-                st.divider()
-                st.write(f"**Tokens:** {res['total_tokens']} | **Latency:** {res['latency_ms']:.0f}ms")
-                st.write(f"**BERTScore:** {bs['bert_f1_raw']:.4f}")
-                st.write(f"**Judge:** {'✅ PASS' if judge['passed'] else '❌ FAIL'} (Confidence: {judge.get('confidence', 'N/A')})")
+    if st.button("Run Multi-Pipeline Comparison"):
+        if not query_input.strip():
+            st.warning("Please enter a question first.")
+        else:
+            ref = next((q["reference"] for q in BENCHMARK_QUERIES if q["query"].lower() == query_input.lower()), "")
+            if not ref:
+                st.info("Custom query detected. Comparison will use baseline LLM as ground-truth reference.")
+
+            cols = st.columns(3)
+            baseline_ans = ""
+            compute_bertscore = _get_bertscore()
+            llm_judge = _get_llm_judge()
+
+            for i, pipe_name in enumerate(["llm_only", "basic_rag", "graphrag"]):
+                with cols[i]:
+                    st.subheader(pipe_name.replace("_", " ").upper())
+                    with st.spinner(f"Running {pipe_name}..."):
+                        try:
+                            res = run_cached_pipeline(pipe_name, query_input)
+
+                            if pipe_name == "llm_only":
+                                baseline_ans = res["answer"]
+                            final_ref = ref if ref else baseline_ans
+
+                            bs = compute_bertscore(res["answer"], final_ref) if final_ref else {"bert_f1_raw": 0.0}
+                            judge = llm_judge(query_input, res["answer"], final_ref) if final_ref else {"passed": False, "confidence": "N/A"}
+
+                            st.write(f"**Answer:**\n{res['answer']}")
+                            st.divider()
+                            st.write(f"**Tokens:** {res['total_tokens']} | **Latency:** {res['latency_ms']:.0f}ms")
+                            st.write(f"**BERTScore:** {bs['bert_f1_raw']:.4f}")
+                            st.write(f"**Judge:** {'✅ PASS' if judge['passed'] else '❌ FAIL'} (Confidence: {judge.get('confidence', 'N/A')})")
+                        except Exception as e:
+                            st.error(f"Pipeline error: {e}")
 
 # ── TAB 2: ACCURACY CURVE ────────────────────────────────
 with tab2:
     st.header("📊 Accuracy Curve")
-    hop_df = df.groupby(["hop_level", "pipeline_name"])["bert_f1_raw"].mean().reset_index()
-    fig = px.line(hop_df, x="hop_level", y="bert_f1_raw", color="pipeline_name", markers=True,
-                  title="BERTScore Reliability across Query Complexity",
-                  labels={"hop_level": "Graph Hops (Complexity)", "bert_f1_raw": "Semantic Accuracy (BERTScore)"})
-    st.plotly_chart(fig, use_container_width=True)
+    if "hop_level" in df.columns:
+        hop_df = df.groupby(["hop_level", "pipeline_name"])["bert_f1_raw"].mean().reset_index()
+        fig = px.line(hop_df, x="hop_level", y="bert_f1_raw", color="pipeline_name", markers=True,
+                      title="BERTScore Reliability across Query Complexity",
+                      labels={"hop_level": "Graph Hops (Complexity)", "bert_f1_raw": "Semantic Accuracy (BERTScore)"})
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.info("Hop-level data not available in the current benchmark file.")
 
 # ── TAB 3: TOKEN & COST SAVINGS ──────────────────────────
 with tab3:
     st.header("💰 Token & Cost Savings")
     cost_df = df.groupby("pipeline_name")[["total_tokens", "cost_usd"]].mean().reset_index()
-    
+
     c1, c2 = st.columns(2)
     with c1:
         fig_tok = px.bar(cost_df, x="pipeline_name", y="total_tokens", color="pipeline_name",
@@ -238,13 +287,13 @@ with tab3:
 with tab4:
     st.header("📈 ROI Calculator")
     st.write("Projected savings for production scale medical environments.")
-    
+
     q_scale = st.slider("Projected Daily Queries", 1000, 500000, 50000, step=1000)
-    
+
     daily_cost_br = (q_scale * br_tokens / 1000) * COST_PER_1K
     daily_cost_gr = (q_scale * gr_tokens / 1000) * COST_PER_1K
     monthly_savings = (daily_cost_br - daily_cost_gr) * 30
-    
+
     r1, r2, r3 = st.columns(3)
     r1.metric("Daily Savings", f"${(daily_cost_br - daily_cost_gr):,.2f}")
     r2.metric("Monthly Savings", f"${monthly_savings:,.2f}")
@@ -260,8 +309,7 @@ with tab5:
 # ── TAB 6: FULL BENCHMARK TABLE ──────────────────────────
 with tab6:
     st.header("📋 Full Benchmark Table")
-    
-    # Export Button Logic
+
     report_md = generate_summary_report(df)
     st.download_button(
         label="📥 Download Summary Report",
@@ -269,21 +317,23 @@ with tab6:
         file_name=f"graphrag_results_{pd.Timestamp.now().strftime('%Y%m%d')}.md",
         mime="text/markdown"
     )
-    
-    st.dataframe(df.sort_values("query_id"), use_container_width=True)
+
+    sort_col = "query_id" if "query_id" in df.columns else df.columns[0]
+    st.dataframe(df.sort_values(sort_col), use_container_width=True)
 
 # ── TAB 7: ARCHITECTURE ──────────────────────────────────
 with tab7:
     st.header("🏗️ Architecture")
-    if os.path.exists("docs/architecture.png"):
-        st.image("docs/architecture.png", caption="GraphRAG Production Architecture: TigerGraph + Groq Llama-3")
+    arch_path = os.path.join(os.path.dirname(__file__), "..", "docs", "architecture.png")
+    if os.path.exists(arch_path):
+        st.image(arch_path, caption="GraphRAG Production Architecture: TigerGraph + Groq Llama-3")
     else:
-        st.info("Architecture diagram documentation pending in docs/architecture.png")
-    
+        st.info("Architecture diagram pending in docs/architecture.png")
+
     st.markdown("""
     ### System Components
     - **TigerGraph Cloud**: Multi-hop relationship storage and REST++ traversal.
     - **ChromaDB**: Baseline vector retrieval for performance benchmarking.
     - **Groq Llama-3.3-70B**: High-speed inference with 70B parameter precision.
-    - **BERTScore Evaluation**: Semantic validation using roberta-large.
+    - **BERTScore Evaluation**: Semantic validation using roberta-base.
     """)
