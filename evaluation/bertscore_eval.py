@@ -20,23 +20,21 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-_MODEL_TYPE: str = "roberta-large"
+_MODEL_TYPE: str = "roberta-base"  # Optimized from roberta-large for 1GB cloud environments
 _DEVICE: str     = "cpu"
 _CACHED: bool    = False
 
 def _warmup_model() -> None:
-    """Pre-load roberta-large into memory to avoid first-query latency."""
+    """Pre-load roberta-base into memory on-demand (lazy execution)."""
     global _CACHED
     if not _CACHED:
         try:
-            logger.info("Pre-loading roberta-large for BERTScore (one-time)...")
+            logger.info(f"Pre-loading {_MODEL_TYPE} for BERTScore (one-time)...")
             bert_score_fn(["init"], ["init"], lang="en", model_type=_MODEL_TYPE, device=_DEVICE, verbose=False)
             _CACHED = True
-            logger.info("✅ roberta-large cached in memory")
+            logger.info(f"✅ {_MODEL_TYPE} cached in memory")
         except Exception as e:
             logger.error(f"BERTScore Warmup Failed: {e}")
-
-_warmup_model()
 
 @torch.no_grad()
 def compute_bertscore(prediction: str, reference: str) -> Dict[str, float]:
@@ -56,6 +54,9 @@ def compute_bertscore(prediction: str, reference: str) -> Dict[str, float]:
     """
     if not prediction or not reference:
         return {"bert_f1_raw": 0.0, "bert_f1_rescaled": 0.0, "bert_precision": 0.0, "bert_recall": 0.0}
+
+    # Trigger lazy load if not cached yet
+    _warmup_model()
 
     try:
         p_text: list = [prediction[:512]]
