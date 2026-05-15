@@ -264,7 +264,7 @@ with tab2:
         fig = px.line(hop_df, x="hop_level", y="bert_f1_raw", color="pipeline_name", markers=True,
                       title="BERTScore Reliability across Query Complexity",
                       labels={"hop_level": "Graph Hops (Complexity)", "bert_f1_raw": "Semantic Accuracy (BERTScore)"})
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)  # noqa: deprecated-api
     else:
         st.info("Hop-level data not available in the current benchmark file.")
 
@@ -277,11 +277,11 @@ with tab3:
     with c1:
         fig_tok = px.bar(cost_df, x="pipeline_name", y="total_tokens", color="pipeline_name",
                          title="Average Token Consumption per Query")
-        st.plotly_chart(fig_tok, use_container_width=True)
+        st.plotly_chart(fig_tok, width="stretch")
     with c2:
         fig_cost = px.bar(cost_df, x="pipeline_name", y="cost_usd", color="pipeline_name",
                           title="Average API Cost (USD) per Query")
-        st.plotly_chart(fig_cost, use_container_width=True)
+        st.plotly_chart(fig_cost, width="stretch")
 
 # ── TAB 4: ROI CALCULATOR ────────────────────────────────
 with tab4:
@@ -304,7 +304,7 @@ with tab5:
     st.header("⚡ Latency Distribution")
     fig_lat = px.box(df, x="pipeline_name", y="latency_ms", color="pipeline_name",
                      title="End-to-End Latency Variance (ms)")
-    st.plotly_chart(fig_lat, use_container_width=True)
+    st.plotly_chart(fig_lat, width="stretch")
 
 # ── TAB 6: FULL BENCHMARK TABLE ──────────────────────────
 with tab6:
@@ -319,7 +319,7 @@ with tab6:
     )
 
     sort_col = "query_id" if "query_id" in df.columns else df.columns[0]
-    st.dataframe(df.sort_values(sort_col), use_container_width=True)
+    st.dataframe(df.sort_values(sort_col), width="stretch")
 
 # ── TAB 7: ARCHITECTURE ──────────────────────────────────
 with tab7:
