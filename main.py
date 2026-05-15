@@ -18,10 +18,13 @@ Active Pipeline:
     create_schema.py → ingest/tigergraph_ingest.py → pipelines/pipeline_c_graphrag.py
 """
 
+# Force pure-python protobuf implementation to prevent descriptor validation errors
+import os
+os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
+
 import argparse
 import logging
 import sys
-import os
 from typing import List, Dict, Any, Optional  # FIX: Added Optional
 
 # Ensure project root is in path for local imports

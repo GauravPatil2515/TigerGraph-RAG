@@ -15,6 +15,10 @@ Author: Gaurav Patil
 Project: GraphRAG Inference Hackathon — TigerGraph 2026
 """
 
+# Force pure-python protobuf implementation to prevent descriptor validation errors in cloud environments
+import os
+os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
